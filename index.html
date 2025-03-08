@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Robust Code propose des solutions SMART du developement web à l'optimisation avec l'intelligenc artificielle" />
+  <meta name="keywords" content="IA, technologie, startup TI, Robuste, Robust, Code, Programation," />
+  <title>ROBUST CODE | Accueil</title>
+  <link rel="icon" href="/assets/images/logo.png" type="image/png">
+  <!-- Google Fonts : Orbitron & Audiowide pour un style futuriste -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <!-- Feuille de style -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Boxicons CDN -->
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+</head>
+<body>
+  <!-- Header avec navigation (bouton/menu en haut à droite) -->
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/images/logo without bg black.png" alt="ROBUST CODE Logo">
+        </a>
+      </div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="assets/pages/services.html">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Section Hero -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="assemble">
+        <span style="--initial: -100%; animation-delay: 0s;">R</span>
+        <span style="--initial: 100%; animation-delay: 0.1s;">O</span>
+        <span style="--initial: -100%; animation-delay: 0.2s;">B</span>
+        <span style="--initial: 100%; animation-delay: 0.3s;">U</span>
+        <span style="--initial: -100%; animation-delay: 0.4s;">S</span>
+        <span style="--initial: 100%; animation-delay: 0.5s;">T</span>
+        <span style="--initial: 100%; animation-delay: 0.6s;">&nbsp;</span>
+        <span style="--initial: -100%; animation-delay: 0.7s;">C</span>
+        <span style="--initial: 100%; animation-delay: 0.8s;">O</span>
+        <span style="--initial: -100%; animation-delay: 0.9s;">D</span>
+        <span style="--initial: 100%; animation-delay: 1s;">E</span>
+      </h1>
+      <p id="typing-text"></p>
+    </div>
+    <div class="social-icons">
+      <a href="https://wa.me/+32626419972" class="social-icon whatsapp"><i class="bx bxl-whatsapp"></i></a>
+      <a href="mailto:contact@robust-code.com" class="social-icon mail"><i class='bx bx-envelope'></i>
+      <a href="https://www.linkedin.com/in/robust-code-262393339/" class="social-icon linkedin"><i class="bx bxl-linkedin"></i></a>
+      <a href="https://x.com/RobustCode" class="social-icon twitter"><img src="assets/pages/assets/icons/x-social-media-black-icon.svg"></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 ROBUST CODE. All rights reserved.</p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const textElement = document.getElementById("typing-text");
+      const text = "Innovations at your fingertips"; // Ton texte ici
+      let index = 0;
+  
+      function typeText() {
+        if (index < text.length) {
+          textElement.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(typeText, 100); // Ajuste la vitesse ici
+        }
+      }
+  
+      typeText();
+    });
+  </script>
+</body>
+</html>

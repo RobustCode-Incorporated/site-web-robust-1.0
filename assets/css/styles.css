@@ -1,0 +1,195 @@
+/* ============================ */
+/*       RESET & VARIABLES      */
+/* ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #fefe;       /* Fond blanc neige */
+  --text-color: #000;       /* Texte en noir */
+  --accent: #000;
+  --white1--: #b0f1f8;
+  --white2--: #a7edf7;
+}
+
+/* ============================ */
+/*          BASE & WATERMARK    */
+/* ============================ */
+body {
+  font-family: 'Audiowide', 'Orbitron', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/images/logo without bg black.png') no-repeat center center;
+  background-size: 50%;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+/* ============================ */
+/*      HEADER & NAVIGATION     */
+/* ============================ */
+.header {
+  width: 100%;
+  padding: 5px 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--white1--);
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ============================ */
+/*         HERO SECTION         */
+/* ============================ */
+
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: 80px; /* Espace pour le header fixe */
+  text-align: center;
+}
+
+.hero-content p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.assemble {
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  color: var(--text-color);
+}
+
+.assemble span {
+  display: inline-block;
+  opacity: 0;
+  animation: assembleAnim 0.8s forwards;
+}
+
+@keyframes assembleAnim {
+  0% {
+    transform: translateX(var(--initial));
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* ============================ */
+/*           FOOTER             */
+/* ============================ */
+.footer {
+  text-align: center;
+  padding: 0.5rem;
+  border-top: 1px solid var(--white1--);
+  background-color: var(--bg-color);
+}
+
+/* ============================ */
+/*         SOCIAL ICONS         */
+/* ============================ */
+.social-icons {
+  position: fixed;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.social-icon {
+  font-size: 2.5rem;
+  color: #000;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icon img {
+  width: 32px; /* Ajuste selon ton design */
+  height: 32px;
+  vertical-align: middle;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.social-icon.whatsapp:hover {
+  color: #25D366;
+}
+
+.social-icon.twitter:hover {
+  color: #0A66C2;
+}
+
+.social-icon.linkedin:hover {
+  color: #0A66C2;
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+#typing-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-right: 3px solid black; /* Curseur clignotant */
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
+  }
+}

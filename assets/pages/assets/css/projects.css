@@ -1,0 +1,236 @@
+/* ============================ */
+/*       RESET & VARIABLES      */
+/* ============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --bg-color: #fefe;       /* Utilisé pour la nav, inchangé */
+    --text-color: #000;       /* Pour la nav */
+    --accent: #000;
+    --white1--: #b0f1f8;
+    --white2--: #a7edf7;
+  }
+  
+  /* ============================ */
+  /*       BASE & WATERMARK       */
+  /* ============================ */
+  body {
+    font-family: 'Audiowide', 'Orbitron', sans-serif;
+    /* Fond spécifique à Projects : dégradé gris orage -> bleu navy */
+    background: linear-gradient(135deg, #3a3a3a, #001f3f);
+    color: white;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/images/logo without bg black.png') no-repeat center center;
+    background-size: 50%;
+    opacity: 0.25;
+    z-index: -1;
+  }
+  
+  /* ============================ */
+  /*  HEADER & NAVIGATION (identique) */
+  /* ============================ */
+  .header {
+    width: 100%;
+    padding: 5px 20%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--white1--);
+    z-index: 1000;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 40px;
+  }
+  
+  .nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-menu a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* ============================ */
+  /*       SECTION PROJETS        */
+  /* ============================ */
+  .section {
+    padding: 5px 20%;
+    text-align: center;
+    margin-top: 80px; /* espace sous la nav fixe */
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative;
+    color: white;
+  }
+  
+  .section-title::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: white;
+    margin: 1rem auto 0 auto;
+    animation: underline 1.5s infinite alternate;
+  }
+  
+  @keyframes underline {
+    0% { width: 50px; }
+    100% { width: 80px; }
+  }
+  
+  /* ============================ */
+  /*         CARTES (PROJECTS)    */
+  /* ============================ */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.1); /* fond semi-transparent */
+    border: none;
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 350px;
+    min-height: 500px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card h3 {
+    color: white;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .card p {
+    color: #ccc;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* ============================ */
+  /*           FOOTER             */
+  /* ============================ */
+  .footer {
+    text-align: center;
+    padding: 0.5rem;
+    border-top: 1px solid var(--text-color);
+    border-top: 1px solid var(--white1--);
+    background-color: var(--bg-color);
+    color: black;
+  }
+  
+  /* ============================ */
+  /*        RESPONSIVITÉ          */
+  /* ============================ */
+  @media (max-width: 768px) {
+    .cards-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .card {
+      width: 90%;
+      min-height: auto;
+    }
+  }
+
+  /* ============================ */
+/*      SECTION TÉMOIGNAGES     */
+/* ============================ */
+
+.temoignages {
+    padding: 100px 10%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+}
+
+.slide {
+    min-width: 100%;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    animation: slideIn 9s infinite;
+}
+
+/* Animation de défilement */
+@keyframes slideIn {
+    0%, 100% { transform: translateX(0%); }
+    33% { transform: translateX(-100%); }
+    66% { transform: translateX(-200%); }
+}
+
+/* ============================ */
+/*      RESPONSIVE DESIGN       */
+/* ============================ */
+
+@media (max-width: 768px) {
+    .projet-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .projet-card {
+        width: 90%;
+    }
+
+    .slide {
+        font-size: 1rem;
+    }
+}
