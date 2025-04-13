@@ -86,17 +86,22 @@ document.addEventListener("DOMContentLoaded", function () {
     chat.innerHTML += `<div><strong>Vous:</strong> ${msg}</div>`;
     input.value = "";
   
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer YOUR_OPENAI_API_KEY"
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: msg }],
-      }),
-    });
+    fetch('https://backend-chatbot-fq80.onrender.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const botResponse = data.reply;
+          displayBotMessage(botResponse);
+        })
+        .catch((error) => {
+          displayBotMessage("Erreur du serveur. Essayez plus tard.");
+          console.error('Erreur:', error);
+        });
   
     const data = await response.json();
     const botMsg = data.choices?.[0]?.message?.content || "Réponse indisponible";
