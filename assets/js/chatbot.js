@@ -93,7 +93,7 @@ async function sendChat() {
   input.value = "";
 
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,6 +115,13 @@ async function sendChat() {
     chat.scrollTop = chat.scrollHeight;
 
   } catch (error) {
-    chat.innerHTML += `<div><strong>RobustBot:</strong> Erreur : ${error.message}</div>`;
+    console.error("Erreur API :", error);
+    const fallbackMsg = `Je rencontre un souci pour répondre maintenant 🤖. Je vous mets en relation avec notre service client sur WhatsApp 📲...`;
+    chat.innerHTML += `<div><strong>RobustBot:</strong> ${fallbackMsg}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+      window.open("https://wa.me/33745515093", "_blank");
+    }, 2000);
   }
 }
