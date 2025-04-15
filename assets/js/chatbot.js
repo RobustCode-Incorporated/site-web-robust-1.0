@@ -97,7 +97,7 @@ async function sendChat() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer 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"
+        Authorization: "Bearer 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"
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
