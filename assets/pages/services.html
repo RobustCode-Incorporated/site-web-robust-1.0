@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/services.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    /* Styles for the service details (initially hidden) */
+    .service-details {
+      display: none;
+      padding: 15px 20px;
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 16px;
+      white-space: pre-line; /* Preserve line breaks */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .service-item.active .service-details {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <script src="/assets/js/chatbot.js"></script>
 <body>
@@ -20,13 +41,12 @@
       </div>
       <nav class="nav-menu">
         <ul>
-          
+
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Section Services -->
   <section class="process">
     <div class="process-container">
         <div class="process-step">
@@ -74,17 +94,51 @@
 </section>
 
 <section class="services">
-    <h2 class="services-title">Services </h2>
+    <h2 class="services-title">Services</h2>
     <div class="services-list">
-        <div class="service-item">Web Development</div>
-        <div class="service-item">Cybersecurity</div>
-        <div class="service-item">AI solution</div>
-        <div class="service-item">Information Technology Consulting</div>
+        <div class="service-item" onclick="toggleDetails(this)" data-details="We specialize in crafting tailored web applications (front-end, back-end, full-stack) and innovative mobile applications for iOS and Android (native and cross-platform). Our expertise extends to building robust and scalable e-commerce platforms and Progressive Web Apps (PWAs). We also provide maintenance, evolution, and integration of third-party APIs for existing applications.">Web/app Development
+            <div class="service-details"></div>
+        </div>
+        <div class="service-item" onclick="toggleDetails(this)" data-details="Our cybersecurity services include comprehensive security audits (penetration testing, vulnerability analysis), strategic consulting to enhance your security posture, implementation of robust protection solutions (firewalls, intrusion detection systems, etc.), training and awareness programs for your team, and swift response to security incidents.">Cybersecurity
+            <div class="service-details"></div>
+        </div>
+        <div class="service-item" onclick="toggleDetails(this)" data-details="We develop custom Artificial Intelligence solutions leveraging machine learning, natural language processing, and computer vision. Our services include automating business processes (RPA), integrating AI into web and mobile applications, creating intelligent chatbots and virtual assistants, and providing advanced data analysis and reporting capabilities.">AI solution
+            <div class="service-details"></div>
+        </div>
+        <div class="service-item" onclick="toggleDetails(this)" data-details="Our IT consulting services offer customized digital transformation strategies, expert advice on software architecture and IT infrastructure, optimization of your processes and workflows, and dedicated support in selecting and integrating the right software solutions for your business needs.">Information Technology Consulting
+            <div class="service-details"></div>
+        </div>
+        <div class="service-item" onclick="toggleDetails(this)" data-details="We help you establish a strong brand identity through the creation and redesign of visual elements (logo, graphic charter). Our services include designing intuitive and engaging user interfaces (UX Design), developing aesthetic and modern user interfaces (UI Design), and conducting user testing and experience optimization to ensure a lasting impact.">Branding
+            <div class="service-details"></div>
+        </div>
     </div>
 </section>
 
   <footer class="footer">
     <p>&copy; 2024 ROBUST CODE. All rights reserved.</p>
   </footer>
+
+  <script>
+    function toggleDetails(item) {
+      const detailsDiv = item.querySelector('.service-details');
+      const detailsText = item.getAttribute('data-details');
+
+      // Close previously opened details
+      document.querySelectorAll('.service-item.active').forEach(activeItem => {
+        if (activeItem !== item) {
+          activeItem.classList.remove('active');
+          activeItem.querySelector('.service-details').textContent = '';
+        }
+      });
+
+      // Open/close the details of the clicked item
+      item.classList.toggle('active');
+      if (item.classList.contains('active')) {
+        detailsDiv.textContent = detailsText;
+      } else {
+        detailsDiv.textContent = '';
+      }
+    }
+  </script>
 </body>
 </html>
