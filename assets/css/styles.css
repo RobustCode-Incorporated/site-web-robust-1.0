@@ -193,3 +193,11 @@ body::before {
     border-color: transparent;
   }
 }
+
+/* Pour petits écrans (mobile) */
+@media screen and (max-width: 600px) {
+  .assemble {
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+}
