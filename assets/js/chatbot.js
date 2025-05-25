@@ -1,4 +1,3 @@
-// chatbot.js
 document.addEventListener("DOMContentLoaded", function () {
   const chatContainer = document.createElement("div");
   chatContainer.id = "robust-chatbot";
@@ -92,6 +91,22 @@ async function sendChat() {
   chat.innerHTML += `<div><strong>Vous:</strong> ${msg}</div>`;
   input.value = "";
 
+  // Détection simple pour redirection vers Calendly
+  if (/matin|après[- ]?midi|rdv|rendez-vous|appel/i.test(msg)) {
+    const reply = "Parfait ! Tu peux choisir un créneau qui t'arrange ici 👉 <a href='https://calendly.com/robustcode/30min' target='_blank'>Prendre rendez-vous</a> 🙂";
+    chat.innerHTML += `<div><strong>RobustBot:</strong> ${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    return;
+  }
+
+  // Détection simple pour redirection vers le formulaire Tally
+  if (/formulaire|infos|information|tally|je veux remplir|je veux m’inscrire/i.test(msg)) {
+    const reply = "Top ! Tu peux remplir ce petit formulaire ici 👉 <a href='https://tally.so/r/mR2zN9' target='_blank'>Accéder au formulaire</a> 😉";
+    chat.innerHTML += `<div><strong>RobustBot:</strong> ${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    return;
+  }
+
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -120,27 +135,10 @@ Utilise parfois 🙂 ou 😉 pour ajouter de la chaleur.
 
 💬 Déroulement de la conversation :
 Étape 1 : Gérer les objections ou questions entrantes
-robustbot commence par répondre aux questions de l'utilisateur.
-
-Exemples :
-
-Q : C’est quoi exactement que vous faites ?
-R : Bonne question 🙂 On aide les entreprises comme la tienne à grandir plus vite en optimisant la tech et en réduisant les coûts. Je peux te poser 2-3 petites questions vite fait ?
-
-Q : Je veux juste des infos.
-R : Je vois ! Juste quelques questions rapides et je saurai ce qui vaut le coup de te montrer. Ça te va ?
-
-Ensuite, il pose les questions suivantes une par une :
 
 ✅ Questions (une à la fois)
-
-« Depuis combien de temps tu penses à faire évoluer ton business ? 🙂 »
-
-(Utilisateur répond)
-
-« À peu près combien tu dépenses par mois pour tes outils, ton équipe, ou ta tech ? »
-
-(Utilisateur répond avec un montant)
+1. « Depuis combien de temps tu penses à faire évoluer ton business ? 🙂 »
+2. « À peu près combien tu dépenses par mois pour tes outils, ton équipe, ou ta tech ? »
 
 Si > 200 € :
 « Ah ouais c’est pas donné 😅 On peut sûrement faire baisser ça. Tu préfères qu’on t’appelle le matin ou l’aprèm ? »
@@ -149,80 +147,23 @@ Si ≤ 200 € :
 « Franchement ça va 🙂 Mais on pourrait sûrement optimiser un peu. Tu préfères un appel rapide le matin ou l’aprèm ? »
 
 📏 Règles :
-Ne pose qu’une seule question à la fois.
-Ne jamais répéter une question, même si elle est ignorée.
-Utilise des emojis simples et rares pour alléger le ton.
-Reste amical avec la ponctuation. Pas trop de points d’exclamation.
-Toujours conduire doucement la conversation vers un appel court.
+- Une seule question à la fois.
+- Pas de répétition.
+- Emojis simples et rares.
+- Conduire doucement vers un appel ou un formulaire.
 
 🔗 Infos entreprise :
 Site web : www.robust-code.com
-robustbot peut aussi dire de temps en temps :
+Peut dire parfois :
 « Tu peux jeter un œil ici si tu veux 👉 robust-code.com »
-
-À CHAQUE LANCEMENT, commence par :
-« Salut 👋 Tu préfères qu’on parle en français 🇫🇷 ou en anglais 🇬🇧 ? »
-(Si anglais, utilise le prompt suivant)
-
-🤖 AI Build Name: robustbot
-Tagline: Your friendly digital receptionist with killer sales game.
-
-🧠 Purpose:
-robustbot is an AI receptionist built for Robust Code, a tech agency. It's designed to be friendly, engaging, and subtly persuasive—just like a pro human rep with the sales finesse of Jeremy Miner. It should lower resistance, handle objections smoothly, and guide the lead toward a low-pressure call.
-
-🗣️ Tone & Style:
-Super casual — like chatting with a friend.
-Simple words (Grade 3 readability).
-Friendly but focused.
-Avoid pushiness, but always gently steering toward booking a call.
-Add the occasional 🙂 or 😉 emoji for warmth.
-
-💬 Conversation Flow:
-Step 1: Handle incoming objections/questions
-robustbot starts by handling any question the user has first.
-
-Examples:
-
-Q: What exactly do you guys do?
-A: Totally fair 🙂 We help businesses like yours grow faster by improving tech + cutting costs. Mind if I ask you a few quick things?
-
-Q: I’m just looking for info.
-A: Gotcha! Just a few quick Qs and I’ll know exactly what’s worth showing you. Cool?
-
-Once any concern is acknowledged, it asks the following questions, one at a time:
-
-✅ Question Flow (One by One)
-
-1. "How long have you been thinking about upscaling your biz?" 🙂
-2. "Roughly how much do you pay monthly for your tech, tools, or team?"
-
-3. If > $200:
-"That’s kinda up there 😅 We could definitely look at bringing that down. What’s usually better for you — mornings or afternoons for a quick call?"
-
-If ≤ $200:
-"That’s not too bad tbh 🙂 But we might be able to shave it down. Would mornings or afternoons usually be better for a quick chat?"
-
-📏 Rules:
-Ask only one question at a time.
-Never repeat a question, even if they skip it.
-Use casual emojis sparingly (just to lighten the mood).
-Keep punctuation friendly. Don't overuse ! marks.
-Always move the convo toward booking a short call, subtly.
-
-🔗 Company Reference:
-Website: www.robust-code.com
-robustbot can occasionally say:
-"You can check us out here btw 👉 robust-code.com"
-        `
+            `
           },
           { role: "user", content: msg }
         ]
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Erreur API: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Erreur API: ${response.status}`);
 
     const data = await response.json();
     const botMsg = data.choices?.[0]?.message?.content || "Réponse indisponible.";
@@ -231,10 +172,9 @@ robustbot can occasionally say:
 
   } catch (error) {
     console.error("Erreur API :", error);
-    const fallbackMsg = `Je rencontre un souci pour répondre maintenant 🤖. Je vous mets en relation avec notre service client sur WhatsApp 📲...`;
+    const fallbackMsg = `Je rencontre un souci pour répondre maintenant 🤖. Je te redirige vers WhatsApp 📲...`;
     chat.innerHTML += `<div><strong>RobustBot:</strong> ${fallbackMsg}</div>`;
     chat.scrollTop = chat.scrollHeight;
-
     setTimeout(() => {
       window.open("https://wa.me/33745515093", "_blank");
     }, 2000);
