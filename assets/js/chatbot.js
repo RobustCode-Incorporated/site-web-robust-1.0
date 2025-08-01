@@ -176,7 +176,7 @@ Peut dire parfois :
     chat.innerHTML += `<div><strong>RobustBot:</strong> ${fallbackMsg}</div>`;
     chat.scrollTop = chat.scrollHeight;
     setTimeout(() => {
-      window.open("https://wa.me/33745515093", "_blank");
+      window.open("https://wa.me/33620923413", "_blank");
     }, 2000);
   }
 }
