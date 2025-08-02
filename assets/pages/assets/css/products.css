@@ -1,0 +1,337 @@
+/* ============================= */
+/*         VARIABLES ROOT        */
+/* ============================= */
+:root {
+  --main-blue: #0E2C5A;
+  --button-blue: #000;
+  --light-gray: #fefe;
+  --text-gray: #104B71;
+  --card-blue: #0E2C5A;
+  --card-hover: #104B71;
+  --footer-bg: #fefe;
+  --white: #ffffff;
+}
+
+/* ============================= */
+/*         RESET & BASE          */
+/* ============================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Audiowide', 'Orbitron', sans-serif;
+  background-color: var(--light-gray);
+  color: var(--main-blue);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/images/logo without bg black.png') no-repeat center center;
+  background-size: 50%;
+  opacity: 0.03;
+  z-index: -1;
+}
+
+/* ============================ */
+/*      HEADER & NAVIGATION     */
+/* ============================ */
+.header {
+  width: 100%;
+  padding: 5px 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--light-gray);
+  border-bottom: 1px solid var(--main-blue);
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-menu a {
+  color: var(--main-blue);
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* ============================= */
+/*         VIDEO HERO            */
+/* ============================= */
+.video-hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================= */
+/*       SECTION : Découvrir     */
+/* ============================= */
+#decouvrir {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: var(--light-gray);
+}
+
+#decouvrir h2 {
+  font-size: 2rem;
+  color: var(--main-blue);
+  font-family: 'Audiowide', sans-serif;
+  margin-bottom: 20px;
+}
+
+.decouvrir-description {
+  font-size: 1.1rem;
+  color: var(--main-blue);
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.screenshots {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.screenshots img {
+  max-width: 450px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.screenshots img:hover {
+  transform: scale(1.03);
+}
+
+/* ============================= */
+/*       SECTION : Tarification  */
+/* ============================= */
+#tarification {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#tarification h2 {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 2rem;
+  color: var(--main-blue);
+  margin-bottom: 40px;
+}
+
+.pricing-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.pricing-card {
+  background-color: var(--card-blue);
+  color: #fefe;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  background-color: var(--card-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #FFA726;
+}
+
+.pricing-card p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Bouton devis */
+.cta-button {
+  display: inline-block;
+  background-color: #FFA726;
+  color: #fefe;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #104B71;
+  color: #ffffff;
+}
+
+/* ============================= */
+/* SECTION - Ce que vous obtenez */
+/* ============================= */
+#ce-que-vous-obtenez {
+  padding: 60px 20px;
+  background-color: var(--light-gray);
+  text-align: center;
+}
+
+#ce-que-vous-obtenez h2 {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 2rem;
+  color: var(--main-blue);
+  margin-bottom: 40px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--light-gray);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+  font-family: 'Audiowide', sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.feature-item:hover {
+  transform: scale(1.02);
+}
+
+.feature-item img {
+  width: 50px;
+  height: 50px;
+}
+
+.feature-item p {
+  margin: 0;
+  color: var(--main-blue);
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+/* ============================= */
+/*          FOOTER               */
+/* ============================= */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid var(--button-blue);
+  background-color: var(--footer-bg);
+  color: var(--button-blue);
+  font-size: 0.95rem;
+  margin-top: 3rem;
+}
+
+/* ============================= */
+/*         RESPONSIVE            */
+/* ============================= */
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 10px 5%;
+  }
+
+  .nav-menu ul {
+    gap: 1rem;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .pricing-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pricing-card {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .screenshots {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .screenshots img {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .pricing-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .pricing-card strong {
+    font-size: 1.3rem;
+  }
+}
