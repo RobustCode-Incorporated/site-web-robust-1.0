@@ -336,19 +336,3 @@ body::before {
   }
 }
 
-.product-hero-video {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* Ratio 16:9 */
-  overflow: hidden;
-  background: black; /* au cas où la vidéo ne charge pas */
-}
-
-.responsive-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} 
