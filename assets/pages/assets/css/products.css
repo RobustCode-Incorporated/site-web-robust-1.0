@@ -81,19 +81,30 @@ body::before {
 }
 
 /* ============================= */
-/*         VIDEO HERO            */
+/*       HERO VIDEO (Apple-like) */
 /* ============================= */
-.video-hero {
+.immersive-video-section {
+  width: 100%;
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  background-color: black;
   overflow: hidden;
 }
 
-.video-hero video {
+.immersive-video {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Responsive fallback to aspect ratio */
+@media screen and (max-width: 768px) {
+  .immersive-video {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+  }
 }
 
 /* ============================= */
@@ -334,21 +345,4 @@ body::before {
   .pricing-card strong {
     font-size: 1.3rem;
   }
-}
-
-.product-hero-video {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* Ratio 16:9 */
-  overflow: hidden;
-  background: black; /* au cas où la vidéo ne charge pas */
-}
-
-.responsive-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
