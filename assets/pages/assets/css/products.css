@@ -91,16 +91,25 @@ body::before {
 }
 
 .immersive-video {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   object-fit: cover;
   object-position: center;
   display: block;
 }
 
-/* Responsive fallback to aspect ratio */
+/* RESPONSIVE pour petits écrans */
 @media screen and (max-width: 768px) {
+  .immersive-video-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0;
+  }
+
   .immersive-video {
+    width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: contain;
