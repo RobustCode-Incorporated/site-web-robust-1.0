@@ -1,145 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Services Robust Code SARL: software engineering, cybersécurité, e-services et accompagnement technique.">
   <title>ROBUST CODE | Services</title>
-  <link rel="icon" href="/assets/images/logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/services.css">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <style>
-    /* Styles for the service details (initially hidden) */
-    .service-details {
-      display: none;
-      padding: 15px 20px;
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      font-size: 16px;
-      white-space: pre-line; /* Preserve line breaks */
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    }
-
-    .service-item.active .service-details {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  <link rel="icon" href="../images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
-<script src="/assets/js/chatbot.js"></script>
 <body>
   <header class="header">
-    <div class="nav-container">
-      <div class="logo">
-        <a href="https://robustcode-incorporated.github.io/site-web-robust-1.0/">
-          <img src="assets/images/logo without bg black.png" alt="ROBUST CODE Logo">
-        </a>
-      </div>
-      <nav class="nav-menu">
-        <ul>
-          <li><a href="../pages/products.html">Products</a></li>
-        </ul>
+    <div class="container nav-container">
+      <a class="logo" href="../../index.html" aria-label="Robust Code Home">
+        <img src="../images/robust-logo-white.png" alt="ROBUST CODE">
+      </a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="../../index.html#about">About</a>
+        <a href="../../index.html#solutions">Core solutions</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
       </nav>
     </div>
   </header>
 
-  <section class="process">
-    <div class="process-container">
-        <div class="process-step">
-            <div class="circle">
-              <img src="assets/icons/bx-search-alt-2 .svg" >
-            </div>
-            <p>Explore & Define</p>
-        </div>
-        <div class="process-step">
-            <div class="circle">
-                <img src="assets/icons/bx-analyse.svg" >
-            </div>
-            <p>Analyze & Recommend</p>
-        </div>
-        <div class="process-step">
-            <div class="circle">
-              <img src="assets/icons/bx-edit (1).svg" >
-            </div>
-            <p>UX/UI DESIGN</p>
-        </div>
-        <div class="process-step">
-            <div class="circle">
-              <img src="assets/icons/bx-devices.svg" >
-            </div>
-            <p>Build & Deliver</p>
-        </div>
-        <div class="process-step">
-            <div class="circle">
-              <img src="assets/icons/bxs-report.svg" >
-            </div>
-            <p>Report & Analyze</p>
-        </div>
-        <div class="process-step">
-            <div class="circle">
-              <img src="assets/icons/bx-wrench.svg" >
-            </div>
-            <p>Support & Evolve</p>
-        </div>
-    </div>
-    <div class="social-icons">
-      <a href="https://wa.me/+33620923413" class="social-icon whatsapp"><i class="bx bxl-whatsapp"></i></a>
-      <a href="mailto:contact@robust-code.com" class="social-icon mail"><i class='bx bx-envelope'></i>
-      <a href="https://www.linkedin.com/company/robustcodesarl/?viewAsMember=true" class="social-icon linkedin"><i class="bx bxl-linkedin"></i></a>
-      <a href="https://x.com/RobustCode" class="social-icon twitter"><img src="/assets/pages/assets/icons/x-social-media-black-icon.svg"></a>
-    </div>
-</section>
+  <main>
+    <section class="section">
+      <div class="container panel reveal">
+        <p class="kicker mono">STRUCTURED DELIVERY PIPELINE</p>
+        <h1>Services conçus pour des systèmes robustes</h1>
+        <p class="lead">Chaque mission suit une séquence claire: cadrage, architecture, build, validation et support opérationnel.</p>
+      </div>
+    </section>
 
-<section class="services">
-    <h2 class="services-title">Services</h2>
-    <div class="services-list">
-        <div class="service-item" onclick="toggleDetails(this)" data-details="We specialize in crafting tailored web applications (front-end, back-end, full-stack) and innovative mobile applications for iOS and Android (native and cross-platform). Our expertise extends to building robust and scalable e-commerce platforms and Progressive Web Apps (PWAs). We also provide maintenance, evolution, and integration of third-party APIs for existing applications.">Web/app Development
-            <div class="service-details"></div>
-        </div>
-        <div class="service-item" onclick="toggleDetails(this)" data-details="Our cybersecurity services include comprehensive security audits (penetration testing, vulnerability analysis), strategic consulting to enhance your security posture, implementation of robust protection solutions (firewalls, intrusion detection systems, etc.), training and awareness programs for your team, and swift response to security incidents.">Cybersecurity
-            <div class="service-details"></div>
-        </div>
-        <div class="service-item" onclick="toggleDetails(this)" data-details="We develop custom Artificial Intelligence solutions leveraging machine learning, natural language processing, and computer vision. Our services include automating business processes (RPA), integrating AI into web and mobile applications, creating intelligent chatbots and virtual assistants, and providing advanced data analysis and reporting capabilities.">AI solution
-            <div class="service-details"></div>
-        </div>
-        <div class="service-item" onclick="toggleDetails(this)" data-details="Our IT consulting services offer customized digital transformation strategies, expert advice on software architecture and IT infrastructure, optimization of your processes and workflows, and dedicated support in selecting and integrating the right software solutions for your business needs.">Information Technology Consulting
-            <div class="service-details"></div>
-        </div>
-        <div class="service-item" onclick="toggleDetails(this)" data-details="We help you establish a strong brand identity through the creation and redesign of visual elements (logo, graphic charter). Our services include designing intuitive and engaging user interfaces (UX Design), developing aesthetic and modern user interfaces (UI Design), and conducting user testing and experience optimization to ensure a lasting impact.">Branding
-            <div class="service-details"></div>
-        </div>
-    </div>
-</section>
+    <section class="section">
+      <div class="container card-grid">
+        <article class="card reveal">
+          <h3>Web & App Engineering</h3>
+          <p class="decrypt">Applications web, mobiles et API orientées performance, fiabilité et maintenabilité.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Cybersécurité</h3>
+          <p class="decrypt">Audit de sécurité, hardening, plans de remédiation et monitoring continu.</p>
+        </article>
+        <article class="card reveal">
+          <h3>AI Solutions</h3>
+          <p class="decrypt">Automatisation intelligente, assistants métier et analyse de données opérationnelle.</p>
+        </article>
+        <article class="card reveal">
+          <h3>IT Consulting</h3>
+          <p class="decrypt">Architecture logicielle, urbanisation SI et stratégie de transformation digitale.</p>
+        </article>
+        <article class="card reveal">
+          <h3>E-Services Platform</h3>
+          <p class="decrypt">Portails sécurisés pour collectivités, entreprises et administrations.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Support & Evolution</h3>
+          <p class="decrypt">Maintenance proactive, optimisation continue et assistance technique dédiée.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-  <footer class="footer">
-    <p>&copy; 2024 ROBUST CODE. All rights reserved.</p>
+  <footer class="footer section">
+    <div class="container footer-grid">
+      <div>
+        <img class="footer-logo" src="../images/robust-logo-white.png" alt="Robust Code logo">
+      </div>
+      <div>
+        <p><strong>Email</strong><br>contact@robust-code.com</p>
+      </div>
+      <div>
+        <p><strong>© <span id="year"></span> ROBUST CODE</strong></p>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    function toggleDetails(item) {
-      const detailsDiv = item.querySelector('.service-details');
-      const detailsText = item.getAttribute('data-details');
-
-      // Close previously opened details
-      document.querySelectorAll('.service-item.active').forEach(activeItem => {
-        if (activeItem !== item) {
-          activeItem.classList.remove('active');
-          activeItem.querySelector('.service-details').textContent = '';
-        }
-      });
-
-      // Open/close the details of the clicked item
-      item.classList.toggle('active');
-      if (item.classList.contains('active')) {
-        detailsDiv.textContent = detailsText;
-      } else {
-        detailsDiv.textContent = '';
-      }
-    }
-  </script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
