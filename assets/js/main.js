@@ -1,149 +1,153 @@
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-const processMessages = [
-  "Initializing modules...",
-  "Compiling assets...",
-  "Securing runtime...",
-  "System Robust ready."
-];
-
-function bootPreloader() {
-  const preloader = document.getElementById("preloader");
-  if (!preloader) return;
-
-  const percentEl = document.getElementById("loader-percent");
-  const processEl = document.getElementById("loader-process");
-  const strokes = document.querySelectorAll(".loader-stroke");
-  let percent = 0;
-
-  strokes.forEach((stroke, i) => {
-    stroke.style.animation = `draw 0.65s ease forwards ${i * 0.18}s`;
-  });
-
-  const ticker = setInterval(() => {
-    percent = Math.min(percent + 5, 100);
-    if (percentEl) percentEl.textContent = String(percent);
-    if (processEl) processEl.textContent = processMessages[Math.min(Math.floor(percent / 26), processMessages.length - 1)];
-
-    if (percent >= 100) {
-      clearInterval(ticker);
-      preloader.classList.add("ready");
-      setTimeout(() => {
-        preloader.remove();
-      }, 460);
-    }
-  }, reducedMotion ? 8 : 45);
+function initYear() {
+  const year = document.getElementById("year");
+  if (year) {
+    year.textContent = String(new Date().getFullYear());
+  }
 }
 
-function bootTypewriter() {
-  const line = document.getElementById("hero-typewriter");
-  if (!line) return;
-  const text = "boot://robust-code > precision-engineering-mode";
-  if (reducedMotion) {
-    line.textContent = text;
-    return;
-  }
+function initMenu() {
+  const menuBtn = document.getElementById("menu-btn");
+  const nav = document.getElementById("nav-links");
+  if (!menuBtn || !nav) return;
 
-  let i = 0;
-  const step = () => {
-    if (i <= text.length) {
-      line.textContent = text.slice(0, i);
-      i += 1;
-      setTimeout(step, 36);
+  menuBtn.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+function initReveal() {
+  const nodes = document.querySelectorAll(".reveal");
+  if (!nodes.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.14 }
+  );
+
+  nodes.forEach((node) => observer.observe(node));
+}
+
+function initEcosystemCarousel() {
+  const wrap = document.getElementById("capability-carousel");
+  const core = document.getElementById("ecosystem-core");
+  const cards = document.querySelectorAll(".carousel-card");
+  const detailCategory = document.getElementById("ecosystem-detail-category");
+  const detailTitle = document.getElementById("ecosystem-detail-title");
+  const detailDesc = document.getElementById("ecosystem-detail-desc");
+  if (!wrap || !cards.length) return;
+
+  const categoryLabels = {
+    applications: "Applications",
+    payments: "Integrations & Payments",
+    infrastructure: "Infrastructure & Data"
+  };
+
+  let pinned = null;
+
+  const setDetail = (card) => {
+    if (!card) {
+      wrap.classList.remove("has-active");
+      cards.forEach((c) => {
+        c.classList.remove("is-active");
+        c.setAttribute("aria-pressed", "false");
+      });
+
+      if (detailCategory && detailTitle && detailDesc) {
+        detailCategory.textContent = "Digital Ecosystem";
+        detailTitle.textContent = "Robust Core";
+        detailDesc.textContent = "Hover or select any capability to see how it connects to the Robust Core.";
+      }
+      return;
+    }
+
+    wrap.classList.add("has-active");
+    cards.forEach((c) => {
+      const isActive = c === card;
+      c.classList.toggle("is-active", isActive);
+      c.setAttribute("aria-pressed", String(isActive && c === pinned));
+    });
+
+    if (detailCategory && detailTitle && detailDesc) {
+      detailCategory.textContent = categoryLabels[card.dataset.category] || "Digital Ecosystem";
+      detailTitle.textContent = card.dataset.label || "";
+      detailDesc.textContent = card.dataset.desc || "";
     }
   };
-  step();
-}
 
-function bootReveal() {
-  const elements = document.querySelectorAll(".reveal");
-  if (!elements.length) return;
-  if (reducedMotion) {
-    elements.forEach((el) => el.classList.add("visible"));
-    return;
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      if (!pinned) setDetail(card);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      if (!pinned) setDetail(null);
+    });
+
+    card.addEventListener("focus", () => setDetail(card));
+
+    card.addEventListener("blur", () => {
+      if (!pinned) setDetail(null);
+    });
+
+    card.addEventListener("click", () => {
+      pinned = pinned === card ? null : card;
+      setDetail(pinned);
+    });
+  });
+
+  if (core) {
+    core.addEventListener("click", () => {
+      pinned = null;
+      setDetail(null);
+    });
   }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  elements.forEach((el) => observer.observe(el));
 }
 
-function bootDecryptHover() {
-  if (reducedMotion) return;
-  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  const nodes = document.querySelectorAll(".decrypt");
+function initWorkFilters() {
+  const tabs = document.querySelectorAll("[data-filter-tab]");
+  const cards = document.querySelectorAll("[data-filter-card]");
+  if (!tabs.length || !cards.length) return;
 
-  nodes.forEach((node) => {
-    const raw = node.textContent || "";
-    node.dataset.raw = raw;
-    node.addEventListener("mouseenter", () => {
-      let frame = 0;
-      const run = setInterval(() => {
-        const unlocked = Math.floor(frame / 2);
-        node.textContent = raw
-          .split("")
-          .map((char, idx) => {
-            if (char === " ") return " ";
-            return idx < unlocked ? raw[idx] : charset[Math.floor(Math.random() * charset.length)];
-          })
-          .join("");
+  const applyFilter = (value) => {
+    cards.forEach((card) => {
+      const group = card.getAttribute("data-group");
+      const isVisible = value === "all" || group === value;
+      card.hidden = !isVisible;
+    });
 
-        frame += 1;
-        if (unlocked >= raw.length) {
-          clearInterval(run);
-          node.textContent = raw;
-        }
-      }, 24);
+    tabs.forEach((tab) => {
+      tab.classList.toggle("is-active", tab.getAttribute("data-filter-tab") === value);
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      applyFilter(tab.getAttribute("data-filter-tab") || "all");
     });
   });
+
+  applyFilter("core");
 }
 
-function bootHeroParallax() {
-  if (reducedMotion) return;
-  const visual = document.getElementById("hero-visual");
-  if (!visual) return;
-
-  window.addEventListener("mousemove", (event) => {
-    const x = (event.clientX / window.innerWidth - 0.5) * 12;
-    const y = (event.clientY / window.innerHeight - 0.5) * -12;
-    visual.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
-  });
-}
-
-function bootCursor() {
-  if (reducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
-  const cursor = document.querySelector(".cursor");
-  if (!cursor) return;
-
-  window.addEventListener("mousemove", (event) => {
-    cursor.style.left = `${event.clientX}px`;
-    cursor.style.top = `${event.clientY}px`;
-  });
-
-  document.querySelectorAll("a, button").forEach((element) => {
-    element.addEventListener("mouseenter", () => cursor.classList.add("active"));
-    element.addEventListener("mouseleave", () => cursor.classList.remove("active"));
-  });
-}
-
-function bootYear() {
-  const year = document.getElementById("year");
-  if (year) year.textContent = String(new Date().getFullYear());
+function initIcons() {
+  if (window.lucide && typeof window.lucide.createIcons === "function") {
+    window.lucide.createIcons();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  bootPreloader();
-  bootTypewriter();
-  bootReveal();
-  bootDecryptHover();
-  bootHeroParallax();
-  bootCursor();
-  bootYear();
+  initYear();
+  initMenu();
+  initReveal();
+  initEcosystemCarousel();
+  initWorkFilters();
+  initIcons();
 });

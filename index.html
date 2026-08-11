@@ -1,133 +1,156 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Robust Code SARL conçoit des solutions logicielles robustes, sécurisées et orientées performance.">
-  <meta name="keywords" content="Robust Code, développement web, cybersécurité, e-services, software engineering">
-  <title>ROBUST CODE | Robust Engineering</title>
-  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <meta name="description" content="ROBUST CODE builds engineering-grade software, CRM, ERP, cybersecurity, and payment infrastructure for digital transformation.">
+  <title>ROBUST CODE | Innovation at your fingertips</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <div id="preloader" class="preloader" aria-hidden="true">
-    <svg class="loader-logo" viewBox="0 0 100 100" role="img" aria-label="Robust Code loader">
-      <polygon class="loader-stroke" points="50,4 89,27 89,73 50,96 11,73 11,27"></polygon>
-      <polyline class="loader-stroke" points="28,38 50,25 72,38"></polyline>
-      <polyline class="loader-stroke" points="28,50 50,37 72,50"></polyline>
-      <polyline class="loader-stroke" points="28,62 50,49 72,62"></polyline>
-    </svg>
-    <p class="loader-process" id="loader-process">Initializing modules...</p>
-    <p class="loader-percent"><span id="loader-percent">0</span>%</p>
-  </div>
-
-  <div class="cursor" aria-hidden="true">
-    <span></span><span></span>
-  </div>
-
-  <header class="header">
-    <div class="container nav-container">
-      <a class="logo" href="index.html" aria-label="Robust Code Home">
-        <img src="assets/images/robust-logo-white.png" alt="ROBUST CODE">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" data-i18n-attr="aria-label:common.aria.brandHome" aria-label="ROBUST CODE home">
+        <img src="assets/images/robust-logo-white.png" alt="ROBUST CODE" class="brand-logo">
       </a>
-      <nav class="nav-menu" aria-label="Navigation principale">
-        <a href="#about">About</a>
-        <a href="#solutions">Core solutions</a>
-        <a href="assets/pages/services.html">Services</a>
-        <a href="assets/pages/products.html">Products</a>
+      <button class="menu-btn" id="menu-btn" data-i18n-attr="aria-label:common.aria.toggleMenu" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+      <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+        <a href="index.html" class="is-active" data-i18n="common.nav.home">Home</a>
+        <a href="what-we-do.html" data-i18n="common.nav.whatWeDo">What We Do</a>
+        <a href="our-work.html" data-i18n="common.nav.ourWork">Our Work</a>
+        <a href="about.html" data-i18n="common.nav.about">About</a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false">FR</button>
+        </div>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero section">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="terminal-line" id="hero-typewriter"></p>
-          <h1>ROBUST ENGINEERING</h1>
-          <p class="lead">Custom software solutions built with structure, security and measurable reliability.</p>
-          <a class="btn-solid" href="#solutions">Build with precision</a>
-        </div>
-        <div class="hero-visual" id="hero-visual" aria-hidden="true">
-          <div class="wireframe-cube"></div>
-          <img src="assets/images/robust-logo-white.png" alt="">
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container panel reveal">
-        <p class="kicker mono">THE ROBUST STANDARD</p>
-        <h2>Engineering over decoration</h2>
-        <p>
-          Notre interface, notre code et nos process suivent la même logique: une architecture claire, des flux sûrs et une exécution stable.
-          Chaque composant est conçu comme un module solide qui s’assemble dans un système évolutif.
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://www.pexels.com/download/video/3129671/" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content reveal">
+        <p class="eyebrow" data-i18n="home.hero.eyebrow">ROBUST CODE v2</p>
+        <h1 data-i18n="home.hero.title">Innovation at your fingertips</h1>
+        <p class="hero-sub" data-i18n="home.hero.subtitle">
+          Engineering bespoke software, CRM, ERP, Cybersecurity, and global/local payment infrastructures.
         </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="what-we-do.html" data-i18n="home.hero.ctaPrimary">Explore What We Do</a>
+          <a class="btn btn-ghost" href="our-work.html" data-i18n="home.hero.ctaSecondary">View Our Work</a>
+        </div>
       </div>
     </section>
 
-    <section id="solutions" class="section">
-      <div class="container">
-        <p class="kicker mono">CORE SOLUTIONS</p>
-        <h2>Services structurés comme une architecture système</h2>
-        <div class="card-grid">
-          <article class="card reveal">
-            <h3>Développement web & mobile</h3>
-            <p class="decrypt">Applications full-stack et experiences client performantes.</p>
-          </article>
-          <article class="card reveal">
-            <h3>E-services & automatisation</h3>
-            <p class="decrypt">Portails transactionnels, workflows métiers et intégrations API.</p>
-          </article>
-          <article class="card reveal">
-            <h3>Cybersécurité opérationnelle</h3>
-            <p class="decrypt">Audits, hardening et monitoring pour réduire les risques critiques.</p>
-          </article>
+    <section class="section ecosystem-section" id="ecosystem-section">
+      <canvas class="binary-sphere-canvas" id="binary-sphere-canvas" aria-hidden="true"></canvas>
+      <div class="container ecosystem-content">
+        <div class="section-heading reveal">
+          <p class="eyebrow" data-i18n="home.ecosystem.eyebrow">Digital Ecosystem Map</p>
+          <h2 data-i18n="home.ecosystem.title">Engineering capabilities mapped as one connected system</h2>
+        </div>
+        <div class="ecosystem-legend reveal">
+          <span class="legend-chip"><i class="legend-dot dot-applications"></i><span data-i18n="home.ecosystem.legend.applications">Applications</span></span>
+          <span class="legend-chip"><i class="legend-dot dot-payments"></i><span data-i18n="home.ecosystem.legend.payments">Integrations &amp; Payments</span></span>
+          <span class="legend-chip"><i class="legend-dot dot-infrastructure"></i><span data-i18n="home.ecosystem.legend.infrastructure">Infrastructure &amp; Data</span></span>
+        </div>
+        <div class="carousel-core-label reveal" id="ecosystem-core" role="button" tabindex="0" data-i18n-attr="aria-label:common.aria.resetSelection" aria-label="Reset selection">
+          <i data-lucide="cpu"></i>
+          <strong data-i18n="home.ecosystem.core">ROBUST CORE</strong>
+        </div>
+        <div class="capability-slider-wrap reveal">
+          <div class="capability-slider-track" id="capability-carousel">
+            <button class="carousel-card" data-category="applications" data-label="Custom Web" data-desc="Responsive web platforms engineered for speed and reliability." data-i18n-attr="data-label:home.cards.customWeb.label,data-desc:home.cards.customWeb.desc" style="--tilt: -7deg;" aria-pressed="false"><i data-lucide="monitor"></i><span data-i18n="home.cards.customWeb.label">Custom Web</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Mobile iOS/Android" data-desc="Native and cross-platform apps for iOS and Android." data-i18n-attr="data-label:home.cards.mobile.label,data-desc:home.cards.mobile.desc" style="--tilt: 7deg;" aria-pressed="false"><i data-lucide="smartphone"></i><span data-i18n="home.cards.mobile.label">Mobile iOS/Android</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Custom CRM" data-desc="Tailored CRM systems for sales and customer lifecycle management." data-i18n-attr="data-label:home.cards.crm.label,data-desc:home.cards.crm.desc" style="--tilt: -7deg;" aria-pressed="false"><i data-lucide="briefcase-business"></i><span data-i18n="home.cards.crm.label">Custom CRM</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Enterprise ERP" data-desc="End-to-end ERP for multi-entity operations and reporting." data-i18n-attr="data-label:home.cards.erp.label,data-desc:home.cards.erp.desc" style="--tilt: 7deg;" aria-pressed="false"><i data-lucide="building-2"></i><span data-i18n="home.cards.erp.label">Enterprise ERP</span></button>
+            <button class="carousel-card" data-category="payments" data-label="Stripe / PayPal / Flexpaie" data-desc="Global and DRC-local payment rails unified into one checkout layer." data-i18n-attr="data-label:home.cards.payments.label,data-desc:home.cards.payments.desc" style="--tilt: -7deg;" aria-pressed="false"><i data-lucide="credit-card"></i><span data-i18n="home.cards.payments.label">Stripe / PayPal / Flexpaie</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="API Gateway" data-desc="Unified routing, authentication, and rate-limiting across every service." data-i18n-attr="data-label:home.cards.apiGateway.label,data-desc:home.cards.apiGateway.desc" style="--tilt: 7deg;" aria-pressed="false"><i data-lucide="waypoints"></i><span data-i18n="home.cards.apiGateway.label">API Gateway</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Cybersecurity" data-desc="Hardening, monitoring, and incident response for critical systems." data-i18n-attr="data-label:home.cards.cyber.label,data-desc:home.cards.cyber.desc" style="--tilt: -7deg;" aria-pressed="false"><i data-lucide="shield-check"></i><span data-i18n="home.cards.cyber.label">Cybersecurity</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Data Engineering" data-desc="Pipelines and warehousing that keep data reliable at scale." data-i18n-attr="data-label:home.cards.dataEng.label,data-desc:home.cards.dataEng.desc" style="--tilt: 7deg;" aria-pressed="false"><i data-lucide="database-zap"></i><span data-i18n="home.cards.dataEng.label">Data Engineering</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Analytics" data-desc="Business intelligence dashboards built on governed data." data-i18n-attr="data-label:home.cards.analytics.label,data-desc:home.cards.analytics.desc" style="--tilt: -7deg;" aria-pressed="false"><i data-lucide="bar-chart-3"></i><span data-i18n="home.cards.analytics.label">Analytics</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Custom Web" data-desc="Responsive web platforms engineered for speed and reliability." data-i18n-attr="data-label:home.cards.customWeb.label,data-desc:home.cards.customWeb.desc" style="--tilt: -7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="monitor"></i><span data-i18n="home.cards.customWeb.label">Custom Web</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Mobile iOS/Android" data-desc="Native and cross-platform apps for iOS and Android." data-i18n-attr="data-label:home.cards.mobile.label,data-desc:home.cards.mobile.desc" style="--tilt: 7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="smartphone"></i><span data-i18n="home.cards.mobile.label">Mobile iOS/Android</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Custom CRM" data-desc="Tailored CRM systems for sales and customer lifecycle management." data-i18n-attr="data-label:home.cards.crm.label,data-desc:home.cards.crm.desc" style="--tilt: -7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="briefcase-business"></i><span data-i18n="home.cards.crm.label">Custom CRM</span></button>
+            <button class="carousel-card" data-category="applications" data-label="Enterprise ERP" data-desc="End-to-end ERP for multi-entity operations and reporting." data-i18n-attr="data-label:home.cards.erp.label,data-desc:home.cards.erp.desc" style="--tilt: 7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="building-2"></i><span data-i18n="home.cards.erp.label">Enterprise ERP</span></button>
+            <button class="carousel-card" data-category="payments" data-label="Stripe / PayPal / Flexpaie" data-desc="Global and DRC-local payment rails unified into one checkout layer." data-i18n-attr="data-label:home.cards.payments.label,data-desc:home.cards.payments.desc" style="--tilt: -7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="credit-card"></i><span data-i18n="home.cards.payments.label">Stripe / PayPal / Flexpaie</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="API Gateway" data-desc="Unified routing, authentication, and rate-limiting across every service." data-i18n-attr="data-label:home.cards.apiGateway.label,data-desc:home.cards.apiGateway.desc" style="--tilt: 7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="waypoints"></i><span data-i18n="home.cards.apiGateway.label">API Gateway</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Cybersecurity" data-desc="Hardening, monitoring, and incident response for critical systems." data-i18n-attr="data-label:home.cards.cyber.label,data-desc:home.cards.cyber.desc" style="--tilt: -7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="shield-check"></i><span data-i18n="home.cards.cyber.label">Cybersecurity</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Data Engineering" data-desc="Pipelines and warehousing that keep data reliable at scale." data-i18n-attr="data-label:home.cards.dataEng.label,data-desc:home.cards.dataEng.desc" style="--tilt: 7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="database-zap"></i><span data-i18n="home.cards.dataEng.label">Data Engineering</span></button>
+            <button class="carousel-card" data-category="infrastructure" data-label="Analytics" data-desc="Business intelligence dashboards built on governed data." data-i18n-attr="data-label:home.cards.analytics.label,data-desc:home.cards.analytics.desc" style="--tilt: -7deg;" aria-pressed="false" aria-hidden="true" tabindex="-1"><i data-lucide="bar-chart-3"></i><span data-i18n="home.cards.analytics.label">Analytics</span></button>
+          </div>
+        </div>
+        <div class="ecosystem-detail reveal" id="ecosystem-detail">
+          <p class="eyebrow" id="ecosystem-detail-category" data-i18n="home.detail.category">Digital Ecosystem</p>
+          <h3 id="ecosystem-detail-title" data-i18n="home.detail.title">Robust Core</h3>
+          <p class="text-soft" id="ecosystem-detail-desc" data-i18n="home.detail.desc">Hover or select any capability to see how it connects to the Robust Core.</p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container showcase-grid">
-        <article class="panel reveal">
-          <p class="kicker mono">SHOWCASE / PRODUCT</p>
-          <h2>REM Platform</h2>
-          <p>Une plateforme de gestion académique et administrative construite pour des environnements à forte charge.</p>
-          <a class="text-link" href="assets/pages/products.html">Voir le produit</a>
-        </article>
-        <article class="panel reveal dashboard">
-          <p class="kicker mono">INTERACTIVE DASHBOARD PREVIEW</p>
-          <div class="dash-row"><span>Uptime</span><strong>99.98%</strong></div>
-          <div class="bar"><span style="width:99%"></span></div>
-          <div class="dash-row"><span>Secure events</span><strong>12,504</strong></div>
-          <div class="bar"><span style="width:87%"></span></div>
-          <div class="dash-row"><span>Deployment health</span><strong>GREEN</strong></div>
-          <div class="bar"><span style="width:92%"></span></div>
-        </article>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow" data-i18n="home.whatWeDo.eyebrow">What We Do</p>
+          <h2 data-i18n="home.whatWeDo.title">Four focused business units for end-to-end transformation</h2>
+        </div>
+        <div class="unit-grid">
+          <a class="glass-card reveal" href="what-we-do/rc-data.html">
+            <i data-lucide="database"></i>
+            <h3 data-i18n="units.rcData.title">RC•DATA</h3>
+            <p data-i18n="units.rcData.desc">Data Engineering, Architecture, and Business Intelligence Pipelines.</p>
+          </a>
+          <a class="glass-card reveal" href="what-we-do/rc-xp.html">
+            <i data-lucide="sparkles"></i>
+            <h3 data-i18n="units.rcXp.title">RC•XP</h3>
+            <p data-i18n="units.rcXp.desc">Seamless and Immersive Omnichannel Experiences.</p>
+            <span class="badge" data-i18n="units.rcXp.badge">In Partnership with Rahlab</span>
+          </a>
+          <a class="glass-card reveal" href="what-we-do/rc-core.html">
+            <i data-lucide="layers-3"></i>
+            <h3 data-i18n="units.rcCore.title">RC•CORE</h3>
+            <p data-i18n="units.rcCore.desc">Software Engineering, CRM/ERP, Cybersecurity, and Payment APIs.</p>
+          </a>
+          <a class="glass-card reveal" href="what-we-do/rc-studio.html">
+            <i data-lucide="clapperboard"></i>
+            <h3 data-i18n="units.rcStudio.title">RC•STUDIO</h3>
+            <p data-i18n="units.rcStudio.desc">Brand Storytelling and Creative Digital Content Engineering.</p>
+            <span class="badge" data-i18n="units.rcStudio.badge">In Partnership with Rahlab</span>
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer section">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="assets/images/robust-logo-white.png" alt="Robust Code logo">
-        <p class="mono">mainframe://robust-code/contact</p>
-      </div>
-      <div>
-        <p><strong>Email</strong><br>contact@robust-code.com</p>
-        <p><strong>LinkedIn</strong><br>/company/robustcodesarl</p>
-      </div>
-      <div>
-        <p><strong>WhatsApp</strong><br>+32 467 613 480</p>
-        <p><strong>© <span id="year"></span> ROBUST CODE</strong></p>
-      </div>
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> ROBUST CODE S.a.r.l · <span data-i18n="common.footer.tagline">Innovation at your fingertips</span></p>
+      <nav aria-label="Footer navigation">
+        <a href="news.html" data-i18n="common.footer.news">News</a>
+        <a href="blog.html" data-i18n="common.footer.blog">Blog</a>
+        <a href="careers.html" data-i18n="common.footer.careers">Careers</a>
+        <a href="contact.html" data-i18n="common.footer.contact">Contact Us</a>
+      </nav>
     </div>
   </footer>
 
+  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/ecosystem-sphere.js"></script>
 </body>
 </html>

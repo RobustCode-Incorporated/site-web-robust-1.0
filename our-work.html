@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ROBUST CODE portfolio and ecosystem partnerships.">
+  <title>Our Work | ROBUST CODE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" data-i18n-attr="aria-label:common.aria.brandHome" aria-label="ROBUST CODE home"><img src="assets/images/robust-logo-white.png" alt="ROBUST CODE" class="brand-logo"></a>
+      <button class="menu-btn" id="menu-btn" data-i18n-attr="aria-label:common.aria.toggleMenu" aria-expanded="false">Menu</button>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" data-i18n="common.nav.home">Home</a>
+        <a href="what-we-do.html" data-i18n="common.nav.whatWeDo">What We Do</a>
+        <a href="our-work.html" class="is-active" data-i18n="common.nav.ourWork">Our Work</a>
+        <a href="about.html" data-i18n="common.nav.about">About</a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false">FR</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="section">
+      <div class="container section-heading reveal">
+        <p class="eyebrow" data-i18n="ourWork.eyebrow">Our Work</p>
+        <h1 data-i18n="ourWork.title">Delivery portfolio across product, platform, and partnerships</h1>
+      </div>
+      <div class="container tabs reveal">
+        <button class="tab-btn" data-filter-tab="core" data-i18n="ourWork.tabs.core">Robust Code Core</button>
+        <button class="tab-btn" data-filter-tab="rahlab" data-i18n="ourWork.tabs.rahlab">Rahlab</button>
+        <button class="tab-btn" data-filter-tab="partnerships" data-i18n="ourWork.tabs.partnerships">Partnerships</button>
+      </div>
+      <div class="container work-grid">
+        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="layout-dashboard"></i><h3 data-i18n="ourWork.cards.erp.title">ERP Command Suite</h3><p data-i18n="ourWork.cards.erp.desc">Enterprise ERP orchestration for multi-entity operations and reporting.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="users-round"></i><h3 data-i18n="ourWork.cards.crm.title">Custom CRM Engine</h3><p data-i18n="ourWork.cards.crm.desc">Lead lifecycle automation and sales intelligence for distributed teams.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="shield"></i><h3 data-i18n="ourWork.cards.cyber.title">Cyber Defense Program</h3><p data-i18n="ourWork.cards.cyber.desc">Security architecture hardening and incident response workflows.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="rahlab"><i data-lucide="pen-tool"></i><h3 data-i18n="ourWork.cards.experience.title">Experience Narratives</h3><p data-i18n="ourWork.cards.experience.desc">Immersive omnichannel storytelling crafted with Rahlab.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="rahlab"><i data-lucide="film"></i><h3 data-i18n="ourWork.cards.content.title">Digital Content Studio</h3><p data-i18n="ourWork.cards.content.desc">Technical media production for digital-first campaigns and products.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="partnerships"><i data-lucide="handshake"></i><h3 data-i18n="ourWork.cards.fintech.title">Fintech Integrations</h3><p data-i18n="ourWork.cards.fintech.desc">Stripe, PayPal, and Flexpaie payment rails for local and global payments.</p></article>
+        <article class="work-card reveal" data-filter-card data-group="partnerships"><i data-lucide="workflow"></i><h3 data-i18n="ourWork.cards.alliance.title">Cross-Org Platform Alliance</h3><p data-i18n="ourWork.cards.alliance.desc">API-level collaboration between engineering, content, and distribution partners.</p></article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> ROBUST CODE S.a.r.l · <span data-i18n="common.footer.tagline">Innovation at your fingertips</span></p>
+      <nav><a href="news.html" data-i18n="common.footer.news">News</a><a href="blog.html" data-i18n="common.footer.blog">Blog</a><a href="careers.html" data-i18n="common.footer.careers">Careers</a><a href="contact.html" data-i18n="common.footer.contact">Contact Us</a></nav>
+    </div>
+  </footer>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
