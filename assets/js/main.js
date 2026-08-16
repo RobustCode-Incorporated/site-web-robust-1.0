@@ -50,25 +50,14 @@ function initEcosystemCarousel() {
     infrastructure: "Infrastructure & Data"
   };
 
-  // Mirrors the --category-color custom properties in styles.css, so the
-  // Core's pulse glow matches whichever category is currently connected to it.
-  const categoryGlow = {
-    applications: "#2f6bff",
-    payments: "#c026d3",
-    infrastructure: "#14e0a1"
-  };
-
   let pinned = null;
 
+  // No colour here by design: the palette is strictly black/white/glass, so
+  // "connecting" a capability to the Core just brightens its liquid-glass
+  // background and pulses its icon, regardless of category.
   const setCoreActive = (card) => {
     if (!core) return;
-    if (card) {
-      core.classList.add("active");
-      core.style.setProperty("--core-glow", categoryGlow[card.dataset.category] || "var(--accent-teal)");
-    } else {
-      core.classList.remove("active");
-      core.style.removeProperty("--core-glow");
-    }
+    core.classList.toggle("active", Boolean(card));
   };
 
   const setDetail = (card) => {

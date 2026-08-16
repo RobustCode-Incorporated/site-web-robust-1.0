@@ -6,6 +6,7 @@
   --text-secondary: #a1a1aa;
   --accent-teal: #00e5ff;
   --accent-teal-glow: rgba(0, 229, 255, 0.15);
+  --header-height: 79px;
   --max-width: 1160px;
   --font-body: "Sora", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
@@ -236,15 +237,25 @@ h3 {
   margin-bottom: 1.4rem;
 }
 
-.ecosystem-visual-section,
-.ecosystem-detail-section {
+.ecosystem-visual-section {
   background: #f4f6f8;
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-.ecosystem-visual-section {
-  height: 100vh;
+/* Full-viewport monochrome glass cartography section. Sits below the sticky
+   site-header, so it fills exactly the remaining screen rather than the
+   literal 100vh (which would run header-height past the fold). */
+.ecosystem-detail-section {
+  align-items: center;
+  background: #0d0d0d;
+  display: flex;
+  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height));
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
 }
 
 .binary-sphere-canvas {
@@ -290,62 +301,46 @@ h3 {
   display: inline-block;
 }
 
-.ecosystem-detail-section::before,
-.ecosystem-detail-section::after {
-  content: "";
-  height: 110px;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  z-index: 1;
-}
-
-.ecosystem-detail-section::before {
-  background: linear-gradient(180deg, rgba(13, 13, 13, 0.95), rgba(13, 13, 13, 0));
-  top: 0;
-}
-
-.ecosystem-detail-section::after {
-  background: linear-gradient(0deg, rgba(13, 13, 13, 0.95), rgba(13, 13, 13, 0));
-  bottom: 0;
-}
-
 .ecosystem-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 100%;
+  padding-block: 2rem;
   position: relative;
+  width: 100%;
   z-index: 2;
 }
 
 .ecosystem-content .eyebrow {
-  color: #00778f;
+  color: var(--accent-teal);
 }
 
 .ecosystem-content h2 {
-  color: #0d0d0d;
+  color: #fff;
+  margin-inline: auto;
 }
 
 .ecosystem-content .section-heading {
-  background: rgba(255, 255, 255, 0.74);
-  backdrop-filter: blur(4px);
-  border-radius: 18px;
-  display: inline-block;
-  padding: 1.1rem 1.3rem;
+  text-align: center;
 }
 
 .ecosystem-legend {
-  background: rgba(255, 255, 255, 0.74);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0.9rem 1.4rem;
-  margin-bottom: 1.6rem;
+  justify-content: center;
   padding: 0.65rem 1.15rem;
 }
 
 .legend-chip {
   align-items: center;
-  color: #3f3f46;
+  color: rgba(255, 255, 255, 0.75);
   display: inline-flex;
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -374,10 +369,10 @@ h3 {
 }
 
 .carousel-core-label {
-  --core-glow: var(--accent-teal);
   align-items: center;
-  background: rgba(13, 13, 13, 0.9);
-  border: 1px solid rgba(0, 229, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   color: #fff;
   cursor: pointer;
@@ -385,37 +380,37 @@ h3 {
   font-family: var(--font-mono);
   font-size: 0.76rem;
   gap: 0.5rem;
-  margin: 0 auto 1.4rem;
   padding: 0.65rem 1.05rem;
   position: relative;
-  transition: border-color 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 500ms cubic-bezier(0.16, 1, 0.3, 1), border-color 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1);
   width: fit-content;
 }
 
 .carousel-core-label::after {
   animation: corePing 2.4s ease-out infinite;
-  border: 1px solid rgba(0, 229, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 999px;
   content: "";
   inset: -10px;
   position: absolute;
 }
 
-/* Fires when any capability card is hovered/focused/pinned, to visualise the
-   physical link between a technical capability and the Robust Core. */
+/* Fires when any capability card is hovered/focused/pinned: the Core's
+   liquid-glass background brightens, simulating an inflow of white light
+   from the connected capability -- no colour, just more/less frost. */
 .carousel-core-label.active {
-  border-color: var(--core-glow);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--core-glow) 16%, transparent), 0 0 26px color-mix(in srgb, var(--core-glow) 55%, transparent);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.22);
 }
 
 .carousel-core-label svg {
-  transition: color 500ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: filter 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-core-label.active svg {
   animation: corePulseIcon 900ms cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  color: var(--core-glow);
-  filter: drop-shadow(0 0 6px var(--core-glow));
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.85));
 }
 
 @keyframes corePing {
@@ -442,11 +437,12 @@ h3 {
 }
 
 .capability-slider-wrap {
-  margin: 0 auto 1.2rem;
+  margin: 0 auto;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 64px 0;
   perspective: 1200px;
   position: relative;
+  width: 100%;
 }
 
 .capability-slider-wrap::before,
@@ -456,24 +452,24 @@ h3 {
   pointer-events: none;
   position: absolute;
   top: 0;
-  width: 64px;
+  width: 96px;
   z-index: 2;
 }
 
 .capability-slider-wrap::before {
-  background: linear-gradient(90deg, #f4f6f8, rgba(244, 246, 248, 0));
+  background: linear-gradient(90deg, #0d0d0d, rgba(13, 13, 13, 0));
   left: 0;
 }
 
 .capability-slider-wrap::after {
-  background: linear-gradient(270deg, #f4f6f8, rgba(244, 246, 248, 0));
+  background: linear-gradient(270deg, #0d0d0d, rgba(13, 13, 13, 0));
   right: 0;
 }
 
 .capability-slider-track {
-  animation: slideLeft 32s linear infinite;
+  animation: slideLeft 54s linear infinite;
   display: flex;
-  gap: 1.1rem;
+  gap: 2rem;
   width: max-content;
 }
 
@@ -504,85 +500,96 @@ h3 {
   }
 }
 
+/* Large monolithic glass slabs. Resting state: barely-there frost (matches
+   the "Noir, Blanc, Liquide Glace" palette -- no colour, ever). Hover reveals
+   a per-category treatment that varies only frost intensity/diffusion, not
+   hue: applications concentrates a crystalline halo behind the icon;
+   payments wraps the whole edge in a diffuse glow; infrastructure brightens
+   the entire surface into a reflective sheet. */
 .carousel-card {
-  /* Per-category accent, overridden below by [data-category]; falls back to
-     applications' electric blue if a new category ever ships without one. */
-  --category-color: #2f6bff;
   align-items: center;
-  backdrop-filter: blur(18px) saturate(180%);
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.26));
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 18px;
-  box-shadow: 0 14px 32px rgba(13, 13, 13, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.65);
-  color: #0d0d0d;
+  backdrop-filter: blur(20px) saturate(140%);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  color: #fff;
   cursor: pointer;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  gap: 0.55rem;
-  height: 140px;
+  font-size: 1rem;
+  gap: 1.25rem;
+  height: 400px;
   justify-content: center;
-  padding: 0.9rem;
+  min-width: 320px;
+  padding: 3rem 2rem;
   position: relative;
   text-align: center;
   transform: rotateY(var(--tilt, 0deg));
   transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  width: 158px;
-}
-
-.carousel-card[data-category="applications"] {
-  --category-color: #2f6bff;
-}
-
-.carousel-card[data-category="payments"] {
-  --category-color: #c026d3;
-}
-
-.carousel-card[data-category="infrastructure"] {
-  --category-color: #14e0a1;
-}
-
-/* Blurred halo behind the card, tinted per data-category, off by default. */
-.carousel-card::before {
-  background: var(--category-color);
-  border-radius: 26px;
-  content: "";
-  filter: blur(26px);
-  inset: -14px;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
 }
 
 .carousel-card svg {
-  color: var(--category-color);
-  opacity: 0.62;
+  color: #fff;
+  opacity: 0.4;
+  position: relative;
   transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
 }
 
 .carousel-card:hover,
 .carousel-card:focus-visible,
 .carousel-card.is-active {
-  border-color: var(--category-color);
-  box-shadow: 0 20px 40px color-mix(in srgb, var(--category-color) 32%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  transform: rotateY(0deg) translateY(-8px) scale(1.05);
-}
-
-.carousel-card:hover::before,
-.carousel-card:focus-visible::before,
-.carousel-card.is-active::before {
-  opacity: 0.5;
+  border-color: rgba(255, 255, 255, 0.26);
+  transform: rotateY(0deg) translateY(-10px) scale(1.03);
 }
 
 .carousel-card:hover svg,
 .carousel-card:focus-visible svg,
 .carousel-card.is-active svg {
-  filter: drop-shadow(0 0 6px var(--category-color));
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
   opacity: 1;
+}
+
+/* applications: crystalline halo concentrated behind the icon */
+.carousel-card[data-category="applications"]::after {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45), transparent 70%);
+  border-radius: 50%;
+  content: "";
+  filter: blur(16px);
+  height: 100px;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 3rem;
+  transform: translate(-50%, -20%);
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100px;
+  z-index: 0;
+}
+
+.carousel-card[data-category="applications"]:hover::after,
+.carousel-card[data-category="applications"]:focus-visible::after,
+.carousel-card[data-category="applications"].is-active::after {
+  opacity: 1;
+}
+
+/* payments: diffuse frost majestically enveloping the whole card edge */
+.carousel-card[data-category="payments"]:hover,
+.carousel-card[data-category="payments"]:focus-visible,
+.carousel-card[data-category="payments"].is-active {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 70px 12px rgba(255, 255, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* infrastructure: the whole tile becomes a highly reflective icy surface */
+.carousel-card[data-category="infrastructure"]:hover,
+.carousel-card[data-category="infrastructure"]:focus-visible,
+.carousel-card[data-category="infrastructure"].is-active {
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(26px) saturate(180%) brightness(1.2);
 }
 
 .capability-slider-track.has-active .carousel-card:not(.is-active) {
@@ -590,11 +597,10 @@ h3 {
 }
 
 .ecosystem-detail {
-  background: linear-gradient(170deg, rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.76));
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 18px;
-  margin-top: 0.4rem;
   min-height: 96px;
   padding: 1.1rem 1.3rem;
 }
@@ -971,11 +977,11 @@ h3 {
   }
 
   .carousel-card {
-    font-size: 0.68rem;
-    gap: 0.4rem;
-    height: 116px;
-    padding: 0.7rem;
-    width: 130px;
+    font-size: 0.85rem;
+    gap: 1rem;
+    height: 320px;
+    min-width: 260px;
+    padding: 2rem 1.5rem;
   }
 
   .info-grid {
@@ -1008,7 +1014,13 @@ h3 {
   }
 
   .carousel-card {
-    height: 104px;
-    width: 116px;
+    height: 280px;
+    min-width: 230px;
+  }
+
+  .ecosystem-detail-section {
+    height: auto;
+    min-height: calc(100vh - var(--header-height));
+    padding-block: 2rem;
   }
 }
