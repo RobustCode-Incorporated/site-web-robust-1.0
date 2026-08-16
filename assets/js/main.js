@@ -50,7 +50,26 @@ function initEcosystemCarousel() {
     infrastructure: "Infrastructure & Data"
   };
 
+  // Mirrors the --category-color custom properties in styles.css, so the
+  // Core's pulse glow matches whichever category is currently connected to it.
+  const categoryGlow = {
+    applications: "#2f6bff",
+    payments: "#c026d3",
+    infrastructure: "#14e0a1"
+  };
+
   let pinned = null;
+
+  const setCoreActive = (card) => {
+    if (!core) return;
+    if (card) {
+      core.classList.add("active");
+      core.style.setProperty("--core-glow", categoryGlow[card.dataset.category] || "var(--accent-teal)");
+    } else {
+      core.classList.remove("active");
+      core.style.removeProperty("--core-glow");
+    }
+  };
 
   const setDetail = (card) => {
     if (!card) {
@@ -59,6 +78,7 @@ function initEcosystemCarousel() {
         c.classList.remove("is-active");
         c.setAttribute("aria-pressed", "false");
       });
+      setCoreActive(null);
 
       if (detailCategory && detailTitle && detailDesc) {
         detailCategory.textContent = "Digital Ecosystem";
@@ -74,6 +94,7 @@ function initEcosystemCarousel() {
       c.classList.toggle("is-active", isActive);
       c.setAttribute("aria-pressed", String(isActive && c === pinned));
     });
+    setCoreActive(card);
 
     if (detailCategory && detailTitle && detailDesc) {
       detailCategory.textContent = categoryLabels[card.dataset.category] || "Digital Ecosystem";
@@ -82,25 +103,42 @@ function initEcosystemCarousel() {
     }
   };
 
-  cards.forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-      if (!pinned) setDetail(card);
-    });
+  // Event delegation: a handful of listeners on the wrap instead of five per
+  // card. The marquee duplicates every card for its seamless loop (18 buttons
+  // total here), so this keeps the listener count constant as cards are added.
+  const cardFrom = (target) => target instanceof Element && target.closest(".carousel-card");
 
-    card.addEventListener("mouseleave", () => {
-      if (!pinned) setDetail(null);
-    });
+  wrap.addEventListener("mouseover", (event) => {
+    const card = cardFrom(event.target);
+    if (!card) return;
+    if (cardFrom(event.relatedTarget) === card) return;
+    if (!pinned) setDetail(card);
+  });
 
-    card.addEventListener("focus", () => setDetail(card));
+  wrap.addEventListener("mouseout", (event) => {
+    const card = cardFrom(event.target);
+    if (!card) return;
+    if (cardFrom(event.relatedTarget) === card) return;
+    if (!pinned) setDetail(null);
+  });
 
-    card.addEventListener("blur", () => {
-      if (!pinned) setDetail(null);
-    });
+  wrap.addEventListener("focusin", (event) => {
+    const card = cardFrom(event.target);
+    if (card) setDetail(card);
+  });
 
-    card.addEventListener("click", () => {
-      pinned = pinned === card ? null : card;
-      setDetail(pinned);
-    });
+  wrap.addEventListener("focusout", (event) => {
+    const card = cardFrom(event.target);
+    if (!card) return;
+    if (cardFrom(event.relatedTarget) === card) return;
+    if (!pinned) setDetail(null);
+  });
+
+  wrap.addEventListener("click", (event) => {
+    const card = cardFrom(event.target);
+    if (!card) return;
+    pinned = pinned === card ? null : card;
+    setDetail(pinned);
   });
 
   if (core) {

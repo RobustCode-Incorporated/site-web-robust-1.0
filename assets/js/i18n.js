@@ -81,6 +81,10 @@ const translations = {
       whatWeDo: {
         eyebrow: "What We Do",
         title: "Four focused business units for end-to-end transformation"
+      },
+      partners: {
+        eyebrow: "Technology Partners",
+        title: "Built on a trusted, modern technology stack"
       }
     },
     whatWeDo: {
@@ -239,6 +243,10 @@ const translations = {
       whatWeDo: {
         eyebrow: "Ce que nous faisons",
         title: "Quatre unités spécialisées pour une transformation de bout en bout"
+      },
+      partners: {
+        eyebrow: "Partenaires technologiques",
+        title: "Bâti sur une pile technologique moderne et fiable"
       }
     },
     whatWeDo: {
