@@ -46,7 +46,7 @@ const translations = {
     },
     home: {
       hero: {
-        eyebrow: "ROBUST CODE v2",
+        eyebrow: "ROBUST CODE S.a.r.l",
         title: "Innovation at your fingertips",
         subtitle: "Engineering bespoke software, CRM, ERP, Cybersecurity, and global/local payment infrastructures.",
         ctaPrimary: "Explore What We Do",
@@ -208,7 +208,7 @@ const translations = {
     },
     home: {
       hero: {
-        eyebrow: "ROBUST CODE v2",
+        eyebrow: "ROBUST CODE S.a.r.l",
         title: "L'innovation à portée de main",
         subtitle: "Conception de logiciels sur mesure, CRM, ERP, cybersécurité et infrastructures de paiement locales et internationales.",
         ctaPrimary: "Découvrir nos activités",
