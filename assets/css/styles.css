@@ -481,57 +481,63 @@ h3 {
 
 .partner-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .partner-card {
   align-items: center;
-  backdrop-filter: blur(18px) saturate(180%);
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 18px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
   display: flex;
-  height: 84px;
+  height: 130px;
   justify-content: center;
+  overflow: hidden;
   padding: 0.6rem;
   position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
-.partner-card:hover,
 .partner-card:focus-within {
-  border-color: rgba(255, 255, 255, 0.34);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.partner-card-halo {
+  background: radial-gradient(circle, var(--brand, #ffffff) 0%, transparent 70%);
+  filter: blur(24px);
+  inset: -30%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.partner-logo,
+.partner-card--text {
+  position: relative;
+  z-index: 1;
 }
 
 .partner-logo {
-  color: #7d7d87;
+  color: rgba(255, 255, 255, 0.35);
   height: 34px;
-  transition: color 0.35s ease, transform 0.35s ease;
   width: auto;
 }
 
-.partner-card:hover .partner-logo,
-.partner-card:focus-within .partner-logo {
-  color: var(--brand, var(--accent-teal));
-  transform: scale(1.1);
-}
-
 .partner-card--text {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.35);
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-align: center;
   text-transform: uppercase;
-  transition: color 0.35s ease;
 }
 
-.partner-card:hover .partner-card--text,
+.partner-card:focus-within .partner-logo,
 .partner-card:focus-within .partner-card--text {
   color: var(--brand, var(--accent-teal));
 }
