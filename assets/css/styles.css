@@ -542,6 +542,112 @@ h3 {
   color: var(--brand, var(--accent-teal));
 }
 
+.clients-trust-section {
+  background: #fafafa;
+  overflow: hidden;
+  padding: 8rem 0;
+}
+
+.clients-trust-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3.4rem;
+}
+
+.clients-trust-content .eyebrow {
+  color: #00778f;
+}
+
+.clients-trust-content h2 {
+  color: #0d0d0d;
+  margin-inline: auto;
+}
+
+.clients-trust-content .section-heading {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.clients-monolith-wrapper {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  gap: clamp(2rem, 6vw, 4rem);
+  justify-content: center;
+  max-width: 600px;
+  padding: 2.4rem 3rem;
+  transform-origin: center;
+  width: 100%;
+}
+
+.client-divider {
+  background: rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+  height: 40px;
+  width: 1px;
+}
+
+.client-single-card {
+  align-items: center;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+.client-card-glow {
+  background: var(--client-brand, transparent);
+  border-radius: 16px;
+  filter: blur(20px);
+  inset: -4px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.client-single-card:hover .client-card-glow,
+.client-single-card:focus-within .client-card-glow {
+  opacity: 0.22;
+}
+
+.client-logo {
+  filter: grayscale(1) contrast(0.3) brightness(1.6);
+  height: auto;
+  max-height: 44px;
+  max-width: 168px;
+  mix-blend-mode: multiply;
+  position: relative;
+  transition: filter 0.4s ease;
+  width: auto;
+  z-index: 1;
+}
+
+.client-single-card:hover .client-logo,
+.client-single-card:focus-within .client-logo {
+  filter: grayscale(0);
+}
+
+@media (max-width: 560px) {
+  .clients-monolith-wrapper {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .client-divider {
+    height: 1px;
+    width: 60%;
+  }
+}
+
 .badge {
   border: 1px solid rgba(0, 229, 255, 0.4);
   border-radius: 999px;

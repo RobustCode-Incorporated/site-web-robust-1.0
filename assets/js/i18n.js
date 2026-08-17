@@ -85,6 +85,10 @@ const translations = {
       partners: {
         eyebrow: "Technology Partners",
         title: "Built on a trusted, modern technology stack"
+      },
+      clients: {
+        eyebrow: "Trusted By",
+        title: "Businesses that trust us to build"
       }
     },
     whatWeDo: {
@@ -247,6 +251,10 @@ const translations = {
       partners: {
         eyebrow: "Partenaires technologiques",
         title: "Bâti sur une pile technologique moderne et fiable"
+      },
+      clients: {
+        eyebrow: "Ils nous font confiance",
+        title: "Des entreprises qui nous font confiance pour bâtir"
       }
     },
     whatWeDo: {
