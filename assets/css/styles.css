@@ -403,20 +403,22 @@ main > .hero {
   z-index: 2;
 }
 
-/* Now the hero's only copy (no subtitle left), sized as the brand name +
-   headline pairing it actually is: the eyebrow reads as a name tag, the
-   h1 carries the full weight of the hero as its dominant headline. Both
-   keep the sitewide .eyebrow's mono font, matching the binary-rain
-   intro's own wordmark it crystallizes out of; text-transform is
-   overridden to none so "S.a.r.l" keeps its legal-form casing instead
-   of becoming "S.A.R.L". */
-.hero-content .eyebrow {
-  font-size: clamp(1.15rem, 2.6vw, 1.7rem);
-  text-transform: none;
+/* "ROBUST CODE S.a.r.l" and "Innovation at your fingertips" share one size
+   here (their only difference from the sitewide .eyebrow/h1 rules), rather
+   than the usual tiny-label/huge-headline split. */
+.hero-content .eyebrow,
+.hero-content h1 {
+  font-size: clamp(1.6rem, 3.2vw, 2rem);
 }
 
-.hero-content h1 {
-  font-size: clamp(3rem, 7vw, 6rem);
+/* Matches the wordmark's bold slab-serif in the logo image. Overrides
+   .eyebrow's uppercase transform so "S.a.r.l" keeps its legal-form
+   casing instead of becoming "S.A.R.L". */
+.hero-content .eyebrow {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .eyebrow {
@@ -448,6 +450,12 @@ h2 {
 
 h3 {
   font-size: 1.2rem;
+}
+
+.hero-sub {
+  color: #e3e3e3;
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 .hero-cta {
