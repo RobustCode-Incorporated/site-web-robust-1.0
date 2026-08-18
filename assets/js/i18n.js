@@ -16,12 +16,18 @@ const translations = {
         news: "News",
         blog: "Blog",
         careers: "Careers",
-        contact: "Contact Us"
+        contact: "Contact Us",
+        companyHeading: "Company",
+        contactHeading: "Contact",
+        rights: "All Rights Reserved"
       },
       aria: {
         brandHome: "ROBUST CODE home",
         toggleMenu: "Toggle menu",
-        resetSelection: "Reset selection"
+        resetSelection: "Reset selection",
+        instagram: "Instagram",
+        x: "X",
+        linkedin: "LinkedIn"
       }
     },
     units: {
@@ -182,12 +188,18 @@ const translations = {
         news: "Actualités",
         blog: "Blog",
         careers: "Carrières",
-        contact: "Contactez-nous"
+        contact: "Contactez-nous",
+        companyHeading: "Entreprise",
+        contactHeading: "Contact",
+        rights: "Tous droits réservés"
       },
       aria: {
         brandHome: "Accueil ROBUST CODE",
         toggleMenu: "Afficher/masquer le menu",
-        resetSelection: "Réinitialiser la sélection"
+        resetSelection: "Réinitialiser la sélection",
+        instagram: "Instagram",
+        x: "X",
+        linkedin: "LinkedIn"
       }
     },
     units: {
