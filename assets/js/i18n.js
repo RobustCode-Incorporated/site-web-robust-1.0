@@ -104,21 +104,23 @@ const translations = {
       exploreCta: "Explore the Unit"
     },
     ourWork: {
-      eyebrow: "Our Work",
-      title: "Delivery portfolio across product, platform, and partnerships",
+      eyebrow: "Delivery Portfolio",
+      title: "Our Work",
+      subtitle: "Delivery portfolio across product, platform, and partnerships.",
+      exploreCta: "Explore Case Study",
       tabs: {
+        all: "All Work",
         core: "Robust Code Core",
         rahlab: "Rahlab",
         partnerships: "Partnerships"
       },
       cards: {
-        erp: { title: "ERP Command Suite", desc: "Enterprise ERP orchestration for multi-entity operations and reporting." },
-        crm: { title: "Custom CRM Engine", desc: "Lead lifecycle automation and sales intelligence for distributed teams." },
-        cyber: { title: "Cyber Defense Program", desc: "Security architecture hardening and incident response workflows." },
-        experience: { title: "Experience Narratives", desc: "Immersive omnichannel storytelling crafted with Rahlab." },
-        content: { title: "Digital Content Studio", desc: "Technical media production for digital-first campaigns and products." },
-        fintech: { title: "Fintech Integrations", desc: "Stripe, PayPal, and Flexpaie payment rails for local and global payments." },
-        alliance: { title: "Cross-Org Platform Alliance", desc: "API-level collaboration between engineering, content, and distribution partners." }
+        erp: { title: "ERP Command Suite", meta: "Robust Code Core • Platform", desc: "Enterprise ERP orchestration for multi-entity operations and reporting." },
+        crm: { title: "Custom CRM Engine", meta: "Partnership with Rahlab • Product", desc: "Lead lifecycle automation and sales intelligence for distributed teams." },
+        experience: { title: "Experience Narratives", meta: "Partnership with Rahlab • Experience", desc: "Immersive omnichannel storytelling crafted with Rahlab." },
+        content: { title: "Digital Content Studio", meta: "Partnership with Rahlab • Content", desc: "Technical media production for digital-first campaigns and products." },
+        fintech: { title: "Fintech Integrations", meta: "Partnerships • Payments", desc: "Stripe, PayPal, and Flexpaie payment rails for local and global payments." },
+        alliance: { title: "Cross-Org Platform Alliance", meta: "Partnerships • Platform", desc: "API-level collaboration between engineering, content, and distribution partners." }
       }
     },
     about: {
@@ -277,21 +279,23 @@ const translations = {
       exploreCta: "Découvrir l'unité"
     },
     ourWork: {
-      eyebrow: "Nos Réalisations",
-      title: "Un portefeuille de réalisations entre produit, plateforme et partenariats",
+      eyebrow: "Portefeuille de réalisations",
+      title: "Nos Réalisations",
+      subtitle: "Un portefeuille de réalisations entre produit, plateforme et partenariats.",
+      exploreCta: "Voir l'étude de cas",
       tabs: {
+        all: "Tous les projets",
         core: "Robust Code Core",
         rahlab: "Rahlab",
         partnerships: "Partenariats"
       },
       cards: {
-        erp: { title: "Suite de pilotage ERP", desc: "Orchestration ERP d'entreprise pour les opérations et le reporting multi-entités." },
-        crm: { title: "Moteur CRM sur mesure", desc: "Automatisation du cycle de vie des prospects et intelligence commerciale pour équipes distribuées." },
-        cyber: { title: "Programme de cyberdéfense", desc: "Durcissement de l'architecture de sécurité et workflows de réponse aux incidents." },
-        experience: { title: "Récits d'expérience", desc: "Storytelling omnicanal immersif conçu avec Rahlab." },
-        content: { title: "Studio de contenu numérique", desc: "Production média technique pour des campagnes et produits digital-first." },
-        fintech: { title: "Intégrations fintech", desc: "Rails de paiement Stripe, PayPal et Flexpaie pour les paiements locaux et internationaux." },
-        alliance: { title: "Alliance de plateformes inter-organisations", desc: "Collaboration au niveau API entre partenaires d'ingénierie, de contenu et de distribution." }
+        erp: { title: "Suite de pilotage ERP", meta: "Robust Code Core • Plateforme", desc: "Orchestration ERP d'entreprise pour les opérations et le reporting multi-entités." },
+        crm: { title: "Moteur CRM sur mesure", meta: "Partenariat avec Rahlab • Produit", desc: "Automatisation du cycle de vie des prospects et intelligence commerciale pour équipes distribuées." },
+        experience: { title: "Récits d'expérience", meta: "Partenariat avec Rahlab • Expérience", desc: "Storytelling omnicanal immersif conçu avec Rahlab." },
+        content: { title: "Studio de contenu numérique", meta: "Partenariat avec Rahlab • Contenu", desc: "Production média technique pour des campagnes et produits digital-first." },
+        fintech: { title: "Intégrations fintech", meta: "Partenariats • Paiements", desc: "Rails de paiement Stripe, PayPal et Flexpaie pour les paiements locaux et internationaux." },
+        alliance: { title: "Alliance de plateformes inter-organisations", meta: "Partenariats • Plateforme", desc: "Collaboration au niveau API entre partenaires d'ingénierie, de contenu et de distribution." }
       }
     },
     about: {

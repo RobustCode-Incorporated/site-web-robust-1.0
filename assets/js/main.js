@@ -127,32 +127,6 @@ function initEcosystemCarousel() {
   }
 }
 
-function initWorkFilters() {
-  const tabs = document.querySelectorAll("[data-filter-tab]");
-  const cards = document.querySelectorAll("[data-filter-card]");
-  if (!tabs.length || !cards.length) return;
-
-  const applyFilter = (value) => {
-    cards.forEach((card) => {
-      const group = card.getAttribute("data-group");
-      const isVisible = value === "all" || group === value;
-      card.hidden = !isVisible;
-    });
-
-    tabs.forEach((tab) => {
-      tab.classList.toggle("is-active", tab.getAttribute("data-filter-tab") === value);
-    });
-  };
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      applyFilter(tab.getAttribute("data-filter-tab") || "all");
-    });
-  });
-
-  applyFilter("core");
-}
-
 function initIcons() {
   if (window.lucide && typeof window.lucide.createIcons === "function") {
     window.lucide.createIcons();
@@ -163,6 +137,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initYear();
   initReveal();
   initEcosystemCarousel();
-  initWorkFilters();
   initIcons();
 });

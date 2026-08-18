@@ -72,24 +72,132 @@
     </div>
   </div>
   <main>
-    <section class="section">
-      <div class="container section-heading reveal">
-        <p class="eyebrow" data-i18n="ourWork.eyebrow">Our Work</p>
-        <h1 data-i18n="ourWork.title">Delivery portfolio across product, platform, and partnerships</h1>
+    <section class="section section-portfolio-intro bg-light-clean">
+      <div class="container text-center">
+        <p class="eyebrow" data-i18n="ourWork.eyebrow">Delivery Portfolio</p>
+        <h1 class="title-monolithic" data-i18n="ourWork.title">Our Work</h1>
+        <p class="text-soft portfolio-subtitle" data-i18n="ourWork.subtitle">Delivery portfolio across product, platform, and partnerships.</p>
+
+        <div class="portfolio-filters-wrap">
+          <button type="button" class="filter-chip is-active" data-filter-chip="all" data-i18n="ourWork.tabs.all">All Work</button>
+          <button type="button" class="filter-chip" data-filter-chip="core" data-i18n="ourWork.tabs.core">Robust Code Core</button>
+          <button type="button" class="filter-chip" data-filter-chip="rahlab" data-i18n="ourWork.tabs.rahlab">Rahlab</button>
+          <button type="button" class="filter-chip" data-filter-chip="partnerships" data-i18n="ourWork.tabs.partnerships">Partnerships</button>
+        </div>
       </div>
-      <div class="container tabs reveal">
-        <button class="tab-btn" data-filter-tab="core" data-i18n="ourWork.tabs.core">Robust Code Core</button>
-        <button class="tab-btn" data-filter-tab="rahlab" data-i18n="ourWork.tabs.rahlab">Rahlab</button>
-        <button class="tab-btn" data-filter-tab="partnerships" data-i18n="ourWork.tabs.partnerships">Partnerships</button>
-      </div>
-      <div class="container work-grid">
-        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="layout-dashboard"></i><h3 data-i18n="ourWork.cards.erp.title">ERP Command Suite</h3><p data-i18n="ourWork.cards.erp.desc">Enterprise ERP orchestration for multi-entity operations and reporting.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="users-round"></i><h3 data-i18n="ourWork.cards.crm.title">Custom CRM Engine</h3><p data-i18n="ourWork.cards.crm.desc">Lead lifecycle automation and sales intelligence for distributed teams.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="core"><i data-lucide="shield"></i><h3 data-i18n="ourWork.cards.cyber.title">Cyber Defense Program</h3><p data-i18n="ourWork.cards.cyber.desc">Security architecture hardening and incident response workflows.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="rahlab"><i data-lucide="pen-tool"></i><h3 data-i18n="ourWork.cards.experience.title">Experience Narratives</h3><p data-i18n="ourWork.cards.experience.desc">Immersive omnichannel storytelling crafted with Rahlab.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="rahlab"><i data-lucide="film"></i><h3 data-i18n="ourWork.cards.content.title">Digital Content Studio</h3><p data-i18n="ourWork.cards.content.desc">Technical media production for digital-first campaigns and products.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="partnerships"><i data-lucide="handshake"></i><h3 data-i18n="ourWork.cards.fintech.title">Fintech Integrations</h3><p data-i18n="ourWork.cards.fintech.desc">Stripe, PayPal, and Flexpaie payment rails for local and global payments.</p></article>
-        <article class="work-card reveal" data-filter-card data-group="partnerships"><i data-lucide="workflow"></i><h3 data-i18n="ourWork.cards.alliance.title">Cross-Org Platform Alliance</h3><p data-i18n="ourWork.cards.alliance.desc">API-level collaboration between engineering, content, and distribution partners.</p></article>
+    </section>
+
+    <section class="section portfolio-showcase bg-light-pure">
+      <div class="container compact-portfolio-container">
+
+        <div class="project-dalle" data-filter-card data-category="core">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.erp.meta">Robust Code Core • Platform</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.erp.title">ERP Command Suite</h3>
+            <p class="project-description" data-i18n="ourWork.cards.erp.desc">Enterprise ERP orchestration for multi-entity operations and reporting.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-dalle row-reverse" data-filter-card data-category="rahlab">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.crm.meta">Partnership with Rahlab • Product</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.crm.title">Custom CRM Engine</h3>
+            <p class="project-description" data-i18n="ourWork.cards.crm.desc">Lead lifecycle automation and sales intelligence for distributed teams.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="users-round"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-dalle" data-filter-card data-category="rahlab">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.experience.meta">Partnership with Rahlab • Experience</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.experience.title">Experience Narratives</h3>
+            <p class="project-description" data-i18n="ourWork.cards.experience.desc">Immersive omnichannel storytelling crafted with Rahlab.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="pen-tool"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-dalle row-reverse" data-filter-card data-category="rahlab">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.content.meta">Partnership with Rahlab • Content</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.content.title">Digital Content Studio</h3>
+            <p class="project-description" data-i18n="ourWork.cards.content.desc">Technical media production for digital-first campaigns and products.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="film"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-dalle" data-filter-card data-category="partnerships">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.fintech.meta">Partnerships • Payments</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.fintech.title">Fintech Integrations</h3>
+            <p class="project-description" data-i18n="ourWork.cards.fintech.desc">Stripe, PayPal, and Flexpaie payment rails for local and global payments.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="handshake"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-dalle row-reverse" data-filter-card data-category="partnerships">
+          <div class="project-info">
+            <div class="project-meta" data-i18n="ourWork.cards.alliance.meta">Partnerships • Platform</div>
+            <h3 class="project-name" data-i18n="ourWork.cards.alliance.title">Cross-Org Platform Alliance</h3>
+            <p class="project-description" data-i18n="ourWork.cards.alliance.desc">API-level collaboration between engineering, content, and distribution partners.</p>
+            <a href="#" class="project-link-arrow">
+              <span data-i18n="ourWork.exploreCta">Explore Case Study</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-image-wrapper">
+              <span class="portfolio-visual" aria-hidden="true"><i data-lucide="workflow"></i></span>
+              <span class="project-glass-glare" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   </main>
@@ -142,6 +250,7 @@
 
   <script src="assets/js/vendor/gsap.min.js"></script>
   <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/portfolio.js"></script>
   <script src="assets/js/footer-animation.js"></script>
   <script src="assets/js/nav-menu.js"></script>
 </body>
