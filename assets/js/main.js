@@ -5,17 +5,6 @@ function initYear() {
   }
 }
 
-function initMenu() {
-  const menuBtn = document.getElementById("menu-btn");
-  const nav = document.getElementById("nav-links");
-  if (!menuBtn || !nav) return;
-
-  menuBtn.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("is-open");
-    menuBtn.setAttribute("aria-expanded", String(isOpen));
-  });
-}
-
 function initReveal() {
   const nodes = document.querySelectorAll(".reveal");
   if (!nodes.length) return;
@@ -172,7 +161,6 @@ function initIcons() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initYear();
-  initMenu();
   initReveal();
   initEcosystemCarousel();
   initWorkFilters();
