@@ -409,11 +409,14 @@ main > .hero {
   font-size: clamp(1.6rem, 3.2vw, 2rem);
 }
 
-/* Matches the wordmark's bold slab-serif in the logo image. */
+/* Matches the wordmark's bold slab-serif in the logo image. Overrides
+   .eyebrow's uppercase transform so "S.a.r.l" keeps its legal-form
+   casing instead of becoming "S.A.R.L". */
 .hero-content .eyebrow {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
   letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .eyebrow {
@@ -462,9 +465,9 @@ h3 {
 .btn {
   border-radius: 50px;
   display: inline-block;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
   overflow: hidden;
   padding: 1rem 2.5rem;
   position: relative;
