@@ -100,7 +100,8 @@ const translations = {
     whatWeDo: {
       eyebrow: "Business Units",
       title: "What We Do",
-      subtitle: "Digital Transformation and Engineering executed by four specialist units."
+      subtitle: "Digital Transformation and Engineering executed by four specialist units.",
+      exploreCta: "Explore the Unit"
     },
     ourWork: {
       eyebrow: "Our Work",
@@ -272,7 +273,8 @@ const translations = {
     whatWeDo: {
       eyebrow: "Unités d'affaires",
       title: "Ce Que Nous Faisons",
-      subtitle: "Transformation numérique et ingénierie assurées par quatre unités spécialisées."
+      subtitle: "Transformation numérique et ingénierie assurées par quatre unités spécialisées.",
+      exploreCta: "Découvrir l'unité"
     },
     ourWork: {
       eyebrow: "Nos Réalisations",
