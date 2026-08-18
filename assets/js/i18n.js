@@ -27,7 +27,8 @@ const translations = {
         resetSelection: "Reset selection",
         instagram: "Instagram",
         x: "X",
-        linkedin: "LinkedIn"
+        linkedin: "LinkedIn",
+        changeLanguage: "Change language"
       }
     },
     units: {
@@ -199,7 +200,8 @@ const translations = {
         resetSelection: "Réinitialiser la sélection",
         instagram: "Instagram",
         x: "X",
-        linkedin: "LinkedIn"
+        linkedin: "LinkedIn",
+        changeLanguage: "Changer de langue"
       }
     },
     units: {

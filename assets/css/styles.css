@@ -77,33 +77,86 @@ a {
 .desktop-nav {
   align-items: center;
   display: flex;
-  gap: 0.35rem;
+  gap: 1.7rem;
 }
 
 .desktop-nav a {
-  border: 1px solid transparent;
-  border-radius: 999px;
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  padding: 0.52rem 0.86rem;
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: lowercase;
+  transition: color 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.desktop-nav a::first-letter {
   text-transform: uppercase;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .desktop-nav a:hover,
 .desktop-nav a.is-active {
-  background: rgba(0, 229, 255, 0.08);
-  border-color: rgba(0, 229, 255, 0.35);
-  color: var(--text-primary);
+  color: var(--accent-teal);
+  transform: translateX(4px);
 }
 
 .lang-switch {
+  position: relative;
+}
+
+.lang-toggle {
   align-items: center;
-  display: inline-flex;
-  gap: 0.3rem;
-  margin-left: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  width: 36px;
+}
+
+.lang-toggle:hover,
+.lang-switch.is-open .lang-toggle {
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--accent-teal);
+}
+
+.lang-globe-icon {
+  height: 17px;
+  width: 17px;
+}
+
+.lang-options {
+  background: rgba(14, 14, 14, 0.95);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  opacity: 0;
+  padding: 0.35rem;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+  transform: translateY(-6px);
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+.lang-switch.is-open .lang-options {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu-overlay-footer .lang-options {
+  bottom: calc(100% + 0.6rem);
+  left: 0;
+  right: auto;
+  top: auto;
 }
 
 .lang-btn {
@@ -120,7 +173,8 @@ a {
 }
 
 .lang-btn:hover,
-.lang-btn.is-active {
+.lang-btn.is-active,
+.lang-btn[aria-pressed="true"] {
   background: rgba(0, 229, 255, 0.1);
   border-color: rgba(0, 229, 255, 0.4);
   color: var(--text-primary);

@@ -10,8 +10,13 @@
         <a href="our-work.html" data-i18n="common.nav.ourWork">Our Work</a>
         <a href="about.html" data-i18n="common.nav.about">About</a>
         <div class="lang-switch" role="group" aria-label="Language">
-          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false">FR</button>
+          <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr="aria-label:common.aria.changeLanguage" aria-label="Change language">
+            <i data-lucide="globe" class="lang-globe-icon"></i>
+          </button>
+          <div class="lang-options" role="menu">
+            <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true" role="menuitemradio">EN</button>
+            <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false" role="menuitemradio">FR</button>
+          </div>
         </div>
       </nav>
       <button class="menu-burger" id="menu-burger" data-i18n-attr="aria-label:common.aria.toggleMenu" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu-overlay">
@@ -32,8 +37,13 @@
     </nav>
     <div class="menu-overlay-footer">
       <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true">EN</button>
-        <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false">FR</button>
+        <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr="aria-label:common.aria.changeLanguage" aria-label="Change language">
+          <i data-lucide="globe" class="lang-globe-icon"></i>
+        </button>
+        <div class="lang-options" role="menu">
+          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true" role="menuitemradio">EN</button>
+          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false" role="menuitemradio">FR</button>
+        </div>
       </div>
       <div class="menu-overlay-social" aria-label="Social media">
         <a href="https://www.instagram.com/robust_code/" target="_blank" rel="noopener noreferrer" data-i18n-attr="aria-label:common.aria.instagram" aria-label="Instagram">
