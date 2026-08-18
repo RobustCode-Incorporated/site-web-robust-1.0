@@ -43,11 +43,13 @@ a {
   padding: clamp(3.4rem, 6vw, 5.6rem) 0;
 }
 
-/* .site-header is now fixed (removed from flow), so push page content down
-   to clear it - except full-bleed hero sections, which are meant to sit
-   under the floating transparent navbar. The negative margin on the first
-   hero-like child cancels main's padding for the whole hero stack, since
-   sibling layout is based on its shifted position, not its unshifted one. */
+/* .site-header is fixed (removed from flow) and fully transparent at rest,
+   so it needs no background to justify reserving space - but page content
+   still has to clear it or the heading collides with the logo/links. The
+   negative margin on the first hero-like child cancels main's padding for
+   the whole hero stack, since sibling layout follows its shifted position,
+   not its unshifted one, so index.html's hero still sits under the
+   floating nav exactly as intended. */
 main {
   padding-top: 124px;
 }
