@@ -1,35 +1,69 @@
 (function () {
+  var HEADER_ENTRANCE_FALLBACK_MS = 4000;
+
+  function initHeaderEntrance() {
+    var header = document.getElementById("main-header");
+    if (!header) return;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (typeof window.gsap === "undefined" || reduceMotion) {
+      header.style.opacity = "1";
+      return;
+    }
+
+    var gsap = window.gsap;
+    var played = false;
+
+    function play() {
+      if (played) return;
+      played = true;
+      gsap.to(header, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        clearProps: "transform,opacity",
+      });
+    }
+
+    gsap.set(header, { yPercent: -100, opacity: 0 });
+
+    // Only index.html carries the binary-sphere intro; every other page
+    // should play its header entrance immediately rather than wait for an
+    // event that will never fire.
+    var hasIntro = document.getElementById("ecosystem-section") && document.getElementById("binary-sphere-canvas");
+    if (hasIntro) {
+      window.addEventListener("robustcode:intro-complete", play, { once: true });
+      setTimeout(play, HEADER_ENTRANCE_FALLBACK_MS);
+    } else {
+      play();
+    }
+  }
+
+  function initHeaderScrollMorph() {
+    var header = document.getElementById("main-header");
+    if (!header || typeof window.gsap === "undefined" || !window.ScrollTrigger) return;
+
+    window.gsap.registerPlugin(window.ScrollTrigger);
+
+    window.ScrollTrigger.create({
+      start: "top -50",
+      onEnter: function () {
+        header.classList.add("is-scrolled");
+      },
+      onLeaveBack: function () {
+        header.classList.remove("is-scrolled");
+      },
+    });
+  }
+
   function initNavMenu() {
     if (typeof window.gsap === "undefined") return;
     var gsap = window.gsap;
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    var header = document.getElementById("main-header");
     var burger = document.getElementById("menu-burger");
     var overlay = document.getElementById("menu-overlay");
-
-    // Desktop nav entrance: logo + links drop in from the top.
-    if (header) {
-      var navLogo = header.querySelector(".nav-logo");
-      var desktopItems = header.querySelectorAll(".desktop-nav a, .desktop-nav button");
-      var introTargets = navLogo ? [navLogo].concat(Array.from(desktopItems)) : Array.from(desktopItems);
-
-      if (introTargets.length) {
-        if (reduceMotion) {
-          gsap.set(introTargets, { opacity: 1, y: 0 });
-        } else {
-          gsap.from(introTargets, {
-            opacity: 0,
-            y: -20,
-            duration: 0.6,
-            stagger: 0.05,
-            ease: "power3.out",
-            clearProps: "opacity,transform",
-          });
-        }
-      }
-    }
-
     if (!burger || !overlay) return;
 
     var bg = overlay.querySelector(".menu-overlay-bg");
@@ -116,55 +150,85 @@
     var switches = document.querySelectorAll(".lang-switch");
     if (!switches.length) return;
 
-    function closeSwitch(switchEl) {
-      switchEl.classList.remove("is-open");
-      var toggle = switchEl.querySelector(".lang-toggle");
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-    }
-
-    function closeAll() {
-      document.querySelectorAll(".lang-switch.is-open").forEach(closeSwitch);
-    }
+    var gsap = window.gsap;
+    var hasGsap = typeof gsap !== "undefined";
+    var entries = [];
 
     switches.forEach(function (switchEl) {
       var toggle = switchEl.querySelector(".lang-toggle");
-      if (!toggle) return;
+      var options = switchEl.querySelector(".lang-options");
+      if (!toggle || !options) return;
 
-      toggle.addEventListener("click", function (e) {
+      if (hasGsap) {
+        gsap.set(options, { opacity: 0, scale: 0.95, y: -10 });
+      }
+
+      entries.push({ switchEl: switchEl, toggle: toggle, options: options });
+    });
+
+    function close(entry) {
+      entry.switchEl.classList.remove("is-open");
+      entry.toggle.setAttribute("aria-expanded", "false");
+      if (hasGsap) {
+        gsap.to(entry.options, { opacity: 0, scale: 0.95, y: -10, duration: 0.2, ease: "power2.in" });
+      } else {
+        entry.options.style.opacity = "0";
+      }
+    }
+
+    function open(entry) {
+      entry.switchEl.classList.add("is-open");
+      entry.toggle.setAttribute("aria-expanded", "true");
+      if (hasGsap) {
+        gsap.to(entry.options, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "power3.out" });
+      } else {
+        entry.options.style.opacity = "1";
+      }
+    }
+
+    function closeAllExcept(exceptEntry) {
+      entries.forEach(function (entry) {
+        if (entry !== exceptEntry && entry.switchEl.classList.contains("is-open")) close(entry);
+      });
+    }
+
+    entries.forEach(function (entry) {
+      entry.toggle.addEventListener("click", function (e) {
         e.stopPropagation();
-        var willOpen = !switchEl.classList.contains("is-open");
-        closeAll();
-        if (willOpen) {
-          switchEl.classList.add("is-open");
-          toggle.setAttribute("aria-expanded", "true");
-        }
+        var willOpen = !entry.switchEl.classList.contains("is-open");
+        closeAllExcept(willOpen ? entry : null);
+        if (willOpen) open(entry);
+        else close(entry);
       });
 
-      switchEl.querySelectorAll(".lang-btn").forEach(function (btn) {
+      entry.switchEl.querySelectorAll(".lang-btn").forEach(function (btn) {
         btn.addEventListener("click", function () {
-          closeSwitch(switchEl);
+          close(entry);
         });
       });
     });
 
     document.addEventListener("click", function (e) {
-      document.querySelectorAll(".lang-switch.is-open").forEach(function (switchEl) {
-        if (!switchEl.contains(e.target)) closeSwitch(switchEl);
+      entries.forEach(function (entry) {
+        if (entry.switchEl.classList.contains("is-open") && !entry.switchEl.contains(e.target)) close(entry);
       });
     });
 
     window.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeAll();
+      if (e.key === "Escape") closeAllExcept(null);
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      initNavMenu();
-      initLangSwitcher();
-    });
-  } else {
+  function init() {
+    initHeaderEntrance();
+    initHeaderScrollMorph();
     initNavMenu();
     initLangSwitcher();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();

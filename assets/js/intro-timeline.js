@@ -12,7 +12,10 @@
   const heroContent = document.querySelector(".hero-content");
   const heroSub = document.querySelector(".hero-sub");
   const heroCta = document.querySelector(".hero-cta");
-  if (!overlay || !canvas || !eyebrow || !title || !heroSub || !heroCta) return;
+  if (!overlay || !canvas || !eyebrow || !title || !heroSub || !heroCta) {
+    window.dispatchEvent(new Event("robustcode:intro-complete"));
+    return;
+  }
 
   const ctaButtons = heroCta.querySelectorAll("a");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -24,6 +27,7 @@
   if (reduceMotion) {
     gsap.set(overlay, { autoAlpha: 0, pointerEvents: "none", display: "none" });
     gsap.set([heroSub, ...ctaButtons], { clearProps: "all" });
+    window.dispatchEvent(new Event("robustcode:intro-complete"));
     return;
   }
 
@@ -49,7 +53,10 @@
   gsap.set(canvas, { scale: 1, autoAlpha: 1, transformOrigin: "50% 50%" });
   gsap.set([heroSub, ...ctaButtons], { autoAlpha: 0, y: 30 });
 
-  const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+  const tl = gsap.timeline({
+    defaults: { ease: "power4.out" },
+    onComplete: () => window.dispatchEvent(new Event("robustcode:intro-complete")),
+  });
 
   tl.to(eyebrow, { autoAlpha: 1, letterSpacing: "0.4em", duration: 0.8, ease: "power2.out" }, 0.5)
     .to(eyebrow, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, 1.5)
