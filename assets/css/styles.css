@@ -366,9 +366,13 @@ main > .hero {
 }
 
 .hero {
+  align-items: center;
+  display: flex;
+  justify-content: center;
   min-height: min(85vh, 820px);
   overflow: hidden;
   position: relative;
+  text-align: center;
 }
 
 .hero-video,
@@ -386,19 +390,17 @@ main > .hero {
 
 .hero-overlay {
   background:
-    linear-gradient(100deg, rgba(0, 0, 0, 0.82) 18%, rgba(0, 0, 0, 0.45) 58%, rgba(0, 0, 0, 0.8) 100%),
-    radial-gradient(circle at 72% 28%, var(--accent-teal-glow), transparent 42%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.78) 100%),
+    radial-gradient(circle at 50% 42%, var(--accent-teal-glow), transparent 50%);
 }
 
 .hero-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   padding: 8rem 0 5rem;
   position: relative;
   z-index: 2;
-}
-
-.hero-content .reveal-mask {
-  display: block;
-  overflow: hidden;
 }
 
 /* "ROBUST CODE S.a.r.l" and "Innovation at your fingertips" share one size
@@ -452,13 +454,15 @@ h3 {
 
 .hero-sub {
   color: #e3e3e3;
-  max-width: 58ch;
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
+  justify-content: center;
   margin-top: 1.4rem;
 }
 
