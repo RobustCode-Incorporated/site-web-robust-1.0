@@ -45,16 +45,18 @@ a {
 
 /* .site-header is fixed (removed from flow) and fully transparent at rest,
    so it needs no background to justify reserving space - but page content
-   still has to clear it or the heading collides with the logo/links. The
-   negative margin on the first hero-like child cancels main's padding for
-   the whole hero stack, since sibling layout follows its shifted position,
-   not its unshifted one, so index.html's hero still sits under the
-   floating nav exactly as intended. */
+   still has to clear it or the heading collides with the logo/links. On
+   index.html, intro-timeline.js pulls #ecosystem-section out of flow
+   (position: fixed) within milliseconds of load, so .hero - not the
+   intro section - is effectively main's first in-flow child for nearly
+   all of the page's lifetime; its negative margin cancels main's padding
+   so the video still fills the viewport under the floating transparent
+   nav, exactly as intended. */
 main {
   padding-top: 124px;
 }
 
-main > .ecosystem-visual-section:first-child {
+main > .hero {
   margin-top: -124px;
 }
 
