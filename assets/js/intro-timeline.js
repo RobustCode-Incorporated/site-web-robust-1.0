@@ -13,14 +13,13 @@
   const heroContent = document.querySelector(".hero-content");
   const heroEyebrow = heroContent ? heroContent.querySelector(".eyebrow") : null;
   const heroTitle = heroContent ? heroContent.querySelector("h1") : null;
-  const heroSub = document.querySelector(".hero-sub");
   const heroCta = document.querySelector(".hero-cta");
-  if (!overlay || !eyebrow || !title || !heroEyebrow || !heroTitle || !heroSub || !heroCta) {
+  if (!overlay || !eyebrow || !title || !heroEyebrow || !heroTitle || !heroCta) {
     window.dispatchEvent(new Event("robustcode:intro-complete"));
     return;
   }
 
-  const heroRevealItems = [heroEyebrow, heroTitle, heroSub, heroCta];
+  const heroRevealItems = [heroEyebrow, heroTitle, heroCta];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (reduceMotion) {

@@ -452,12 +452,6 @@ h3 {
   font-size: 1.2rem;
 }
 
-.hero-sub {
-  color: #e3e3e3;
-  margin: 0 auto;
-  max-width: 700px;
-}
-
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
