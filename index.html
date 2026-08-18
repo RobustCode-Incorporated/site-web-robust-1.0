@@ -93,15 +93,23 @@
         <source src="https://www.pexels.com/download/video/3129671/" type="video/mp4">
       </video>
       <div class="hero-overlay"></div>
-      <div class="container hero-content reveal slide-down">
-        <p class="eyebrow" data-i18n="home.hero.eyebrow">ROBUST CODE S.a.r.l</p>
-        <h1 data-i18n="home.hero.title">Innovation at your fingertips</h1>
-        <p class="hero-sub" data-i18n="home.hero.subtitle">
-          Engineering bespoke software, CRM, ERP, Cybersecurity, and global/local payment infrastructures.
-        </p>
+      <div class="container hero-content">
+        <span class="reveal-mask"><p class="eyebrow" data-i18n="home.hero.eyebrow">ROBUST CODE S.a.r.l</p></span>
+        <span class="reveal-mask"><h1 data-i18n="home.hero.title">Innovation at your fingertips</h1></span>
+        <span class="reveal-mask">
+          <p class="hero-sub" data-i18n="home.hero.subtitle">
+            Engineering bespoke software, CRM, ERP, Cybersecurity, and global/local payment infrastructures.
+          </p>
+        </span>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="what-we-do.html" data-i18n="home.hero.ctaPrimary">Explore What We Do</a>
-          <a class="btn btn-ghost" href="our-work.html" data-i18n="home.hero.ctaSecondary">View Our Work</a>
+          <a class="btn btn-primary" href="what-we-do.html">
+            <span data-i18n="home.hero.ctaPrimary">Explore What We Do</span>
+            <span class="btn-glint" aria-hidden="true"></span>
+          </a>
+          <a class="btn btn-ghost" href="our-work.html">
+            <span data-i18n="home.hero.ctaSecondary">View Our Work</span>
+            <span class="btn-glint" aria-hidden="true"></span>
+          </a>
         </div>
       </div>
     </section>
@@ -299,6 +307,7 @@
   <script src="assets/js/vendor/gsap.min.js"></script>
   <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
   <script src="assets/js/intro-timeline.js"></script>
+  <script src="assets/js/hero-buttons.js"></script>
   <script src="assets/js/partners-animation.js"></script>
   <script src="assets/js/clients-trust-animation.js"></script>
 
