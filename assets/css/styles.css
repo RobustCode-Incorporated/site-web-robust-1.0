@@ -409,6 +409,13 @@ main > .hero {
   font-size: clamp(1.6rem, 3.2vw, 2rem);
 }
 
+/* Matches the wordmark's bold slab-serif in the logo image. */
+.hero-content .eyebrow {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
 .eyebrow {
   color: var(--accent-teal);
   font-family: var(--font-mono);
@@ -455,8 +462,8 @@ h3 {
 .btn {
   border-radius: 50px;
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   letter-spacing: 0.02em;
   overflow: hidden;
   padding: 1rem 2.5rem;
