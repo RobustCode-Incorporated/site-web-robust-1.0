@@ -1205,6 +1205,10 @@ h3 {
   margin-inline: auto;
 }
 
+.clients-trust-content .title-highlight {
+  color: #00778f;
+}
+
 .clients-trust-content .section-heading {
   margin-bottom: 0;
   text-align: center;

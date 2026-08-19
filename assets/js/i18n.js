@@ -94,7 +94,11 @@ const translations = {
       },
       clients: {
         eyebrow: "Trusted By",
-        title: "Businesses that trust us to build"
+        titlePart1: "Awesome ",
+        titleHighlight1: "clients",
+        titlePart2: " and ",
+        titleHighlight2: "brands",
+        titlePart3: " we've worked with"
       }
     },
     whatWeDo: {
@@ -269,7 +273,11 @@ const translations = {
       },
       clients: {
         eyebrow: "Ils nous font confiance",
-        title: "Des entreprises qui nous font confiance pour bâtir"
+        titlePart1: "Des ",
+        titleHighlight1: "clients",
+        titlePart2: " et des ",
+        titleHighlight2: "marques",
+        titlePart3: " exceptionnels avec qui nous avons collaboré"
       }
     },
     whatWeDo: {
