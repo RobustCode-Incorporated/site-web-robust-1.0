@@ -1,8 +1,10 @@
 /* RC-DATA immersive backdrop: a fixed field of thin white "data" points
    streaming past the camera in 3D perspective, live-linked to scroll
    velocity - scroll fast and the stream surges; sit still and it settles
-   to a slow idle drift. Content cards get a scroll-scrubbed blur-focus
-   pull: out-of-focus and slightly small until the section is centered.
+   to a slow idle drift. The section heading gets a scroll-triggered
+   blur-focus pull: out-of-focus and slightly small until it nears the
+   viewport center (the liquid-glass card grid below owns its own
+   entrance via liquid-glass-cards.js).
 
    Same perspective-projection model as binary-rain.js, and the same
    ctx.filter avoidance - real canvas blur was measured stalling GSAP's
@@ -133,7 +135,7 @@
     gsap.registerPlugin(window.ScrollTrigger);
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    var targets = document.querySelectorAll(".section-heading, .info-block");
+    var targets = document.querySelectorAll(".section-heading");
     if (!targets.length) return;
 
     targets.forEach(function (el) {
