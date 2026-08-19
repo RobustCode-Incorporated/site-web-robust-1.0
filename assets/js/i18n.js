@@ -174,7 +174,19 @@ const translations = {
       },
       rcCore: {
         platforms: { title: "Custom Platforms", desc: "Web and mobile systems engineered for scale, speed, and operational reliability." },
-        payments: { title: "Payments", desc: "Stripe, PayPal, and Flexpaie integrations for secure local and global transactions." }
+        payments: { title: "Payments", desc: "Stripe, PayPal, and Flexpaie integrations for secure local and global transactions." },
+        rem: {
+          eyebrow: "Flagship Product",
+          title: "REM",
+          fullName: "Robust Enterprise Management",
+          desc: "Our commercialized enterprise platform — unified operations, finance, and reporting for growing organizations."
+        },
+        rcm: {
+          eyebrow: "Internal R&D",
+          title: "RCM",
+          fullName: "Robust Customer Management",
+          desc: "Our internal engine for customer intelligence and relationship data, built to power everything we ship next."
+        }
       },
       rcStudio: {
         storytelling: { title: "Digital Storytelling", desc: "Narrative systems translating technical value into audience-ready language." },
@@ -353,7 +365,19 @@ const translations = {
       },
       rcCore: {
         platforms: { title: "Plateformes sur mesure", desc: "Systèmes web et mobiles conçus pour la montée en charge, la rapidité et la fiabilité opérationnelle." },
-        payments: { title: "Paiements", desc: "Intégrations Stripe, PayPal et Flexpaie pour des transactions locales et internationales sécurisées." }
+        payments: { title: "Paiements", desc: "Intégrations Stripe, PayPal et Flexpaie pour des transactions locales et internationales sécurisées." },
+        rem: {
+          eyebrow: "Produit phare",
+          title: "REM",
+          fullName: "Robust Enterprise Management",
+          desc: "Notre plateforme d'entreprise commercialisée — opérations, finance et reporting unifiés pour les organisations en croissance."
+        },
+        rcm: {
+          eyebrow: "R&D interne",
+          title: "RCM",
+          fullName: "Robust Customer Management",
+          desc: "Notre moteur interne d'intelligence client et de données relationnelles, conçu pour alimenter tout ce que nous développerons ensuite."
+        }
       },
       rcStudio: {
         storytelling: { title: "Storytelling numérique", desc: "Des dispositifs narratifs qui traduisent la valeur technique en un langage adapté au public." },
