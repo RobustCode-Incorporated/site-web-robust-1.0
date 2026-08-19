@@ -182,7 +182,6 @@ const translations = {
       rows: {
         general: "General Inquiries",
         careers: "Careers",
-        whatsapp: "WhatsApp",
         security: "Security",
         privacy: "Data Protection Officer",
         support: "Support",
@@ -505,7 +504,6 @@ const translations = {
       rows: {
         general: "Demandes générales",
         careers: "Carrières",
-        whatsapp: "WhatsApp",
         security: "Sécurité",
         privacy: "Délégué à la protection des données",
         support: "Support",
