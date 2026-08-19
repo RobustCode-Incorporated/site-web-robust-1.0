@@ -174,9 +174,22 @@ const translations = {
     contact: {
       eyebrow: "Contact Us",
       title: "Let us engineer your next transformation chapter",
-      email: "Email: contact@robust-code.com",
-      whatsapp: "WhatsApp: +32 467 613 480",
-      linkedin: "LinkedIn: /company/robustcodesarl"
+      groups: {
+        operations: "Operations",
+        trust: "Trust & DPO",
+        socials: "Socials"
+      },
+      rows: {
+        general: "General Inquiries",
+        careers: "Careers",
+        whatsapp: "WhatsApp",
+        security: "Security",
+        privacy: "Data Protection Officer",
+        support: "Support",
+        instagram: "Instagram",
+        x: "X",
+        linkedin: "LinkedIn"
+      }
     },
     subpages: {
       unit1: "Unit 1",
@@ -484,9 +497,22 @@ const translations = {
     contact: {
       eyebrow: "Contactez-nous",
       title: "Laissez-nous concevoir votre prochain chapitre de transformation",
-      email: "E-mail : contact@robust-code.com",
-      whatsapp: "WhatsApp : +32 467 613 480",
-      linkedin: "LinkedIn : /company/robustcodesarl"
+      groups: {
+        operations: "Opérations",
+        trust: "Confiance et DPO",
+        socials: "Réseaux sociaux"
+      },
+      rows: {
+        general: "Demandes générales",
+        careers: "Carrières",
+        whatsapp: "WhatsApp",
+        security: "Sécurité",
+        privacy: "Délégué à la protection des données",
+        support: "Support",
+        instagram: "Instagram",
+        x: "X",
+        linkedin: "LinkedIn"
+      }
     },
     subpages: {
       unit1: "Unité 1",
