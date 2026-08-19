@@ -826,22 +826,22 @@ main > .hero {
   z-index: 2;
 }
 
-/* "ROBUST CODE S.a.r.l" and "Innovation at your fingertips" share one size
-   here (their only difference from the sitewide .eyebrow/h1 rules), rather
-   than the usual tiny-label/huge-headline split. */
-.hero-content .eyebrow,
-.hero-content h1 {
-  font-size: clamp(1.6rem, 3.2vw, 2rem);
+/* "ROBUST CODE S.a.r.l" and "Innovation at your fingertips" crystallize
+   out of the opening intro's own eyebrow/title, so they carry the same
+   size and font here as they had mid-animation for a seamless handoff. */
+.hero-content .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  /* Keeps "S.a.r.l" in its legal-form casing instead of becoming "S.A.R.L". */
+  text-transform: none;
 }
 
-/* Matches the wordmark's bold slab-serif in the logo image. Overrides
-   .eyebrow's uppercase transform so "S.a.r.l" keeps its legal-form
-   casing instead of becoming "S.A.R.L". */
-.hero-content .eyebrow {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: none;
+.hero-content h1 {
+  font-size: clamp(2.6rem, 7.5vw, 5.75rem);
+  line-height: 1.25;
+  max-width: 20ch;
 }
 
 .eyebrow {
