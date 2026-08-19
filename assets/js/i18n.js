@@ -134,7 +134,15 @@ const translations = {
       mission: { title: "Mission", desc: "Build resilient digital platforms that accelerate growth while preserving security, compliance, and speed." },
       approach: { title: "Approach", desc: "Specification-driven engineering with measurable delivery, transparent governance, and modular architecture." },
       presence: { title: "Presence", desc: "Operations and delivery across local and international markets, including DRC payment ecosystems." },
-      motto: { title: "Motto", desc: "Innovation at your fingertips." }
+      motto: { title: "Motto", desc: "Innovation at your fingertips." },
+      vision: {
+        eyebrow: "The Founder's Dream",
+        name: "Jean-Luc Luzemba",
+        headline: "Digitalising Africa",
+        text: "Validated in Europe for global scale. Engineered to transform the African continent with world-class native architecture.",
+        card1: "Global Validation",
+        card2: "African Infrastructure"
+      }
     },
     news: {
       eyebrow: "News",
@@ -325,7 +333,15 @@ const translations = {
       mission: { title: "Mission", desc: "Construire des plateformes numériques résilientes qui accélèrent la croissance tout en préservant sécurité, conformité et rapidité." },
       approach: { title: "Approche", desc: "Une ingénierie pilotée par les spécifications, avec une livraison mesurable, une gouvernance transparente et une architecture modulaire." },
       presence: { title: "Présence", desc: "Opérations et livraison sur les marchés locaux et internationaux, y compris les écosystèmes de paiement en RDC." },
-      motto: { title: "Devise", desc: "L'innovation à portée de main." }
+      motto: { title: "Devise", desc: "L'innovation à portée de main." },
+      vision: {
+        eyebrow: "Le Rêve du Fondateur",
+        name: "Jean-Luc Luzemba",
+        headline: "Digitaliser l'Afrique",
+        text: "Validée en Europe pour une échelle mondiale. Conçue pour transformer le continent africain avec une architecture native de classe mondiale.",
+        card1: "Validation Mondiale",
+        card2: "Infrastructure Africaine"
+      }
     },
     news: {
       eyebrow: "Actualités",

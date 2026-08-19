@@ -10,11 +10,18 @@
     var text = el.textContent;
     el.textContent = "";
     var frag = document.createDocumentFragment();
-    Array.prototype.forEach.call(text, function (ch) {
-      var span = document.createElement("span");
-      span.className = "studio-letter";
-      span.textContent = ch;
-      frag.appendChild(span);
+    var words = text.split(" ");
+    words.forEach(function (word, i) {
+      var wordSpan = document.createElement("span");
+      wordSpan.className = "studio-word";
+      Array.prototype.forEach.call(word, function (ch) {
+        var span = document.createElement("span");
+        span.className = "studio-letter";
+        span.textContent = ch;
+        wordSpan.appendChild(span);
+      });
+      frag.appendChild(wordSpan);
+      if (i < words.length - 1) frag.appendChild(document.createTextNode(" "));
     });
     el.appendChild(frag);
     return Array.prototype.slice.call(el.querySelectorAll(".studio-letter"));

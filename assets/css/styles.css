@@ -123,6 +123,165 @@ body {
   position: absolute;
 }
 
+/* ---- ABOUT: white engineering block -> black founder's-vision iris reveal ---- */
+
+.about-white-layer {
+  background: #ffffff;
+  color: #0d0d0d;
+}
+
+.about-white-layer .eyebrow {
+  color: #067181;
+}
+
+.about-white-layer .text-soft {
+  color: rgba(13, 13, 13, 0.62);
+}
+
+.about-white-layer .info-block {
+  background: linear-gradient(170deg, rgba(13, 13, 13, 0.035), rgba(13, 13, 13, 0.01));
+  border-color: rgba(13, 13, 13, 0.1);
+}
+
+.about-white-layer .info-block i,
+.about-white-layer .info-block svg {
+  color: #067181;
+}
+
+.about-iris-section {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-iris-white {
+  align-items: center;
+  background: #ffffff;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.about-iris-seed {
+  background: #0d0d0d;
+  border-radius: 50%;
+  display: block;
+  height: 10px;
+  opacity: 0.18;
+  width: 10px;
+}
+
+.about-vision-portal {
+  align-items: center;
+  background: #000000;
+  clip-path: circle(200% at 50% 50%);
+  color: var(--text-primary);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  overflow: hidden;
+  padding: 7.5rem 1.6rem 3rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  will-change: clip-path;
+  z-index: 2;
+}
+
+.about-vision-portal .vision-content {
+  margin: 0 auto;
+  max-width: 900px;
+  text-align: center;
+}
+
+.vision-name {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  letter-spacing: 0.02em;
+  margin: 0.6rem 0 0.3rem;
+}
+
+.vision-headline {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2.4vw, 1.4rem);
+  letter-spacing: 0.24em;
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+.about-vision-portal .vision-text {
+  margin: 0 auto 2.4rem;
+  max-width: 56ch;
+}
+
+.vision-cards {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vision-card {
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  padding: 1.4rem;
+}
+
+.vision-card-visual {
+  align-items: center;
+  aspect-ratio: 21 / 9;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.vision-card:nth-child(1) .vision-card-visual {
+  background: linear-gradient(135deg, #062a30 0%, #00e5ff 130%);
+}
+
+.vision-card:nth-child(2) .vision-card-visual {
+  background: linear-gradient(135deg, #1d0d2e 0%, #7a5cff 130%);
+}
+
+.vision-card-visual svg {
+  color: #ffffff;
+  height: 1.8rem;
+  opacity: 0.85;
+  width: 1.8rem;
+}
+
+.vision-card-title {
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vision-word {
+  display: inline-block;
+}
+
+.vision-letter {
+  display: inline-block;
+  white-space: pre;
+}
+
+@media (max-width: 720px) {
+  .vision-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---- RC-STUDIO: white-to-black iris curtain reveal ---- */
 
 .studio-curtain-section {
@@ -208,6 +367,10 @@ body {
 
 .studio-reel-title {
   color: #ffffff;
+}
+
+.studio-word {
+  display: inline-block;
 }
 
 .studio-letter {
