@@ -2147,7 +2147,7 @@ h3 {
 .footer-grid {
   display: grid;
   gap: 3rem;
-  grid-template-columns: 1.3fr repeat(4, 1fr);
+  grid-template-columns: 1.3fr repeat(3, 1fr);
   padding-bottom: 3rem;
 }
 
