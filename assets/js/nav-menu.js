@@ -76,6 +76,7 @@
         var isOpen = overlay.classList.toggle("is-open");
         burger.setAttribute("aria-expanded", String(isOpen));
         overlay.setAttribute("aria-hidden", String(!isOpen));
+        overlay.inert = !isOpen;
         document.body.style.overflow = isOpen ? "hidden" : "";
       });
       overlay.querySelectorAll(".mobile-link").forEach(function (link) {
@@ -83,6 +84,7 @@
           overlay.classList.remove("is-open");
           burger.setAttribute("aria-expanded", "false");
           overlay.setAttribute("aria-hidden", "true");
+          overlay.inert = true;
           document.body.style.overflow = "";
         });
       });
@@ -114,6 +116,7 @@
       isOpen = true;
       burger.setAttribute("aria-expanded", "true");
       overlay.setAttribute("aria-hidden", "false");
+      overlay.inert = false;
       overlay.classList.add("is-open");
       document.body.style.overflow = "hidden";
       tl.timeScale(1).play();
@@ -123,6 +126,7 @@
       isOpen = false;
       burger.setAttribute("aria-expanded", "false");
       overlay.setAttribute("aria-hidden", "true");
+      overlay.inert = true;
       document.body.style.overflow = "";
       tl.timeScale(1.5).reverse();
     }
