@@ -1,0 +1,46 @@
+# ROBUST CODE
+
+> ROBUST CODE S.A.R.L is an engineering-driven software company building custom digital solutions, SaaS platforms, and business automation systems.
+
+ROBUST CODE designs and delivers custom software, CRM/ERP platforms, cybersecurity, payment infrastructure, and digital transformation programs for organizations that need scalable, resilient technology.
+
+## What We Do
+
+- Custom software engineering (web and mobile applications)
+- CRM and ERP platforms
+- Cybersecurity and payment APIs (Stripe, PayPal, Flexpaie)
+- Data engineering, architecture, and business intelligence pipelines
+- Omnichannel user experience (UX/CX) design
+- Brand storytelling and digital content engineering
+
+## Business Units
+
+- RC-CORE: Custom software engineering, CRM/ERP solutions, cybersecurity, and payment APIs. Home of REM and RCM.
+- RC-DATA: Data engineering, architecture, and business intelligence pipelines.
+- RC-XP: Seamless and immersive omnichannel user experiences, in partnership with Rahlab.
+- RC-STUDIO: Brand storytelling and creative digital content engineering, in partnership with Rahlab.
+
+## Products
+
+- REM (Robust Enterprise Management): flagship commercialized enterprise platform for unified operations, finance, and reporting.
+- RCM (Robust Customer Management): internal engine for customer intelligence and relationship data.
+
+## Key Pages
+
+- [Home](https://www.robust-code.com/): Company overview
+- [What We Do](https://www.robust-code.com/what-we-do.html): Business units and capabilities
+- [Our Work](https://www.robust-code.com/our-work.html): Project portfolio
+- [About](https://www.robust-code.com/about.html): Company mission, approach, and leadership
+- [Contact](https://www.robust-code.com/contact.html): Contact channels
+- [RC-CORE](https://www.robust-code.com/what-we-do/rc-core.html)
+- [RC-DATA](https://www.robust-code.com/what-we-do/rc-data.html)
+- [RC-XP](https://www.robust-code.com/what-we-do/rc-xp.html)
+- [RC-STUDIO](https://www.robust-code.com/what-we-do/rc-studio.html)
+
+## Company
+
+- Legal name: ROBUST CODE S.A.R.L
+- Registered office: Kinshasa, Democratic Republic of the Congo
+- Belgium representation office: BeCentral, Cantersteen 12, 1000 Bruxelles, Belgium
+- RCCM: CD/KNG/RCCM/24-B-03978
+- Contact: contact@robust-code.com
