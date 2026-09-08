@@ -1874,10 +1874,10 @@ h3 {
   box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.25rem, 3vw, 2.25rem);
   justify-content: center;
-  max-width: 920px;
-  padding: 2.4rem 3rem;
+  max-width: 1120px;
+  padding: 2.2rem 2.5rem;
   transform-origin: center;
   width: 100%;
 }
@@ -1918,8 +1918,8 @@ h3 {
 .client-logo {
   filter: grayscale(1) contrast(0.3) brightness(1.6);
   height: auto;
-  max-height: 44px;
-  max-width: 168px;
+  max-height: 38px;
+  max-width: 150px;
   mix-blend-mode: multiply;
   position: relative;
   transition: filter 0.4s ease;
