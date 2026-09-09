@@ -123,6 +123,176 @@ body {
   position: absolute;
 }
 
+/* ---- REM showcase: flagship-product hero with empty browser/phone device
+   mockups. Screens are placeholders (.rem-device-placeholder) until real
+   REM screenshots are dropped into .rem-device-screen. White panel to
+   match the REM identity already set by .core-panel--rem above. ---- */
+
+.rem-showcase-section {
+  background: #ffffff;
+  color: #0d0d0d;
+  overflow: hidden;
+}
+
+.rem-showcase-section .eyebrow {
+  color: #067181;
+}
+
+.rem-showcase-section .text-soft {
+  color: rgba(13, 13, 13, 0.62);
+}
+
+.rem-showcase-inner {
+  align-items: center;
+  display: grid;
+  gap: 3.5rem;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+
+.rem-showcase-title {
+  font-size: clamp(2.1rem, 3.8vw, 3rem);
+  line-height: 1.14;
+  margin: 0.7rem 0 1.1rem;
+}
+
+.rem-showcase-desc {
+  max-width: 46ch;
+}
+
+.rem-showcase-cta {
+  align-items: center;
+  margin-top: 1.7rem;
+}
+
+.btn-dark {
+  background: #0d0d0d;
+  border: 1px solid #0d0d0d;
+  color: #ffffff;
+}
+
+.btn-dark:hover {
+  background: #067181;
+  border-color: #067181;
+}
+
+.rem-trial-badge {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.rem-trial-badge i,
+.rem-trial-badge svg {
+  height: 13px;
+  width: 13px;
+}
+
+.rem-showcase-devices {
+  padding: 0 0 12% 8%;
+  position: relative;
+}
+
+.rem-device--browser {
+  background: #0d0d0d;
+  border-radius: 14px;
+  box-shadow: 0 40px 90px -30px rgba(13, 13, 13, 0.35);
+  overflow: hidden;
+}
+
+.rem-device-bar {
+  align-items: center;
+  background: #1c1c1c;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.rem-device-dot {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  height: 9px;
+  width: 9px;
+}
+
+.rem-device-url {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  margin-left: 0.6rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.rem-device-screen {
+  align-items: center;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(160deg, #161616 0%, #0d0d0d 100%);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.rem-device-screen-img {
+  display: block;
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  object-position: top center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.rem-device--phone {
+  background: #0d0d0d;
+  border: 6px solid #0d0d0d;
+  border-radius: 32px;
+  bottom: -10%;
+  box-shadow: 0 30px 60px -20px rgba(13, 13, 13, 0.4);
+  left: -4%;
+  overflow: hidden;
+  position: absolute;
+  width: 34%;
+}
+
+.rem-device-notch {
+  background: #0d0d0d;
+  border-radius: 0 0 10px 10px;
+  height: 16px;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 40%;
+  z-index: 1;
+}
+
+.rem-device-screen--phone {
+  aspect-ratio: 9 / 18;
+}
+
+@media (max-width: 900px) {
+  .rem-showcase-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .rem-showcase-devices {
+    margin-top: 1rem;
+    padding: 0 0 24% 14%;
+  }
+
+  .rem-device--phone {
+    width: 30%;
+  }
+}
+
+@media (max-width: 560px) {
+  .rem-showcase-devices {
+    padding: 0 0 30% 18%;
+  }
+}
+
 /* ---- ABOUT: white engineering block -> black founder's-vision iris reveal ---- */
 
 .about-white-layer {

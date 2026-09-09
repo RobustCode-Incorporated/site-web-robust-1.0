@@ -216,6 +216,13 @@ const translations = {
           title: "RCM",
           fullName: "Robust Customer Management",
           desc: "Our internal engine for customer intelligence and relationship data, built to power everything we ship next."
+        },
+        remShowcase: {
+          eyebrow: "Flagship Product",
+          title: "REM — Robust Enterprise Management",
+          desc: "Our commercialized enterprise platform — unified operations, finance, and reporting for growing organizations.",
+          ctaVisit: "Visit the Platform",
+          trial: "Try it free for 30 days"
         }
       },
       rcStudio: {
@@ -537,6 +544,13 @@ const translations = {
           title: "RCM",
           fullName: "Robust Customer Management",
           desc: "Notre moteur interne d'intelligence client et de données relationnelles, conçu pour alimenter tout ce que nous développerons ensuite."
+        },
+        remShowcase: {
+          eyebrow: "Produit phare",
+          title: "REM — Robust Enterprise Management",
+          desc: "Notre plateforme d'entreprise commercialisée — opérations, finance et reporting unifiés pour les organisations en croissance.",
+          ctaVisit: "Visiter la plateforme",
+          trial: "Essayez-le gratuitement pendant 30 jours"
         }
       },
       rcStudio: {
