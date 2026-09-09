@@ -197,6 +197,11 @@ body {
   gap: 0.4rem;
 }
 
+.product-showcase-section .badge {
+  border-color: rgba(0, 150, 170, 0.4);
+  color: #0d0d0d;
+}
+
 .showcase-highlight-badge i,
 .showcase-highlight-badge svg {
   height: 13px;
