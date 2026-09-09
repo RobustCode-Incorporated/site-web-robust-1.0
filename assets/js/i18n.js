@@ -223,6 +223,13 @@ const translations = {
           desc: "Our commercialized enterprise platform — unified operations, finance, and reporting for growing organizations.",
           ctaVisit: "Visit the Platform",
           trial: "Try it free for 30 days"
+        },
+        automationShowcase: {
+          eyebrow: "Free Tool",
+          title: "AI Automation Starter Kit",
+          desc: "A free interactive audit that studies how your business works and identifies one process AI can automate for you — then walks you from prototype to measurable results.",
+          ctaVisit: "Start Free Audit",
+          trial: "100% free, no card required"
         }
       },
       rcStudio: {
@@ -551,6 +558,13 @@ const translations = {
           desc: "Notre plateforme d'entreprise commercialisée — opérations, finance et reporting unifiés pour les organisations en croissance.",
           ctaVisit: "Visiter la plateforme",
           trial: "Essayez-le gratuitement pendant 30 jours"
+        },
+        automationShowcase: {
+          eyebrow: "Outil gratuit",
+          title: "AI Automation Starter Kit",
+          desc: "Un audit interactif gratuit qui étudie le fonctionnement de votre entreprise et identifie un processus que l'IA peut automatiser pour vous — puis vous guide du prototype jusqu'à des résultats mesurables.",
+          ctaVisit: "Démarrer l'audit gratuit",
+          trial: "100% gratuit, sans carte bancaire"
         }
       },
       rcStudio: {

@@ -123,43 +123,59 @@ body {
   position: absolute;
 }
 
-/* ---- REM showcase: flagship-product hero with empty browser/phone device
-   mockups. Screens are placeholders (.rem-device-placeholder) until real
-   REM screenshots are dropped into .rem-device-screen. White panel to
-   match the REM identity already set by .core-panel--rem above. ---- */
+/* ---- Product showcase: reusable white hero with browser/phone device
+   mockups (.device-mockup-screen holds a real product screenshot via
+   .device-mockup-screen-img). Shared by every commercialized product
+   presented on this page (REM, the AI Automation Starter Kit, ...). ---- */
 
-.rem-showcase-section {
+.product-showcase-section {
   background: #ffffff;
   color: #0d0d0d;
   overflow: hidden;
 }
 
-.rem-showcase-section .eyebrow {
+.product-showcase-section .eyebrow {
   color: #067181;
 }
 
-.rem-showcase-section .text-soft {
+.product-showcase-section .text-soft {
   color: rgba(13, 13, 13, 0.62);
 }
 
-.rem-showcase-inner {
+.product-showcase-section--alt {
+  background: #f7f8fa;
+}
+
+.product-showcase-inner {
   align-items: center;
   display: grid;
   gap: 3.5rem;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 }
 
-.rem-showcase-title {
+.product-showcase-inner--reverse {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.product-showcase-inner--reverse .product-showcase-copy {
+  order: 2;
+}
+
+.product-showcase-inner--reverse .product-showcase-devices {
+  order: 1;
+}
+
+.product-showcase-title {
   font-size: clamp(2.1rem, 3.8vw, 3rem);
   line-height: 1.14;
   margin: 0.7rem 0 1.1rem;
 }
 
-.rem-showcase-desc {
+.product-showcase-desc {
   max-width: 46ch;
 }
 
-.rem-showcase-cta {
+.product-showcase-cta {
   align-items: center;
   margin-top: 1.7rem;
 }
@@ -175,31 +191,31 @@ body {
   border-color: #067181;
 }
 
-.rem-trial-badge {
+.showcase-highlight-badge {
   align-items: center;
   display: inline-flex;
   gap: 0.4rem;
 }
 
-.rem-trial-badge i,
-.rem-trial-badge svg {
+.showcase-highlight-badge i,
+.showcase-highlight-badge svg {
   height: 13px;
   width: 13px;
 }
 
-.rem-showcase-devices {
+.product-showcase-devices {
   padding: 0 0 12% 8%;
   position: relative;
 }
 
-.rem-device--browser {
+.device-mockup--browser {
   background: #0d0d0d;
   border-radius: 14px;
   box-shadow: 0 40px 90px -30px rgba(13, 13, 13, 0.35);
   overflow: hidden;
 }
 
-.rem-device-bar {
+.device-mockup-bar {
   align-items: center;
   background: #1c1c1c;
   display: flex;
@@ -207,14 +223,14 @@ body {
   padding: 0.7rem 0.9rem;
 }
 
-.rem-device-dot {
+.device-mockup-dot {
   background: rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   height: 9px;
   width: 9px;
 }
 
-.rem-device-url {
+.device-mockup-url {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 999px;
   color: rgba(255, 255, 255, 0.5);
@@ -224,7 +240,7 @@ body {
   padding: 0.3rem 0.8rem;
 }
 
-.rem-device-screen {
+.device-mockup-screen {
   align-items: center;
   aspect-ratio: 16 / 10;
   background: linear-gradient(160deg, #161616 0%, #0d0d0d 100%);
@@ -233,7 +249,7 @@ body {
   position: relative;
 }
 
-.rem-device-screen-img {
+.device-mockup-screen-img {
   display: block;
   height: 100%;
   left: 0;
@@ -244,7 +260,7 @@ body {
   width: 100%;
 }
 
-.rem-device--phone {
+.device-mockup--phone {
   background: #0d0d0d;
   border: 6px solid #0d0d0d;
   border-radius: 32px;
@@ -256,7 +272,7 @@ body {
   width: 34%;
 }
 
-.rem-device-notch {
+.device-mockup-notch {
   background: #0d0d0d;
   border-radius: 0 0 10px 10px;
   height: 16px;
@@ -268,27 +284,32 @@ body {
   z-index: 1;
 }
 
-.rem-device-screen--phone {
+.device-mockup-screen--phone {
   aspect-ratio: 9 / 18;
 }
 
 @media (max-width: 900px) {
-  .rem-showcase-inner {
+  .product-showcase-inner {
     grid-template-columns: 1fr;
   }
 
-  .rem-showcase-devices {
+  .product-showcase-inner--reverse .product-showcase-copy,
+  .product-showcase-inner--reverse .product-showcase-devices {
+    order: initial;
+  }
+
+  .product-showcase-devices {
     margin-top: 1rem;
     padding: 0 0 24% 14%;
   }
 
-  .rem-device--phone {
+  .device-mockup--phone {
     width: 30%;
   }
 }
 
 @media (max-width: 560px) {
-  .rem-showcase-devices {
+  .product-showcase-devices {
     padding: 0 0 30% 18%;
   }
 }
