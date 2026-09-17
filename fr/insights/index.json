@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "crm-erp-fundamentals-smes",
+    "category": "business",
+    "title": "CRM vs ERP pour les PME : ce que chacun résout vraiment",
+    "description": "CRM et ERP sont présentés comme des termes interchangeables. Voici ce à quoi chaque système sert réellement, quand un tableur ne suffit plus, et comment évaluer les options sans acheter une coquille vide.",
+    "tags": [
+      "CRM",
+      "ERP",
+      "logiciels d'entreprise",
+      "PME",
+      "opérations"
+    ],
+    "publishedAt": "2026-03-05",
+    "url": "fr/insights/business/crm-erp-fundamentals-smes/index.html"
+  },
+  {
+    "slug": "ai-automation-sme-adoption-framework",
+    "category": "ai",
+    "title": "IA et automatisation pour les PME : un cadre progressif qui fonctionne vraiment",
+    "description": "La plupart des initiatives IA en PME échouent parce qu'elles visent trop grand dès le départ. Voici un cadre pratique en trois étapes pour adopter l'IA et l'automatisation sans gaspiller son budget.",
+    "tags": [
+      "IA",
+      "automatisation",
+      "PME",
+      "digitalisation",
+      "ROI"
+    ],
+    "publishedAt": "2026-02-05",
+    "url": "fr/insights/ai/ai-automation-sme-adoption-framework/index.html"
+  },
+  {
+    "slug": "e-invoicing-belgium-smes-2026",
+    "category": "belgium",
+    "title": "Facturation électronique en Belgique 2026 : le guide pratique pour les PME",
+    "description": "Depuis le 1er janvier 2026, la Belgique impose la facturation électronique structurée B2B via Peppol. Voici ce que les PME doivent réellement faire pour être en conformité à temps.",
+    "tags": [
+      "Belgique",
+      "facturation électronique",
+      "Peppol",
+      "conformité",
+      "PME"
+    ],
+    "publishedAt": "2026-01-08",
+    "url": "fr/insights/belgium/e-invoicing-belgium-smes-2026/index.html"
+  }
+]

@@ -3,9 +3,11 @@
  * Robust Code content build.
  *
  * Reads content/insights/**\/*.md (frontmatter + markdown), renders static
- * pages under insights/ and tools/, regenerates sitemap.xml. Zero framework,
- * zero server — output is plain HTML committed like every other page on
- * this site. Run: `npm run build:content` (add --check to also validate).
+ * pages under insights/ and tools/ (English) and fr/insights/ (French, for
+ * any article that has a companion <slug>.fr.md file), regenerates
+ * sitemap.xml. Zero framework, zero server — output is plain HTML committed
+ * like every other page on this site. Run: `npm run build:content` (add
+ * --check to also validate).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -18,12 +20,86 @@ const SITE_URL = "https://www.robust-code.com";
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const CATEGORIES = {
-  belgium: "Belgium",
-  business: "Business",
-  ai: "AI",
-  automation: "Automation",
-  operations: "Operations",
-  "case-studies": "Case Studies",
+  en: {
+    belgium: "Belgium",
+    business: "Business",
+    ai: "AI",
+    automation: "Automation",
+    operations: "Operations",
+    "case-studies": "Case Studies",
+  },
+  fr: {
+    belgium: "Belgique",
+    business: "Business",
+    ai: "IA",
+    automation: "Automatisation",
+    operations: "Opérations",
+    "case-studies": "Études de cas",
+  },
+};
+
+// Chrome (nav/footer) copy per language. Reuses the exact wording already
+// used by assets/js/i18n.js's `fr` dictionary for the strings that overlap,
+// so a French insights page reads consistently with the rest of the site.
+const NAV = {
+  en: {
+    home: "Home", whatWeDo: "What We Do", ourWork: "Our Work", insights: "Insights", about: "About",
+    tools: "Tools", news: "News", careers: "Careers", contact: "Contact Us",
+    company: "Company", trust: "Trust &amp; Security", security: "Security", privacyProtection: "Privacy Protection",
+    gdpr: "GDPR", support: "Support", legal: "Legal", legalNotice: "Legal Notice", privacyPolicy: "Privacy Policy",
+    cookiePolicy: "Cookie Policy", termsUse: "Terms of Use", termsConditions: "Terms &amp; Conditions",
+    rights: "All Rights Reserved", tagline: "Innovation at your fingertips",
+  },
+  fr: {
+    home: "Accueil", whatWeDo: "Ce Que Nous Faisons", ourWork: "Nos Réalisations", insights: "Analyses", about: "À Propos",
+    tools: "Outils", news: "Actualités", careers: "Carrières", contact: "Contactez-nous",
+    company: "Entreprise", trust: "Confiance et Sécurité", security: "Sécurité", privacyProtection: "Protection de la vie privée",
+    gdpr: "RGPD", support: "Support", legal: "Juridique", legalNotice: "Mentions légales", privacyPolicy: "Politique de confidentialité",
+    cookiePolicy: "Politique de cookies", termsUse: "Conditions d'utilisation", termsConditions: "Conditions générales",
+    rights: "Tous droits réservés", tagline: "L'innovation à portée de main",
+  },
+};
+
+// Static in-page strings (not chrome) that need a French version.
+const T = {
+  en: {
+    insightsEyebrow: "Insights",
+    insightsHeading: "Business, AI &amp; digitalization for Belgian SMEs",
+    insightsSubtitle: "Practical, non-fabricated analysis on operations, automation, AI adoption and Belgian digitalization &mdash; written for people who run businesses, not for search engines.",
+    searchPlaceholder: "Search articles&hellip;",
+    featured: "Featured",
+    by: "By", published: "Published", updated: "Updated", minRead: "min read",
+    relatedReading: "Related reading", freeTool: "Free tool",
+    share: "Share:",
+    newsletterTitle: "Get the next article by email",
+    newsletterBody: "One practical piece a month on Belgian digitalization, AI adoption, and business operations. No spam, unsubscribe anytime.",
+    newsletterNote: "Not wired to an email provider yet — this form does not send anywhere.",
+    subscribe: "Subscribe",
+    talkToUs: "Talk to us",
+    readInFr: "Lire en français",
+    readInEn: "Read in English",
+    toolsEyebrow: "Tools", toolsHeading: "Free business tools",
+    toolsSubtitle: "Useful on their own, no email required. Built by the same team that builds Robust Code products.",
+  },
+  fr: {
+    insightsEyebrow: "Analyses",
+    insightsHeading: "Business, IA et digitalisation pour les PME belges",
+    insightsSubtitle: "Analyses pratiques et non fabriquées sur les opérations, l'automatisation, l'adoption de l'IA et la digitalisation en Belgique &mdash; écrites pour ceux qui dirigent des entreprises, pas pour les moteurs de recherche.",
+    searchPlaceholder: "Rechercher des articles&hellip;",
+    featured: "À la une",
+    by: "Par", published: "Publié le", updated: "Mis à jour le", minRead: "min de lecture",
+    relatedReading: "À lire aussi", freeTool: "Outil gratuit",
+    share: "Partager :",
+    newsletterTitle: "Recevez le prochain article par e-mail",
+    newsletterBody: "Un article pratique par mois sur la digitalisation en Belgique, l'adoption de l'IA et les opérations d'entreprise. Pas de spam, désabonnement à tout moment.",
+    newsletterNote: "Pas encore connecté à un fournisseur d'e-mail — ce formulaire n'envoie rien.",
+    subscribe: "S'abonner",
+    talkToUs: "Contactez-nous",
+    readInFr: "Lire en français",
+    readInEn: "Read in English",
+    toolsEyebrow: "Outils", toolsHeading: "Outils gratuits pour entreprises",
+    toolsSubtitle: "Utiles par eux-mêmes, sans inscription. Conçus par l'équipe qui construit les produits Robust Code.",
+  },
 };
 
 const errors = [];
@@ -76,11 +152,6 @@ function readingTime(markdown) {
   return Math.max(1, Math.round(words / 200));
 }
 
-function prefixFor(outputRelPath) {
-  const depth = outputRelPath.split("/").length - 1;
-  return "../".repeat(depth);
-}
-
 function esc(str = "") {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -100,36 +171,42 @@ function writeFile(relPath, content) {
 // already duplicated across the site's 24 hand-written pages, so generated
 // pages are visually and functionally identical (same CSS, same i18n/menu
 // JS, same Vercel Analytics script). `depth` is the number of `../` needed
-// to reach the repo root from the output file's directory.
+// to reach the repo root from the output file's directory. `lang` ('en' |
+// 'fr') picks the nav/footer copy; `alternateLinks` adds hreflang tags.
 // ---------------------------------------------------------------------------
-function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMain, jsonLd = [] }) {
+function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMain, jsonLd = [], lang = "en", alternateLinks = [] }) {
   const p = "../".repeat(depth);
+  const nav = NAV[lang];
   const canonical = `${SITE_URL}${canonicalPath}`;
   const image = ogImage || `${SITE_URL}/assets/images/logo.png`;
   const ldBlocks = jsonLd
     .map((block) => `<script type="application/ld+json">${JSON.stringify(block)}</script>`)
     .join("");
+  const hreflangTags = alternateLinks
+    .map((a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${SITE_URL}${a.href}">`)
+    .join("");
+  const insightsHref = lang === "fr" ? `${p}fr/insights/index.html` : `${p}insights/index.html`;
 
   return `<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="${esc(description)}"><title>${esc(title)}</title><link rel="canonical" href="${canonical}"><link rel="icon" type="image/png" href="/assets/images/logo.png"><link rel="apple-touch-icon" href="/assets/images/logo.png"><meta property="og:type" content="article"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${image}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@1.34.0" integrity="sha384-TkyaYJPudUfB9a60ZTQjPXXxBGDxeXJy48PDE1DeZnOdKs/QdAs3pP/B9ApNJIH8" crossorigin="anonymous" defer></script><link rel="stylesheet" href="${p}assets/css/styles.css"><link rel="stylesheet" href="${p}assets/css/insights.css"><script defer src="/_vercel/insights/script.js"></script>${ldBlocks}
+<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="${esc(description)}"><title>${esc(title)}</title><link rel="canonical" href="${canonical}">${hreflangTags}<link rel="icon" type="image/png" href="/assets/images/logo.png"><link rel="apple-touch-icon" href="/assets/images/logo.png"><meta property="og:type" content="article"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${image}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@1.34.0" integrity="sha384-TkyaYJPudUfB9a60ZTQjPXXxBGDxeXJy48PDE1DeZnOdKs/QdAs3pP/B9ApNJIH8" crossorigin="anonymous" defer></script><link rel="stylesheet" href="${p}assets/css/styles.css"><link rel="stylesheet" href="${p}assets/css/insights.css"><script defer src="/_vercel/insights/script.js"></script>${ldBlocks}
 </head><body><header class="site-header" id="main-header">
     <div class="container nav-wrap">
       <a class="brand nav-logo" href="${p}index.html" aria-label="ROBUST CODE home">
         <img src="${p}assets/images/robust-logo-white.png" alt="ROBUST CODE" class="brand-logo" width="1920" height="1080" fetchpriority="high">
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="${p}index.html">Home</a>
-        <a href="${p}what-we-do.html">What We Do</a>
-        <a href="${p}our-work.html">Our Work</a>
-        <a href="${p}insights/index.html" class="is-active">Insights</a>
-        <a href="${p}about.html">About</a>
+        <a href="${p}index.html">${nav.home}</a>
+        <a href="${p}what-we-do.html">${nav.whatWeDo}</a>
+        <a href="${p}our-work.html">${nav.ourWork}</a>
+        <a href="${insightsHref}" class="is-active">${nav.insights}</a>
+        <a href="${p}about.html">${nav.about}</a>
         <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
             <i data-lucide="globe" class="lang-globe-icon"></i>
           </button>
           <div class="lang-options" role="menu">
-            <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true" role="menuitemradio">EN</button>
-            <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false" role="menuitemradio">FR</button>
+            <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio">EN</button>
+            <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio">FR</button>
           </div>
         </div>
       </nav>
@@ -144,11 +221,11 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
   <div class="menu-overlay" id="menu-overlay" aria-hidden="true" inert>
     <span class="menu-overlay-bg" aria-hidden="true"></span>
     <nav class="menu-overlay-nav" aria-label="Mobile navigation">
-      <span class="mobile-link-mask"><a class="mobile-link" href="${p}index.html">Home</a></span>
-      <span class="mobile-link-mask"><a class="mobile-link" href="${p}what-we-do.html">What We Do</a></span>
-      <span class="mobile-link-mask"><a class="mobile-link" href="${p}our-work.html">Our Work</a></span>
-      <span class="mobile-link-mask"><a class="mobile-link" href="${p}insights/index.html">Insights</a></span>
-      <span class="mobile-link-mask"><a class="mobile-link" href="${p}about.html">About</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link" href="${p}index.html">${nav.home}</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link" href="${p}what-we-do.html">${nav.whatWeDo}</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link" href="${p}our-work.html">${nav.ourWork}</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link" href="${insightsHref}">${nav.insights}</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link" href="${p}about.html">${nav.about}</a></span>
     </nav>
     <div class="menu-overlay-footer">
       <div class="lang-switch" role="group" aria-label="Language">
@@ -156,8 +233,8 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
           <i data-lucide="globe" class="lang-globe-icon"></i>
         </button>
         <div class="lang-options" role="menu">
-          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="true" role="menuitemradio">EN</button>
-          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="false" role="menuitemradio">FR</button>
+          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio">EN</button>
+          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio">FR</button>
         </div>
       </div>
       <div class="menu-overlay-social" aria-label="Social media">
@@ -177,40 +254,40 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
         <a class="footer-logo" href="${p}index.html" aria-label="ROBUST CODE home">
           <img src="${p}assets/images/robust-logo-white.png" alt="ROBUST CODE" class="brand-logo" width="1920" height="1080" loading="lazy">
         </a>
-        <p class="footer-tagline">Innovation at your fingertips</p>
+        <p class="footer-tagline">${nav.tagline}</p>
       </div>
       <div class="footer-column">
-        <h2 class="footer-heading">Company</h2>
+        <h2 class="footer-heading">${nav.company}</h2>
         <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="${p}news.html">News</a>
-          <a href="${p}insights/index.html">Insights</a>
-          <a href="${p}tools/index.html">Tools</a>
-          <a href="${p}careers.html">Careers</a>
-          <a href="${p}contact.html">Contact Us</a>
+          <a href="${p}news.html">${nav.news}</a>
+          <a href="${insightsHref}">${nav.insights}</a>
+          <a href="${p}tools/index.html">${nav.tools}</a>
+          <a href="${p}careers.html">${nav.careers}</a>
+          <a href="${p}contact.html">${nav.contact}</a>
         </nav>
       </div>
       <div class="footer-column">
-        <h2 class="footer-heading">Trust &amp; Security</h2>
+        <h2 class="footer-heading">${nav.trust}</h2>
         <nav class="footer-nav" aria-label="Trust and security">
-          <a href="${p}trust/security.html">Security</a>
-          <a href="${p}trust/privacy-protection.html">Privacy Protection</a>
-          <a href="${p}trust/gdpr.html">GDPR</a>
-          <a href="${p}trust/support.html">Support</a>
+          <a href="${p}trust/security.html">${nav.security}</a>
+          <a href="${p}trust/privacy-protection.html">${nav.privacyProtection}</a>
+          <a href="${p}trust/gdpr.html">${nav.gdpr}</a>
+          <a href="${p}trust/support.html">${nav.support}</a>
         </nav>
       </div>
       <div class="footer-column">
-        <h2 class="footer-heading">Legal</h2>
+        <h2 class="footer-heading">${nav.legal}</h2>
         <nav class="footer-nav" aria-label="Legal">
-          <a href="${p}legal/notice.html">Legal Notice</a>
-          <a href="${p}legal/privacy-policy.html">Privacy Policy</a>
-          <a href="${p}legal/cookie-policy.html">Cookie Policy</a>
-          <a href="${p}legal/terms-use.html">Terms of Use</a>
-          <a href="${p}legal/terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="${p}legal/notice.html">${nav.legalNotice}</a>
+          <a href="${p}legal/privacy-policy.html">${nav.privacyPolicy}</a>
+          <a href="${p}legal/cookie-policy.html">${nav.cookiePolicy}</a>
+          <a href="${p}legal/terms-use.html">${nav.termsUse}</a>
+          <a href="${p}legal/terms-conditions.html">${nav.termsConditions}</a>
         </nav>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>&copy; 2024&ndash;<span id="year">2026</span> ROBUST CODE S.a.r.l &middot; All Rights Reserved</p>
+      <p>&copy; 2024&ndash;<span id="year">2026</span> ROBUST CODE S.a.r.l &middot; ${nav.rights}</p>
     </div>
   </footer><script src="${p}assets/js/i18n.js" defer></script><script src="${p}assets/js/main.js" defer></script>
   <script src="${p}assets/js/vendor/gsap.min.js" defer></script>
@@ -225,31 +302,39 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
 // Reusable content blocks (spec's "components" — plain HTML string builders,
 // no framework available on this stack)
 // ---------------------------------------------------------------------------
-function productCTA(cta) {
+function productCTA(cta, lang) {
   if (!cta) return "";
   return `<aside class="cta-box" data-cta="product">
     <h3>${esc(cta.title)}</h3>
     <p>${esc(cta.description)}</p>
-    <a class="btn btn-primary" href="${esc(cta.href)}" data-cta="product_click">Talk to us</a>
+    <a class="btn btn-primary" href="${esc(cta.href)}" data-cta="product_click">${T[lang].talkToUs}</a>
   </aside>`;
 }
 
-function newsletterCTA(depth) {
+function newsletterCTA(depth, lang) {
+  const t = T[lang];
   return `<aside class="cta-box cta-newsletter" data-cta="newsletter">
-    <h3>Get the next article by email</h3>
-    <p>One practical piece a month on Belgian digitalization, AI adoption, and business operations. No spam, unsubscribe anytime.</p>
+    <h3>${t.newsletterTitle}</h3>
+    <p>${t.newsletterBody}</p>
     <form class="newsletter-form" data-form-endpoint="" data-analytics="newsletter_signup">
       <label class="visually-hidden" for="newsletter-email">Email address</label>
       <input type="email" id="newsletter-email" name="email" placeholder="you@company.com" required>
       <input type="text" name="company_website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit" class="btn btn-primary">Subscribe</button>
+      <button type="submit" class="btn btn-primary">${t.subscribe}</button>
     </form>
-    <p class="cta-note">Not wired to an email provider yet — this form does not send anywhere.</p>
+    <p class="cta-note">${t.newsletterNote}</p>
   </aside>`;
 }
 
-function relatedArticlesBlock(current, all, depth) {
+function langSwitchHtml(lang, counterpartHref) {
+  if (!counterpartHref) return "";
+  const label = lang === "en" ? T.en.readInFr : T.fr.readInEn;
+  return `<p class="lang-switch-inline"><a href="${counterpartHref}">${label}</a></p>`;
+}
+
+function relatedArticlesBlock(current, all, depth, lang) {
   const p = "../".repeat(depth);
+  const base = lang === "fr" ? "fr/insights" : "insights";
   const related = (current.relatedArticles || [])
     .map((slug) => all.find((a) => a.slug === slug))
     .filter(Boolean);
@@ -258,29 +343,25 @@ function relatedArticlesBlock(current, all, depth) {
     : all.filter((a) => a.category === current.category && a.slug !== current.slug).slice(0, 3);
   if (!bySameCategory.length) return "";
   return `<section class="related-articles">
-    <h2>Related reading</h2>
+    <h2>${T[lang].relatedReading}</h2>
     <ul class="related-articles-list">
       ${bySameCategory
-        .map(
-          (a) => `<li><a href="${p}insights/${a.category}/${a.slug}/index.html">${esc(a.title)}</a></li>`
-        )
+        .map((a) => `<li><a href="${p}${base}/${a.category}/${a.slug}/index.html">${esc(a.title)}</a></li>`)
         .join("")}
     </ul>
   </section>`;
 }
 
-function relatedToolsBlock(current, tools, depth) {
+function relatedToolsBlock(current, tools, depth, lang) {
   const p = "../".repeat(depth);
   const slugs = current.relatedTools || [];
   const matches = tools.filter((t) => slugs.includes(t.slug));
   if (!matches.length) return "";
   return `<section class="related-tools">
-    <h2>Free tool</h2>
+    <h2>${T[lang].freeTool}</h2>
     <ul class="related-tools-list">
       ${matches
-        .map(
-          (t) => `<li><a href="${p}tools/${t.slug}/index.html" data-cta="cta_click">${esc(t.title)} — ${esc(t.description)}</a></li>`
-        )
+        .map((t) => `<li><a href="${p}tools/${t.slug}/index.html" data-cta="cta_click">${esc(t.title)} — ${esc(t.description)}</a></li>`)
         .join("")}
     </ul>
   </section>`;
@@ -298,183 +379,221 @@ function breadcrumbHtml(items, depth) {
 }
 
 // ---------------------------------------------------------------------------
-// Load & parse articles
+// Load & parse articles (English default files + optional <slug>.fr.md
+// companion translations). English and French are validated and filtered
+// (draft/scheduled) independently, then rendered into separate URL trees:
+// insights/... (English) and fr/insights/... (French).
 // ---------------------------------------------------------------------------
-const files = walk(path.join(ROOT, "content/insights"));
-const seenSlugs = new Set();
-const articles = [];
+function loadArticles(lang) {
+  const files = walk(path.join(ROOT, "content/insights")).filter((f) =>
+    lang === "fr" ? f.endsWith(".fr.md") : !f.endsWith(".fr.md")
+  );
+  const cats = CATEGORIES[lang];
+  const seenSlugs = new Set();
+  const list = [];
 
-for (const file of files) {
-  const raw = fs.readFileSync(file, "utf-8");
-  const { data, content } = matter(raw);
-  const rel = path.relative(path.join(ROOT, "content/insights"), file);
-  const parts = rel.split(path.sep);
-  const categoryFromPath = parts[0];
+  for (const file of files) {
+    const raw = fs.readFileSync(file, "utf-8");
+    const { data, content } = matter(raw);
+    const rel = path.relative(path.join(ROOT, "content/insights"), file);
+    const parts = rel.split(path.sep);
+    const categoryFromPath = parts[0];
+    const slug = lang === "fr" ? path.basename(file, ".fr.md") : path.basename(file, ".md");
 
-  const required = ["title", "description", "publishedAt", "author", "category"];
-  for (const field of required) {
-    if (!data[field]) fail(`${rel}: missing required frontmatter field "${field}"`);
+    const required = ["title", "description", "publishedAt", "author", "category"];
+    for (const field of required) {
+      if (!data[field]) fail(`${rel}: missing required frontmatter field "${field}"`);
+    }
+    if (data.category && !cats[data.category]) {
+      fail(`${rel}: unknown category "${data.category}" (expected one of ${Object.keys(cats).join(", ")})`);
+    }
+    if (data.category && data.category !== categoryFromPath) {
+      fail(`${rel}: frontmatter category "${data.category}" does not match folder "${categoryFromPath}"`);
+    }
+    if (seenSlugs.has(slug)) fail(`Duplicate ${lang} article slug across categories: "${slug}"`);
+    seenSlugs.add(slug);
+
+    const isFuture = data.publishedAt && data.publishedAt > TODAY;
+    const isDraft = Boolean(data.draft);
+
+    list.push({
+      slug,
+      category: data.category || categoryFromPath,
+      title: data.title,
+      description: data.description,
+      excerpt: data.excerpt || data.description,
+      publishedAt: data.publishedAt,
+      updatedAt: data.updatedAt || data.publishedAt,
+      author: data.author || { name: "Robust Code" },
+      tags: data.tags || [],
+      coverImage: data.coverImage || "",
+      featured: Boolean(data.featured),
+      published: !isDraft && !isFuture,
+      seo: data.seo || {},
+      relatedArticles: data.relatedArticles || [],
+      relatedTools: data.relatedTools || [],
+      cta: data.cta || null,
+      readingTime: readingTime(content),
+      bodyHtml: marked.parse(content),
+    });
   }
-  if (data.category && !CATEGORIES[data.category]) {
-    fail(`${rel}: unknown category "${data.category}" (expected one of ${Object.keys(CATEGORIES).join(", ")})`);
-  }
-  if (data.category && data.category !== categoryFromPath) {
-    fail(`${rel}: frontmatter category "${data.category}" does not match folder "${categoryFromPath}"`);
-  }
 
-  const slug = path.basename(file, ".md");
-  if (seenSlugs.has(slug)) fail(`Duplicate article slug across categories: "${slug}"`);
-  seenSlugs.add(slug);
-
-  const isFuture = data.publishedAt && data.publishedAt > TODAY;
-  const isDraft = Boolean(data.draft);
-  const published = !isDraft && !isFuture;
-
-  articles.push({
-    slug,
-    category: data.category || categoryFromPath,
-    title: data.title,
-    description: data.description,
-    excerpt: data.excerpt || data.description,
-    publishedAt: data.publishedAt,
-    updatedAt: data.updatedAt || data.publishedAt,
-    author: data.author || { name: "Robust Code" },
-    tags: data.tags || [],
-    coverImage: data.coverImage || "",
-    featured: Boolean(data.featured),
-    draft: isDraft,
-    published,
-    seo: data.seo || {},
-    relatedArticles: data.relatedArticles || [],
-    relatedTools: data.relatedTools || [],
-    cta: data.cta || null,
-    readingTime: readingTime(content),
-    bodyHtml: marked.parse(content),
-    bodyMarkdown: content,
-  });
+  return list;
 }
 
-const publishedArticles = articles
-  .filter((a) => a.published)
-  .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const articlesEnAll = loadArticles("en");
+const articlesFrAll = loadArticles("fr");
+const publishedEn = articlesEnAll.filter((a) => a.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const publishedFr = articlesFrAll.filter((a) => a.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const frBySlug = new Map(publishedFr.map((a) => [a.slug, a]));
+const enBySlug = new Map(publishedEn.map((a) => [a.slug, a]));
 
 const tools = JSON.parse(fs.readFileSync(path.join(ROOT, "content/tools.json"), "utf-8"));
 
 // ---------------------------------------------------------------------------
-// Render article pages
+// Render article pages (one language at a time; shared by EN + FR)
 // ---------------------------------------------------------------------------
-for (const article of publishedArticles) {
-  const outRel = `insights/${article.category}/${article.slug}/index.html`;
-  const depth = outRel.split("/").length - 1;
-  const canonicalPath = article.seo.canonical || `/insights/${article.category}/${article.slug}/`;
-  const url = `${SITE_URL}${canonicalPath}`;
+function renderArticlePages(lang, published, allForRelated) {
+  const cats = CATEGORIES[lang];
+  const base = lang === "fr" ? "fr/insights" : "insights";
+  const counterpartMap = lang === "fr" ? enBySlug : frBySlug;
+  const counterpartBase = lang === "fr" ? "insights" : "fr/insights";
 
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: article.title,
-      description: article.description,
-      datePublished: article.publishedAt,
-      dateModified: article.updatedAt,
-      author: { "@type": "Organization", name: article.author.name },
-      publisher: {
-        "@type": "Organization",
-        name: "ROBUST CODE",
-        logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/images/logo.png` },
+  for (const article of published) {
+    const outRel = `${base}/${article.category}/${article.slug}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    const canonicalPath = article.seo.canonical || `/${base}/${article.category}/${article.slug}/`;
+    const url = `${SITE_URL}${canonicalPath}`;
+    const counterpart = counterpartMap.get(article.slug);
+    const counterpartPath = counterpart ? `/${counterpartBase}/${counterpart.category}/${counterpart.slug}/` : null;
+
+    const alternateLinks = [{ hreflang: lang, href: canonicalPath }];
+    if (counterpart) {
+      alternateLinks.push({ hreflang: lang === "fr" ? "en" : "fr", href: counterpartPath });
+      alternateLinks.push({ hreflang: "x-default", href: lang === "fr" ? counterpartPath : canonicalPath });
+    }
+
+    const jsonLd = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.title,
+        description: article.description,
+        datePublished: article.publishedAt,
+        dateModified: article.updatedAt,
+        inLanguage: lang,
+        author: { "@type": "Organization", name: article.author.name },
+        publisher: {
+          "@type": "Organization",
+          name: "ROBUST CODE",
+          logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/images/logo.png` },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
       },
-      mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/insights/` },
-        { "@type": "ListItem", position: 3, name: CATEGORIES[article.category], item: `${SITE_URL}/insights/${article.category}/` },
-        { "@type": "ListItem", position: 4, name: article.title, item: url },
-      ],
-    },
-  ];
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: NAV[lang].home, item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: NAV[lang].insights, item: `${SITE_URL}/${base}/` },
+          { "@type": "ListItem", position: 3, name: cats[article.category], item: `${SITE_URL}/${base}/${article.category}/` },
+          { "@type": "ListItem", position: 4, name: article.title, item: url },
+        ],
+      },
+    ];
 
-  const bodyMain = `<article class="section article-page">
+    const t = T[lang];
+    const bodyMain = `<article class="section article-page">
     <div class="container">
       ${breadcrumbHtml(
         [
-          { name: "Insights", href: "insights/index.html" },
-          { name: CATEGORIES[article.category], href: `insights/${article.category}/index.html` },
+          { name: NAV[lang].insights, href: `${base}/index.html` },
+          { name: cats[article.category], href: `${base}/${article.category}/index.html` },
           { name: article.title, href: "#" },
         ],
         depth
       )}
-      <p class="eyebrow">${esc(CATEGORIES[article.category])}</p>
+      <p class="eyebrow">${esc(cats[article.category])}</p>
       <h1>${esc(article.title)}</h1>
       <p class="article-meta">
-        By ${esc(article.author.name)}${article.author.role ? `, ${esc(article.author.role)}` : ""}
-        &middot; Published ${esc(article.publishedAt)}
-        ${article.updatedAt !== article.publishedAt ? `&middot; Updated ${esc(article.updatedAt)}` : ""}
-        &middot; ${article.readingTime} min read
+        ${t.by} ${esc(article.author.name)}${article.author.role ? `, ${esc(article.author.role)}` : ""}
+        &middot; ${t.published} ${esc(article.publishedAt)}
+        ${article.updatedAt !== article.publishedAt ? `&middot; ${t.updated} ${esc(article.updatedAt)}` : ""}
+        &middot; ${article.readingTime} ${t.minRead}
       </p>
+      ${langSwitchHtml(lang, counterpartPath)}
       <div class="article-body" data-analytics-article="${esc(article.slug)}">
         ${article.bodyHtml}
       </div>
-      ${productCTA(article.cta)}
-      ${relatedToolsBlock(article, tools, depth)}
-      ${relatedArticlesBlock(article, publishedArticles, depth)}
-      ${newsletterCTA(depth)}
+      ${productCTA(article.cta, lang)}
+      ${relatedToolsBlock(article, tools, depth, lang)}
+      ${relatedArticlesBlock(article, allForRelated, depth, lang)}
+      ${newsletterCTA(depth, lang)}
       <div class="share-row" data-analytics="article_share">
-        <span>Share:</span>
+        <span>${t.share}</span>
         <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" data-cta="affiliate_click">LinkedIn</a>
         <a href="https://x.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer">X</a>
       </div>
     </div>
   </article>`;
 
-  writeFile(
-    outRel,
-    renderPage({
-      title: article.seo.title || `${article.title} | ROBUST CODE Insights`,
-      description: article.seo.description || article.description,
-      canonicalPath,
-      depth,
-      bodyMain,
-      jsonLd,
-    })
-  );
+    writeFile(
+      outRel,
+      renderPage({
+        title: article.seo.title || `${article.title} | ROBUST CODE Insights`,
+        description: article.seo.description || article.description,
+        canonicalPath,
+        depth,
+        bodyMain,
+        jsonLd,
+        lang,
+        alternateLinks,
+      })
+    );
+  }
 }
 
+renderArticlePages("en", publishedEn, publishedEn);
+renderArticlePages("fr", publishedFr, publishedFr);
+
 // ---------------------------------------------------------------------------
-// /insights index + category pages + search index
+// /insights (+ /fr/insights) index + category pages + search index
 // ---------------------------------------------------------------------------
 const PAGE_SIZE = 12;
-function articleCard(a, depth) {
+function articleCard(a, depth, lang) {
   const p = "../".repeat(depth);
+  const base = lang === "fr" ? "fr/insights" : "insights";
+  const cats = CATEGORIES[lang];
   return `<li class="article-card">
-    <a href="${p}insights/${a.category}/${a.slug}/index.html">
-      <p class="eyebrow">${esc(CATEGORIES[a.category])}</p>
+    <a href="${p}${base}/${a.category}/${a.slug}/index.html">
+      <p class="eyebrow">${esc(cats[a.category])}</p>
       <h3>${esc(a.title)}</h3>
       <p>${esc(a.excerpt)}</p>
-      <p class="article-card-meta">${esc(a.publishedAt)} &middot; ${a.readingTime} min read</p>
+      <p class="article-card-meta">${esc(a.publishedAt)} &middot; ${a.readingTime} ${T[lang].minRead}</p>
     </a>
   </li>`;
 }
 
-function renderInsightsIndex(pageArticles, pageNum, totalPages, depth, categoryFilterLabel) {
-  const featured = pageNum === 1 && !categoryFilterLabel ? publishedArticles.find((a) => a.featured) : null;
-  const categoryNav = Object.entries(CATEGORIES)
-    .filter(([slug]) => publishedArticles.some((a) => a.category === slug))
-    .map(([slug, name]) => `<a href="${"../".repeat(depth)}insights/${slug}/index.html">${esc(name)}</a>`)
+function renderInsightsIndex(pageArticles, allPublished, pageNum, totalPages, depth, categoryFilterLabel, lang) {
+  const p = "../".repeat(depth);
+  const base = lang === "fr" ? "fr/insights" : "insights";
+  const cats = CATEGORIES[lang];
+  const t = T[lang];
+  const featured = pageNum === 1 && !categoryFilterLabel ? allPublished.find((a) => a.featured) : null;
+  const categoryNav = Object.entries(cats)
+    .filter(([slug]) => allPublished.some((a) => a.category === slug))
+    .map(([slug, name]) => `<a href="${p}${base}/${slug}/index.html">${esc(name)}</a>`)
     .join("");
 
   return `<section class="section insights-index">
     <div class="container">
-      <p class="eyebrow">Insights</p>
-      <h1>${categoryFilterLabel ? esc(categoryFilterLabel) : "Business, AI &amp; digitalization for Belgian SMEs"}</h1>
-      <p class="text-soft">Practical, non-fabricated analysis on operations, automation, AI adoption and Belgian digitalization &mdash; written for people who run businesses, not for search engines.</p>
+      <p class="eyebrow">${t.insightsEyebrow}</p>
+      <h1>${categoryFilterLabel ? esc(categoryFilterLabel) : t.insightsHeading}</h1>
+      <p class="text-soft">${t.insightsSubtitle}</p>
 
       <div class="insights-search">
         <label class="visually-hidden" for="insights-search-input">Search articles</label>
-        <input type="search" id="insights-search-input" placeholder="Search articles&hellip;" data-insights-index="${"../".repeat(depth)}insights/index.json" data-insights-base="${"../".repeat(depth)}">
+        <input type="search" id="insights-search-input" placeholder="${t.searchPlaceholder}" data-insights-index="${p}${base}/index.json" data-insights-base="${p}">
         <ul id="insights-search-results" hidden></ul>
       </div>
 
@@ -483,8 +602,8 @@ function renderInsightsIndex(pageArticles, pageNum, totalPages, depth, categoryF
       ${
         featured
           ? `<div class="featured-article">
-        <a href="${"../".repeat(depth)}insights/${featured.category}/${featured.slug}/index.html">
-          <p class="eyebrow">Featured &middot; ${esc(CATEGORIES[featured.category])}</p>
+        <a href="${p}${base}/${featured.category}/${featured.slug}/index.html">
+          <p class="eyebrow">${t.featured} &middot; ${esc(cats[featured.category])}</p>
           <h2>${esc(featured.title)}</h2>
           <p>${esc(featured.excerpt)}</p>
         </a>
@@ -493,7 +612,7 @@ function renderInsightsIndex(pageArticles, pageNum, totalPages, depth, categoryF
       }
 
       <ul class="article-grid">
-        ${pageArticles.map((a) => articleCard(a, depth)).join("")}
+        ${pageArticles.map((a) => articleCard(a, depth, lang)).join("")}
       </ul>
 
       ${
@@ -503,7 +622,7 @@ function renderInsightsIndex(pageArticles, pageNum, totalPages, depth, categoryF
           .map((n) =>
             n === pageNum
               ? `<span aria-current="page">${n}</span>`
-              : `<a href="${"../".repeat(depth)}insights/${n === 1 ? "" : `page/${n}/`}index.html">${n}</a>`
+              : `<a href="${p}${base}/${n === 1 ? "" : `page/${n}/`}index.html">${n}</a>`
           )
           .join("")}
       </nav>`
@@ -511,64 +630,76 @@ function renderInsightsIndex(pageArticles, pageNum, totalPages, depth, categoryF
       }
     </div>
   </section>
-  <script src="${"../".repeat(depth)}assets/js/insights-search.js" defer></script>`;
+  <script src="${p}assets/js/insights-search.js" defer></script>`;
 }
 
-const totalPages = Math.max(1, Math.ceil(publishedArticles.length / PAGE_SIZE));
-for (let n = 1; n <= totalPages; n++) {
-  const pageArticles = publishedArticles.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
-  const outRel = n === 1 ? "insights/index.html" : `insights/page/${n}/index.html`;
-  const depth = outRel.split("/").length - 1;
+function renderInsightsSection(lang, published) {
+  const base = lang === "fr" ? "fr/insights" : "insights";
+  const cats = CATEGORIES[lang];
+  const totalPages = Math.max(1, Math.ceil(published.length / PAGE_SIZE));
+
+  for (let n = 1; n <= totalPages; n++) {
+    const pageArticles = published.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
+    const outRel = n === 1 ? `${base}/index.html` : `${base}/page/${n}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    writeFile(
+      outRel,
+      renderPage({
+        title: n === 1 ? "Insights | ROBUST CODE" : `Insights — Page ${n} | ROBUST CODE`,
+        description: T[lang].insightsSubtitle.replace(/&mdash;/g, "-"),
+        canonicalPath: n === 1 ? `/${base}/` : `/${base}/page/${n}/`,
+        depth,
+        bodyMain: renderInsightsIndex(pageArticles, published, n, totalPages, depth, null, lang),
+        jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Insights", url: `${SITE_URL}/${base}/` }],
+        lang,
+      })
+    );
+  }
+
+  for (const [slug, name] of Object.entries(cats)) {
+    const inCategory = published.filter((a) => a.category === slug);
+    if (!inCategory.length) continue;
+    const outRel = `${base}/${slug}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    writeFile(
+      outRel,
+      renderPage({
+        title: `${name} | ROBUST CODE Insights`,
+        description: `${name} — ROBUST CODE Insights`,
+        canonicalPath: `/${base}/${slug}/`,
+        depth,
+        bodyMain: renderInsightsIndex(inCategory, published, 1, 1, depth, name, lang),
+        jsonLd: [],
+        lang,
+      })
+    );
+  }
+
   writeFile(
-    outRel,
-    renderPage({
-      title: n === 1 ? "Insights | ROBUST CODE" : `Insights — Page ${n} | ROBUST CODE`,
-      description: "Practical analysis on Belgian digitalization, AI adoption, automation and business operations from ROBUST CODE.",
-      canonicalPath: n === 1 ? "/insights/" : `/insights/page/${n}/`,
-      depth,
-      bodyMain: renderInsightsIndex(pageArticles, n, totalPages, depth, null),
-      jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Insights", url: `${SITE_URL}/insights/` }],
-    })
+    `${base}/index.json`,
+    JSON.stringify(
+      published.map((a) => ({
+        slug: a.slug,
+        category: a.category,
+        title: a.title,
+        description: a.description,
+        tags: a.tags,
+        publishedAt: a.publishedAt,
+        url: `${base}/${a.category}/${a.slug}/index.html`,
+      })),
+      null,
+      2
+    )
   );
+
+  return totalPages;
 }
 
-for (const [slug, name] of Object.entries(CATEGORIES)) {
-  const inCategory = publishedArticles.filter((a) => a.category === slug);
-  if (!inCategory.length) continue;
-  const outRel = `insights/${slug}/index.html`;
-  const depth = outRel.split("/").length - 1;
-  writeFile(
-    outRel,
-    renderPage({
-      title: `${name} | ROBUST CODE Insights`,
-      description: `Articles on ${name} for Belgian SMEs, from ROBUST CODE.`,
-      canonicalPath: `/insights/${slug}/`,
-      depth,
-      bodyMain: renderInsightsIndex(inCategory, 1, 1, depth, name),
-      jsonLd: [],
-    })
-  );
-}
-
-writeFile(
-  "insights/index.json",
-  JSON.stringify(
-    publishedArticles.map((a) => ({
-      slug: a.slug,
-      category: a.category,
-      title: a.title,
-      description: a.description,
-      tags: a.tags,
-      publishedAt: a.publishedAt,
-      url: `insights/${a.category}/${a.slug}/index.html`,
-    })),
-    null,
-    2
-  )
-);
+const totalPagesEn = renderInsightsSection("en", publishedEn);
+if (publishedFr.length) renderInsightsSection("fr", publishedFr);
 
 // ---------------------------------------------------------------------------
-// /tools
+// /tools (English only for now — see docs/content/CONTENT_STRATEGY.md)
 // ---------------------------------------------------------------------------
 writeFile(
   "tools/index.html",
@@ -579,9 +710,9 @@ writeFile(
     depth: 1,
     bodyMain: `<section class="section">
       <div class="container">
-        <p class="eyebrow">Tools</p>
-        <h1>Free business tools</h1>
-        <p class="text-soft">Useful on their own, no email required. Built by the same team that builds Robust Code products.</p>
+        <p class="eyebrow">${T.en.toolsEyebrow}</p>
+        <h1>${T.en.toolsHeading}</h1>
+        <p class="text-soft">${T.en.toolsSubtitle}</p>
         <ul class="article-grid">
           ${tools
             .map(
@@ -627,12 +758,15 @@ writeFile(
           <p class="cta-note">Rough estimate for planning purposes, not a guarantee — actual results depend on implementation quality and how consistently the task recurs.</p>
         </div>
 
-        ${productCTA({
-          title: "Want help deciding if this is worth building?",
-          description: "We'll give you an honest read on whether a given process is worth automating before you spend anything.",
-          href: "/contact.html",
-        })}
-        ${newsletterCTA(2)}
+        ${productCTA(
+          {
+            title: "Want help deciding if this is worth building?",
+            description: "We'll give you an honest read on whether a given process is worth automating before you spend anything.",
+            href: "/contact.html",
+          },
+          "en"
+        )}
+        ${newsletterCTA(2, "en")}
       </div>
     </section>
     <script src="../../assets/js/tools/roi-calculator.js" defer></script>`,
@@ -652,20 +786,29 @@ writeFile(
 // ---------------------------------------------------------------------------
 // sitemap.xml
 // ---------------------------------------------------------------------------
+function insightsSitemapEntries(lang, published) {
+  const base = lang === "fr" ? "fr/insights" : "insights";
+  const cats = CATEGORIES[lang];
+  return [
+    { loc: `/${base}/`, changefreq: "weekly", priority: "0.8" },
+    ...Object.keys(cats)
+      .filter((slug) => published.some((a) => a.category === slug))
+      .map((slug) => ({ loc: `/${base}/${slug}/`, changefreq: "weekly", priority: "0.6" })),
+    ...published.map((a) => ({
+      loc: `/${base}/${a.category}/${a.slug}/`,
+      changefreq: "monthly",
+      priority: a.featured ? "0.8" : "0.6",
+      lastmod: a.updatedAt,
+    })),
+  ];
+}
+
 const sitemapUrls = [
   ...STATIC_PAGES,
-  { loc: "/insights/", changefreq: "weekly", priority: "0.8" },
   { loc: "/tools/", changefreq: "monthly", priority: "0.7" },
   { loc: "/tools/roi-calculator/", changefreq: "monthly", priority: "0.6" },
-  ...Object.keys(CATEGORIES)
-    .filter((slug) => publishedArticles.some((a) => a.category === slug))
-    .map((slug) => ({ loc: `/insights/${slug}/`, changefreq: "weekly", priority: "0.6" })),
-  ...publishedArticles.map((a) => ({
-    loc: `/insights/${a.category}/${a.slug}/`,
-    changefreq: "monthly",
-    priority: a.featured ? "0.8" : "0.6",
-    lastmod: a.updatedAt,
-  })),
+  ...insightsSitemapEntries("en", publishedEn),
+  ...(publishedFr.length ? insightsSitemapEntries("fr", publishedFr) : []),
 ];
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -686,9 +829,10 @@ writeFile("sitemap.xml", sitemapXml);
 // ---------------------------------------------------------------------------
 // Report
 // ---------------------------------------------------------------------------
-const draftCount = articles.length - publishedArticles.length;
+const draftCountEn = articlesEnAll.length - publishedEn.length;
+const draftCountFr = articlesFrAll.length - publishedFr.length;
 console.log(
-  `Built ${publishedArticles.length} article page(s), ${totalPages} insights index page(s), ${Object.keys(CATEGORIES).filter((s) => publishedArticles.some((a) => a.category === s)).length} category page(s), 1 tool. ${draftCount} draft/scheduled article(s) excluded from output.`
+  `Built ${publishedEn.length} EN article page(s) + ${publishedFr.length} FR article page(s), ${totalPagesEn} EN insights index page(s), 1 tool. ${draftCountEn} EN + ${draftCountFr} FR draft/scheduled article(s) excluded.`
 );
 
 if (errors.length) {
@@ -701,8 +845,10 @@ if (CHECK) {
   // Basic internal-link check over generated article/index pages: every
   // relative href pointing at a local .html file must resolve on disk.
   const generated = [
-    ...publishedArticles.map((a) => path.join(ROOT, `insights/${a.category}/${a.slug}/index.html`)),
+    ...publishedEn.map((a) => path.join(ROOT, `insights/${a.category}/${a.slug}/index.html`)),
+    ...publishedFr.map((a) => path.join(ROOT, `fr/insights/${a.category}/${a.slug}/index.html`)),
     path.join(ROOT, "insights/index.html"),
+    ...(publishedFr.length ? [path.join(ROOT, "fr/insights/index.html")] : []),
   ];
   let brokenLinks = 0;
   for (const file of generated) {
