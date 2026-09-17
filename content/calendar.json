@@ -1,0 +1,13 @@
+{
+  "frequency": "monthly",
+  "minimumArticlesPerMonth": 1,
+  "categories": [
+    "Belgium",
+    "Business",
+    "AI",
+    "Automation",
+    "Operations",
+    "Case Studies"
+  ],
+  "notes": "See docs/content/CONTENT_CALENDAR.md for the specific 12-month topic roadmap. This file drives no automated behavior yet — it documents the operating cadence for editorial planning."
+}

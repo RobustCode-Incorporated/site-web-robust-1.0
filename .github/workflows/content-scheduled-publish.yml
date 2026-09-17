@@ -1,0 +1,39 @@
+name: Scheduled content publish
+
+# This is the entire "scheduler" described in docs/content/CONTENT_STRATEGY.md.
+# It NEVER writes or approves content — it only re-runs the build script daily
+# so an already-merged article whose `publishedAt` date has just arrived (and
+# was merged earlier with `draft: false`) gets generated and deployed without
+# anyone needing to manually redeploy on that exact date.
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  publish-scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: npm run build:content
+      - name: Commit newly-due content if output changed
+        run: |
+          git config user.name "robust-code-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add insights tools sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No scheduled content became due today — nothing to publish."
+          else
+            git commit -m "chore(content): publish scheduled article(s) [automated]"
+            git push
+          fi

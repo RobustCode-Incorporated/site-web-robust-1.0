@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "crm-erp-fundamentals-smes",
+    "category": "business",
+    "title": "CRM vs ERP for SMEs: What Each One Actually Solves",
+    "description": "CRM and ERP get pitched as interchangeable buzzwords. Here's what each system is actually for, when a spreadsheet stops being enough, and how to evaluate options without buying software theater.",
+    "tags": [
+      "CRM",
+      "ERP",
+      "business software",
+      "SMEs",
+      "operations"
+    ],
+    "publishedAt": "2026-03-05",
+    "url": "insights/business/crm-erp-fundamentals-smes/index.html"
+  },
+  {
+    "slug": "ai-automation-sme-adoption-framework",
+    "category": "ai",
+    "title": "AI and Automation for SMEs: A Crawl-Walk-Run Framework That Actually Works",
+    "description": "Most SME AI initiatives fail because they start too big. Here's a practical, three-stage framework for adopting AI and automation without wasting budget.",
+    "tags": [
+      "AI",
+      "automation",
+      "SMEs",
+      "digitalization",
+      "ROI"
+    ],
+    "publishedAt": "2026-02-05",
+    "url": "insights/ai/ai-automation-sme-adoption-framework/index.html"
+  },
+  {
+    "slug": "e-invoicing-belgium-smes-2026",
+    "category": "belgium",
+    "title": "Belgium's 2026 E-Invoicing Mandate: A Practical Guide for SMEs",
+    "description": "Belgium requires structured B2B e-invoicing via Peppol starting January 1, 2026. Here's what SMEs actually need to do to be compliant on time.",
+    "tags": [
+      "Belgium",
+      "e-invoicing",
+      "Peppol",
+      "compliance",
+      "SMEs"
+    ],
+    "publishedAt": "2026-01-08",
+    "url": "insights/belgium/e-invoicing-belgium-smes-2026/index.html"
+  }
+]

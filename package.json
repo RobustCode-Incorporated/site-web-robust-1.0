@@ -1,5 +1,14 @@
 {
+  "type": "module",
+  "scripts": {
+    "build:content": "node scripts/build-content.mjs",
+    "build:content:check": "node scripts/build-content.mjs --check"
+  },
   "dependencies": {
     "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.7"
   }
 }
