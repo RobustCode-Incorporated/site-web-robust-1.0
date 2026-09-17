@@ -1,0 +1,28 @@
+{
+  "name": "robust-code-web-next",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Proof-of-concept Next.js migration of the Robust Code marketing site. Not deployed. See docs/content/ (repo root) and this folder's README for scope.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.1.6",
+    "@vercel/analytics": "^1.4.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.7",
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3"
+  }
+}

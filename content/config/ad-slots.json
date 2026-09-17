@@ -1,0 +1,10 @@
+{
+  "_comment": "Every slot is disabled by default. No advertising is live. Flip 'enabled' to true and fill 'html' only once a real ad/sponsor exists — the build script renders nothing for a disabled slot.",
+  "slots": {
+    "article-top": { "enabled": false, "html": "" },
+    "article-middle": { "enabled": false, "html": "" },
+    "article-bottom": { "enabled": false, "html": "" },
+    "sidebar": { "enabled": false, "html": "" },
+    "resources-page": { "enabled": false, "html": "" }
+  }
+}
