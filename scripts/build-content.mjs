@@ -174,7 +174,7 @@ function writeFile(relPath, content) {
 // to reach the repo root from the output file's directory. `lang` ('en' |
 // 'fr') picks the nav/footer copy; `alternateLinks` adds hreflang tags.
 // ---------------------------------------------------------------------------
-function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMain, jsonLd = [], lang = "en", alternateLinks = [] }) {
+function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMain, jsonLd = [], lang = "en", alternateLinks = [], enHref = null, frHref = null }) {
   const p = "../".repeat(depth);
   const nav = NAV[lang];
   const canonical = `${SITE_URL}${canonicalPath}`;
@@ -186,6 +186,13 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
     .map((a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${SITE_URL}${a.href}">`)
     .join("");
   const insightsHref = lang === "fr" ? `${p}fr/insights/index.html` : `${p}insights/index.html`;
+  // The site-wide EN/FR header pill normally re-translates data-i18n text in
+  // place (assets/js/i18n.js) — but generated insights/tools pages render
+  // their chrome server-side per language and have no data-i18n markup, so
+  // the pill would otherwise silently do nothing here. Make it navigate to
+  // the actual counterpart URL instead, when one exists.
+  const enOnclick = lang === "fr" && enHref ? ` onclick="location.href='${enHref}'"` : "";
+  const frOnclick = lang === "en" && frHref ? ` onclick="location.href='${frHref}'"` : "";
 
   return `<!DOCTYPE html>
 <html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="${esc(description)}"><title>${esc(title)}</title><link rel="canonical" href="${canonical}">${hreflangTags}<link rel="icon" type="image/png" href="/assets/images/logo.png"><link rel="apple-touch-icon" href="/assets/images/logo.png"><meta property="og:type" content="article"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${image}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@1.34.0" integrity="sha384-TkyaYJPudUfB9a60ZTQjPXXxBGDxeXJy48PDE1DeZnOdKs/QdAs3pP/B9ApNJIH8" crossorigin="anonymous" defer></script><link rel="stylesheet" href="${p}assets/css/styles.css"><link rel="stylesheet" href="${p}assets/css/insights.css"><script defer src="/_vercel/insights/script.js"></script>${ldBlocks}
@@ -205,8 +212,8 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
             <i data-lucide="globe" class="lang-globe-icon"></i>
           </button>
           <div class="lang-options" role="menu">
-            <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio">EN</button>
-            <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio">FR</button>
+            <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio"${enOnclick}>EN</button>
+            <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio"${frOnclick}>FR</button>
           </div>
         </div>
       </nav>
@@ -233,8 +240,8 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
           <i data-lucide="globe" class="lang-globe-icon"></i>
         </button>
         <div class="lang-options" role="menu">
-          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio">EN</button>
-          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio">FR</button>
+          <button type="button" class="lang-btn" data-lang-toggle="en" aria-pressed="${lang === "en"}" role="menuitemradio"${enOnclick}>EN</button>
+          <button type="button" class="lang-btn" data-lang-toggle="fr" aria-pressed="${lang === "fr"}" role="menuitemradio"${frOnclick}>FR</button>
         </div>
       </div>
       <div class="menu-overlay-social" aria-label="Social media">
@@ -548,6 +555,8 @@ function renderArticlePages(lang, published, allForRelated) {
         jsonLd,
         lang,
         alternateLinks,
+        enHref: lang === "fr" ? counterpartPath : canonicalPath,
+        frHref: lang === "en" ? counterpartPath : canonicalPath,
       })
     );
   }
@@ -633,8 +642,9 @@ function renderInsightsIndex(pageArticles, allPublished, pageNum, totalPages, de
   <script src="${p}assets/js/insights-search.js" defer></script>`;
 }
 
-function renderInsightsSection(lang, published) {
+function renderInsightsSection(lang, published, otherLangPublished) {
   const base = lang === "fr" ? "fr/insights" : "insights";
+  const otherBase = lang === "fr" ? "insights" : "fr/insights";
   const cats = CATEGORIES[lang];
   const totalPages = Math.max(1, Math.ceil(published.length / PAGE_SIZE));
 
@@ -642,6 +652,8 @@ function renderInsightsSection(lang, published) {
     const pageArticles = published.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
     const outRel = n === 1 ? `${base}/index.html` : `${base}/page/${n}/index.html`;
     const depth = outRel.split("/").length - 1;
+    const otherHasPage = otherLangPublished.length > (n - 1) * PAGE_SIZE;
+    const counterpartPath = otherHasPage ? `/${otherBase}/${n === 1 ? "" : `page/${n}/`}` : null;
     writeFile(
       outRel,
       renderPage({
@@ -652,6 +664,8 @@ function renderInsightsSection(lang, published) {
         bodyMain: renderInsightsIndex(pageArticles, published, n, totalPages, depth, null, lang),
         jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Insights", url: `${SITE_URL}/${base}/` }],
         lang,
+        enHref: lang === "fr" ? counterpartPath : `/${base}/${n === 1 ? "" : `page/${n}/`}`,
+        frHref: lang === "en" ? counterpartPath : `/${base}/${n === 1 ? "" : `page/${n}/`}`,
       })
     );
   }
@@ -661,6 +675,8 @@ function renderInsightsSection(lang, published) {
     if (!inCategory.length) continue;
     const outRel = `${base}/${slug}/index.html`;
     const depth = outRel.split("/").length - 1;
+    const otherHasCategory = otherLangPublished.some((a) => a.category === slug);
+    const counterpartPath = otherHasCategory ? `/${otherBase}/${slug}/` : null;
     writeFile(
       outRel,
       renderPage({
@@ -671,6 +687,8 @@ function renderInsightsSection(lang, published) {
         bodyMain: renderInsightsIndex(inCategory, published, 1, 1, depth, name, lang),
         jsonLd: [],
         lang,
+        enHref: lang === "fr" ? counterpartPath : `/${base}/${slug}/`,
+        frHref: lang === "en" ? counterpartPath : `/${base}/${slug}/`,
       })
     );
   }
@@ -695,8 +713,8 @@ function renderInsightsSection(lang, published) {
   return totalPages;
 }
 
-const totalPagesEn = renderInsightsSection("en", publishedEn);
-if (publishedFr.length) renderInsightsSection("fr", publishedFr);
+const totalPagesEn = renderInsightsSection("en", publishedEn, publishedFr);
+if (publishedFr.length) renderInsightsSection("fr", publishedFr, publishedEn);
 
 // ---------------------------------------------------------------------------
 // /tools (English only for now — see docs/content/CONTENT_STRATEGY.md)
@@ -708,6 +726,8 @@ writeFile(
     description: "Free, no-signup-required calculators and assessments for SMEs — starting with the Automation ROI Calculator.",
     canonicalPath: "/tools/",
     depth: 1,
+    lang: "en",
+    frHref: publishedFr.length ? "/fr/insights/" : null,
     bodyMain: `<section class="section">
       <div class="container">
         <p class="eyebrow">${T.en.toolsEyebrow}</p>
@@ -733,6 +753,8 @@ writeFile(
     description: "Estimate the payback period and annual savings of automating a manual, repetitive task in under a minute.",
     canonicalPath: "/tools/roi-calculator/",
     depth: 2,
+    lang: "en",
+    frHref: publishedFr.length ? "/fr/insights/" : null,
     bodyMain: `<section class="section tool-page">
       <div class="container">
         <p class="eyebrow">Free tool</p>
