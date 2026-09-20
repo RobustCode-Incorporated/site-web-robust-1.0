@@ -36,6 +36,8 @@ ROBUST CODE designs and delivers custom software, CRM/ERP platforms, cybersecuri
 - [RC-DATA](https://www.robust-code.com/what-we-do/rc-data.html)
 - [RC-XP](https://www.robust-code.com/what-we-do/rc-xp.html)
 - [RC-STUDIO](https://www.robust-code.com/what-we-do/rc-studio.html)
+- [Insights](https://www.robust-code.com/insights/): Business, AI and Belgian digitalization articles (EN/FR)
+- [Store](https://www.robust-code.com/store/): Digital systems and free tools for people building businesses
 
 ## Company
 

@@ -26,6 +26,15 @@
         { passive: true }
       );
     }
+
+    const storeEl = document.querySelector("[data-analytics-store]");
+    if (storeEl) track("store_view", {});
+
+    const productEl = document.querySelector("[data-analytics-product]");
+    if (productEl) track("product_view", { slug: productEl.dataset.analyticsProduct });
+
+    const categoryEl = document.querySelector("[data-analytics-category]");
+    if (categoryEl) track("product_category_view", { category: categoryEl.dataset.analyticsCategory });
   });
 
   document.addEventListener("click", (e) => {

@@ -4,5 +4,11 @@
     "title": "Automation ROI Calculator",
     "description": "Estimate the payback period and annual savings of automating a manual, repetitive task.",
     "category": "automation"
+  },
+  {
+    "slug": "project-success-checklist",
+    "title": "Project Success Checklist",
+    "description": "A free 13-stage checklist for taking a business project from idea to closure without the usual scope and stakeholder surprises.",
+    "category": "projects"
   }
 ]

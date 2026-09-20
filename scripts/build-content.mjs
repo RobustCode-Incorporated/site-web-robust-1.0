@@ -102,6 +102,46 @@ const T = {
   },
 };
 
+// Store product categories (English only for now — see docs/store/STORE_ARCHITECTURE.md
+// on why product translations are deferred rather than faked).
+const PRODUCT_CATEGORIES = {
+  business: "Business Systems",
+  ai: "AI Systems",
+  operations: "Operations",
+  sales: "Sales",
+  finance: "Finance",
+  projects: "Projects",
+  productivity: "Productivity",
+  templates: "Templates",
+  bundles: "Bundles",
+};
+
+// Store-specific static strings (English only, matching the product scope above).
+const PT = {
+  storeEyebrow: "Store",
+  storeHeading: "Systems, tools and resources for people building businesses",
+  storeSubtitle: "Structured methods — not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.",
+  comingSoonTitle: "Our first systems are in development",
+  comingSoonBody: "We're building the first Robust Code digital systems in the open — reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.",
+  browseInsights: "Browse Insights",
+  browseTools: "Browse free tools",
+  theProblem: "The problem",
+  whatYouGet: "What you get",
+  howItWorks: "How it works",
+  whoItsFor: "Who it's for",
+  whatYouCanAchieve: "What you can achieve",
+  faq: "FAQ",
+  license: "License",
+  delivery: "Delivery",
+  relatedProducts: "Related systems",
+  relatedFreeTool: "Related free tool",
+  relatedReading: "Related reading",
+  getSystem: "Get the system",
+  comingSoonCta: "Coming soon — checkout not yet configured",
+  bundleIncludes: "This bundle includes",
+  requirements: "Requirements",
+};
+
 const errors = [];
 const fail = (msg) => errors.push(msg);
 
@@ -374,6 +414,49 @@ function relatedToolsBlock(current, tools, depth, lang) {
   </section>`;
 }
 
+function relatedProductsBlock(current, products, depth) {
+  const p = "../".repeat(depth);
+  const slugs = current.relatedProducts || [];
+  const matches = products.filter((prod) => slugs.includes(prod.slug));
+  if (!matches.length) return "";
+  // Products are English-only for now (see docs/store/STORE_ARCHITECTURE.md),
+  // so this heading is not translated even when embedded in a French article.
+  return `<section class="related-products">
+    <h2>Recommended Robust Code system</h2>
+    <ul class="related-products-list">
+      ${matches
+        .map(
+          (prod) =>
+            `<li><a href="${p}store/${prod.category}/${prod.slug}/index.html" data-cta="related_product_click" data-product="${esc(prod.slug)}">${esc(prod.title)} — ${esc(prod.shortDescription)}</a></li>`
+        )
+        .join("")}
+    </ul>
+  </section>`;
+}
+
+function checkoutCTA(product) {
+  const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
+  if (product.checkout && product.checkout.provider && product.checkout.url) {
+    return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${PT.getSystem} — ${priceLabel}</a>`;
+  }
+  // No real payment provider configured — a disabled state, not a fake
+  // clickable button, per the explicit "never fake checkout" requirement.
+  return `<button type="button" class="btn btn-primary checkout-cta is-disabled" disabled aria-disabled="true" title="${PT.comingSoonCta}">${priceLabel} — ${PT.comingSoonCta}</button>`;
+}
+
+function productCard(product, depth) {
+  const p = "../".repeat(depth);
+  const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
+  return `<li class="article-card product-card">
+    <a href="${p}store/${product.category}/${product.slug}/index.html" data-cta="product_cta_click" data-product="${esc(product.slug)}">
+      <p class="eyebrow">${esc(PRODUCT_CATEGORIES[product.category])}</p>
+      <h3>${esc(product.title)}</h3>
+      <p>${esc(product.shortDescription)}</p>
+      <p class="article-card-meta">${priceLabel}</p>
+    </a>
+  </li>`;
+}
+
 function breadcrumbHtml(items, depth) {
   const p = "../".repeat(depth);
   return `<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>${items
@@ -439,6 +522,7 @@ function loadArticles(lang) {
       seo: data.seo || {},
       relatedArticles: data.relatedArticles || [],
       relatedTools: data.relatedTools || [],
+      relatedProducts: data.relatedProducts || [],
       cta: data.cta || null,
       readingTime: readingTime(content),
       bodyHtml: marked.parse(content),
@@ -456,6 +540,87 @@ const frBySlug = new Map(publishedFr.map((a) => [a.slug, a]));
 const enBySlug = new Map(publishedEn.map((a) => [a.slug, a]));
 
 const tools = JSON.parse(fs.readFileSync(path.join(ROOT, "content/tools.json"), "utf-8"));
+
+// ---------------------------------------------------------------------------
+// Load & parse Store products (content/products/<category>/<slug>.md).
+// English only for now. Gated on `status: published` (not a boolean `draft`
+// flag like articles) plus publishedAt, matching spec's product model —
+// "draft" and "scheduled" products are never emitted, so there is nothing to
+// noindex and nothing to accidentally list in the sitemap.
+// ---------------------------------------------------------------------------
+function loadProducts() {
+  const files = walk(path.join(ROOT, "content/products"));
+  const seenSlugs = new Set();
+  const list = [];
+
+  for (const file of files) {
+    const raw = fs.readFileSync(file, "utf-8");
+    const { data, content } = matter(raw);
+    const rel = path.relative(path.join(ROOT, "content/products"), file);
+    const categoryFromPath = rel.split(path.sep)[0];
+    const slug = data.slug || path.basename(file, ".md");
+
+    const required = ["title", "shortDescription", "description", "category", "price", "currency", "status"];
+    for (const field of required) {
+      if (data[field] === undefined || data[field] === null || data[field] === "") {
+        fail(`${rel}: missing required product frontmatter field "${field}"`);
+      }
+    }
+    if (data.category && !PRODUCT_CATEGORIES[data.category]) {
+      fail(`${rel}: unknown product category "${data.category}" (expected one of ${Object.keys(PRODUCT_CATEGORIES).join(", ")})`);
+    }
+    if (data.category && data.category !== categoryFromPath) {
+      fail(`${rel}: frontmatter category "${data.category}" does not match folder "${categoryFromPath}"`);
+    }
+    if (seenSlugs.has(slug)) fail(`Duplicate product slug: "${slug}"`);
+    seenSlugs.add(slug);
+
+    const status = data.status || "draft";
+    const isFuture = data.publishedAt && data.publishedAt > TODAY;
+    const published = status === "published" && !isFuture;
+
+    list.push({
+      slug,
+      category: data.category || categoryFromPath,
+      title: data.title,
+      shortDescription: data.shortDescription,
+      description: data.description,
+      tags: data.tags || [],
+      price: data.price,
+      currency: data.currency || "EUR",
+      compareAtPrice: data.compareAtPrice || null,
+      status,
+      published,
+      publishedAt: data.publishedAt || null,
+      updatedAt: data.updatedAt || data.publishedAt || null,
+      featured: Boolean(data.featured),
+      coverImage: data.coverImage || "",
+      problem: data.problem || "",
+      outcome: data.outcome || "",
+      audience: data.audience || [],
+      includes: data.includes || [],
+      howItWorks: data.howItWorks || [],
+      requirements: data.requirements || [],
+      format: data.format || [],
+      delivery: data.delivery || "digital",
+      license: data.license || "single-user",
+      faq: data.faq || [],
+      bundleProducts: data.bundleProducts || [],
+      relatedProducts: data.relatedProducts || [],
+      relatedArticles: data.relatedArticles || [],
+      relatedTools: data.relatedTools || [],
+      seo: data.seo || {},
+      checkout: data.checkout || { provider: null, productId: null, url: null },
+      bodyHtml: content.trim() ? marked.parse(content) : "",
+    });
+  }
+
+  return list;
+}
+
+const productsAll = loadProducts();
+const publishedProducts = productsAll.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const productsBySlug = new Map(productsAll.map((p) => [p.slug, p]));
 
 // ---------------------------------------------------------------------------
 // Render article pages (one language at a time; shared by EN + FR)
@@ -534,6 +699,7 @@ function renderArticlePages(lang, published, allForRelated) {
       </div>
       ${productCTA(article.cta, lang)}
       ${relatedToolsBlock(article, tools, depth, lang)}
+      ${relatedProductsBlock(article, publishedProducts, depth)}
       ${relatedArticlesBlock(article, allForRelated, depth, lang)}
       ${newsletterCTA(depth, lang)}
       <div class="share-row" data-analytics="article_share">
@@ -805,6 +971,319 @@ writeFile(
   })
 );
 
+const PROJECT_CHECKLIST_STAGES = [
+  { stage: "01 — Discovery", items: ["The problem the project solves is written down in one paragraph", "You've confirmed the project is actually worth doing before planning it further"] },
+  { stage: "02 — Objectives", items: ["Success criteria are specific enough that two people would agree whether they were met", "Objectives are written down, not just discussed verbally"] },
+  { stage: "03 — Stakeholders", items: ["Everyone who can approve, block, or be materially affected by the project is listed", "Each stakeholder's role (decide / consulted / informed) is explicit"] },
+  { stage: "04 — Scope", items: ["What's included is written down", "What's explicitly excluded is also written down"] },
+  { stage: "05 — Requirements", items: ["Requirements are reviewed by whoever will actually use the outcome, not just the person requesting it"] },
+  { stage: "06 — Deliverables", items: ["Every deliverable has a clear definition of \"done\"", "The final deliverable format is agreed before work starts, not at delivery"] },
+  { stage: "07 — Dependencies", items: ["External dependencies (people, tools, approvals) outside your direct control are listed"] },
+  { stage: "08 — Risks", items: ["The top 3-5 risks are written down with a plan for each, not just identified in a meeting and forgotten"] },
+  { stage: "09 — Planning", items: ["Milestones exist with dates, not just a task list", "The plan has been sanity-checked against who is actually available to do the work"] },
+  { stage: "10 — Execution", items: ["There's a single place where current status lives, not scattered across chats"] },
+  { stage: "11 — Monitoring", items: ["Progress is checked against the plan on a fixed cadence, not only when something goes wrong"] },
+  { stage: "12 — Validation", items: ["Deliverables are checked against the original definition of done before being called finished"] },
+  { stage: "13 — Closure", items: ["A short retrospective is done — what to repeat, what to change next time", "Stakeholders are formally told the project is closed"] },
+];
+
+writeFile(
+  "tools/project-success-checklist/index.html",
+  renderPage({
+    title: "Project Success Checklist | ROBUST CODE",
+    description: "A free 13-stage checklist for taking a business project from idea to closure without the usual scope and stakeholder surprises.",
+    canonicalPath: "/tools/project-success-checklist/",
+    depth: 2,
+    lang: "en",
+    frHref: publishedFr.length ? "/fr/insights/" : null,
+    bodyMain: `<section class="section tool-page" data-analytics-product="project-success-checklist">
+      <div class="container">
+        <p class="eyebrow">Free tool</p>
+        <h1>Project Success Checklist</h1>
+        <p class="text-soft">The 13 stages most project failures trace back to skipping. Check them off as you go — your progress is saved in this browser only.</p>
+
+        <div id="checklist-root" class="project-checklist">
+          ${PROJECT_CHECKLIST_STAGES.map(
+            (s, si) => `<fieldset class="checklist-stage">
+            <legend>${esc(s.stage)}</legend>
+            ${s.items
+              .map(
+                (item, ii) => `<label class="checklist-item">
+              <input type="checkbox" data-checklist-id="${si}-${ii}">
+              <span>${esc(item)}</span>
+            </label>`
+              )
+              .join("")}
+          </fieldset>`
+          ).join("")}
+        </div>
+        <p class="cta-note">Nothing you check here is sent anywhere — it's stored only in this browser (localStorage).</p>
+
+        ${relatedProductsBlock({ relatedProducts: ["robust-project-os"] }, publishedProducts, 2)}
+        ${newsletterCTA(2, "en")}
+      </div>
+    </section>
+    <script src="../../assets/js/tools/project-checklist.js" defer></script>`,
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Project Success Checklist",
+        applicationCategory: "BusinessApplication",
+        url: `${SITE_URL}/tools/project-success-checklist/`,
+        offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      },
+    ],
+  })
+);
+
+// ---------------------------------------------------------------------------
+// /store — digital products (Phase 2). English only for now. Renders
+// gracefully with zero published products (an honest "coming soon" state,
+// not a broken-looking empty grid) since the first product ships as a draft.
+// ---------------------------------------------------------------------------
+function renderProductPages(products) {
+  for (const product of products) {
+    const outRel = `store/${product.category}/${product.slug}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    const canonicalPath = product.seo.canonical || `/store/${product.category}/${product.slug}/`;
+    const url = `${SITE_URL}${canonicalPath}`;
+
+    const jsonLd = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.title,
+        description: product.description,
+        category: PRODUCT_CATEGORIES[product.category],
+        image: product.coverImage ? `${SITE_URL}${product.coverImage}` : `${SITE_URL}/assets/images/logo.png`,
+        offers: {
+          "@type": "Offer",
+          url,
+          price: String(product.price),
+          priceCurrency: product.currency,
+          availability: product.checkout.url ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Store", item: `${SITE_URL}/store/` },
+          { "@type": "ListItem", position: 3, name: PRODUCT_CATEGORIES[product.category], item: `${SITE_URL}/store/${product.category}/` },
+          { "@type": "ListItem", position: 4, name: product.title, item: url },
+        ],
+      },
+    ];
+
+    const bundleSection =
+      product.category === "bundles" && product.bundleProducts.length
+        ? `<section class="related-products">
+      <h2>${PT.bundleIncludes}</h2>
+      <ul class="related-products-list">
+        ${product.bundleProducts
+          .map((slug) => productsBySlug.get(slug))
+          .filter((p) => p && p.published)
+          .map((p) => `<li><a href="${"../".repeat(depth)}store/${p.category}/${p.slug}/index.html">${esc(p.title)}</a></li>`)
+          .join("")}
+      </ul>
+    </section>`
+        : "";
+
+    const faqSection = product.faq.length
+      ? `<section class="product-faq">
+      <h2>${PT.faq}</h2>
+      ${product.faq.map((f) => `<div class="faq-item"><h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p></div>`).join("")}
+    </section>`
+      : "";
+
+    const bodyMain = `<article class="section product-page" data-analytics-product="${esc(product.slug)}">
+    <div class="container">
+      ${breadcrumbHtml(
+        [
+          { name: "Store", href: "store/index.html" },
+          { name: PRODUCT_CATEGORIES[product.category], href: `store/${product.category}/index.html` },
+          { name: product.title, href: "#" },
+        ],
+        depth
+      )}
+      <p class="eyebrow">${esc(PRODUCT_CATEGORIES[product.category])}</p>
+      <h1>${esc(product.title)}</h1>
+      <p class="text-soft product-tagline">${esc(product.shortDescription)}</p>
+      <div class="product-purchase">
+        ${checkoutCTA(product)}
+      </div>
+
+      ${product.problem ? `<section class="product-section"><h2>${PT.theProblem}</h2><p>${esc(product.problem)}</p></section>` : ""}
+
+      ${
+        product.includes.length
+          ? `<section class="product-section"><h2>${PT.whatYouGet}</h2><ul class="product-includes">${product.includes
+              .map((i) => `<li>${esc(i)}</li>`)
+              .join("")}</ul></section>`
+          : ""
+      }
+
+      ${
+        product.howItWorks.length
+          ? `<section class="product-section"><h2>${PT.howItWorks}</h2><ol class="product-steps">${product.howItWorks
+              .map((s) => `<li>${esc(s)}</li>`)
+              .join("")}</ol></section>`
+          : ""
+      }
+
+      ${
+        product.audience.length
+          ? `<section class="product-section"><h2>${PT.whoItsFor}</h2><ul class="product-includes">${product.audience
+              .map((a) => `<li>${esc(a)}</li>`)
+              .join("")}</ul></section>`
+          : ""
+      }
+
+      ${product.outcome ? `<section class="product-section"><h2>${PT.whatYouCanAchieve}</h2><p>${esc(product.outcome)}</p></section>` : ""}
+
+      ${bundleSection}
+      ${faqSection}
+
+      <section class="product-meta-grid">
+        <div><h3>${PT.license}</h3><p>${esc(product.license)}</p></div>
+        <div><h3>${PT.delivery}</h3><p>${esc(product.delivery)}</p></div>
+        ${product.requirements.length ? `<div><h3>${PT.requirements}</h3><p>${product.requirements.map(esc).join(", ")}</p></div>` : ""}
+      </section>
+
+      ${relatedToolsBlock(product, tools, depth, "en")}
+      ${relatedProductsBlock(product, publishedProducts, depth)}
+      ${relatedArticlesBlock(product, publishedEn, depth, "en")}
+
+      <div class="product-purchase product-purchase-bottom">
+        ${checkoutCTA(product)}
+      </div>
+    </div>
+  </article>`;
+
+    writeFile(
+      outRel,
+      renderPage({
+        title: product.seo.title || `${product.title} | ROBUST CODE Store`,
+        description: product.seo.description || product.shortDescription,
+        canonicalPath,
+        depth,
+        bodyMain,
+        jsonLd,
+        lang: "en",
+      })
+    );
+  }
+}
+
+renderProductPages(publishedProducts);
+
+function renderStoreSection() {
+  const totalPages = Math.max(1, Math.ceil(publishedProducts.length / PAGE_SIZE));
+
+  for (let n = 1; n <= totalPages; n++) {
+    const pageProducts = publishedProducts.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
+    const outRel = n === 1 ? "store/index.html" : `store/page/${n}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    const p = "../".repeat(depth);
+
+    const categoryNav = Object.entries(PRODUCT_CATEGORIES)
+      .filter(([slug]) => publishedProducts.some((prod) => prod.category === slug))
+      .map(([slug, name]) => `<a href="${p}store/${slug}/index.html">${esc(name)}</a>`)
+      .join("");
+
+    const emptyState = `<div class="featured-article store-empty-state">
+      <p class="eyebrow">${PT.storeEyebrow}</p>
+      <h2>${PT.comingSoonTitle}</h2>
+      <p>${PT.comingSoonBody}</p>
+      <div class="store-empty-actions">
+        <a class="btn btn-primary" href="${p}insights/index.html">${PT.browseInsights}</a>
+        <a class="btn btn-ghost" href="${p}tools/index.html">${PT.browseTools}</a>
+      </div>
+    </div>`;
+
+    const bodyMain = `<section class="section insights-index" data-analytics-store="1">
+      <div class="container">
+        <p class="eyebrow">${PT.storeEyebrow}</p>
+        <h1>${PT.storeHeading}</h1>
+        <p class="text-soft">${PT.storeSubtitle}</p>
+
+        ${
+          publishedProducts.length
+            ? `<div class="insights-search">
+          <label class="visually-hidden" for="store-search-input">Search products</label>
+          <input type="search" id="store-search-input" placeholder="Search systems&hellip;" data-store-index="${p}store/index.json" data-store-base="${p}">
+          <ul id="store-search-results" hidden></ul>
+        </div>
+        <nav class="insights-categories" aria-label="Categories">${categoryNav}</nav>
+        <ul class="article-grid">${pageProducts.map((prod) => productCard(prod, depth)).join("")}</ul>`
+            : emptyState
+        }
+      </div>
+    </section>${publishedProducts.length ? `\n  <script src="${p}assets/js/store-search.js" defer></script>` : ""}`;
+
+    writeFile(
+      outRel,
+      renderPage({
+        title: n === 1 ? "Store | ROBUST CODE" : `Store — Page ${n} | ROBUST CODE`,
+        description: PT.storeSubtitle,
+        canonicalPath: n === 1 ? "/store/" : `/store/page/${n}/`,
+        depth,
+        bodyMain,
+        jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Store", url: `${SITE_URL}/store/` }],
+        lang: "en",
+      })
+    );
+  }
+
+  for (const [slug, name] of Object.entries(PRODUCT_CATEGORIES)) {
+    const inCategory = publishedProducts.filter((prod) => prod.category === slug);
+    if (!inCategory.length) continue; // never generate an empty category page
+    const outRel = `store/${slug}/index.html`;
+    const depth = outRel.split("/").length - 1;
+    writeFile(
+      outRel,
+      renderPage({
+        title: `${name} | ROBUST CODE Store`,
+        description: `${name} — ROBUST CODE Store`,
+        canonicalPath: `/store/${slug}/`,
+        depth,
+        bodyMain: `<section class="section insights-index" data-analytics-category="${esc(slug)}">
+          <div class="container">
+            <p class="eyebrow">${PT.storeEyebrow}</p>
+            <h1>${esc(name)}</h1>
+            <ul class="article-grid">${inCategory.map((prod) => productCard(prod, depth)).join("")}</ul>
+          </div>
+        </section>`,
+        jsonLd: [],
+        lang: "en",
+      })
+    );
+  }
+
+  writeFile(
+    "store/index.json",
+    JSON.stringify(
+      publishedProducts.map((prod) => ({
+        slug: prod.slug,
+        category: prod.category,
+        title: prod.title,
+        description: prod.shortDescription,
+        tags: prod.tags,
+        price: prod.price,
+        currency: prod.currency,
+        format: prod.format,
+        url: `store/${prod.category}/${prod.slug}/index.html`,
+      })),
+      null,
+      2
+    )
+  );
+}
+
+renderStoreSection();
+
 // ---------------------------------------------------------------------------
 // sitemap.xml
 // ---------------------------------------------------------------------------
@@ -831,6 +1310,16 @@ const sitemapUrls = [
   { loc: "/tools/roi-calculator/", changefreq: "monthly", priority: "0.6" },
   ...insightsSitemapEntries("en", publishedEn),
   ...(publishedFr.length ? insightsSitemapEntries("fr", publishedFr) : []),
+  { loc: "/store/", changefreq: "weekly", priority: "0.7" },
+  ...Object.keys(PRODUCT_CATEGORIES)
+    .filter((slug) => publishedProducts.some((prod) => prod.category === slug))
+    .map((slug) => ({ loc: `/store/${slug}/`, changefreq: "weekly", priority: "0.6" })),
+  ...publishedProducts.map((prod) => ({
+    loc: `/store/${prod.category}/${prod.slug}/`,
+    changefreq: "monthly",
+    priority: prod.featured ? "0.8" : "0.6",
+    lastmod: prod.updatedAt,
+  })),
 ];
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -853,8 +1342,9 @@ writeFile("sitemap.xml", sitemapXml);
 // ---------------------------------------------------------------------------
 const draftCountEn = articlesEnAll.length - publishedEn.length;
 const draftCountFr = articlesFrAll.length - publishedFr.length;
+const draftProductCount = productsAll.length - publishedProducts.length;
 console.log(
-  `Built ${publishedEn.length} EN article page(s) + ${publishedFr.length} FR article page(s), ${totalPagesEn} EN insights index page(s), 1 tool. ${draftCountEn} EN + ${draftCountFr} FR draft/scheduled article(s) excluded.`
+  `Built ${publishedEn.length} EN article page(s) + ${publishedFr.length} FR article page(s), ${totalPagesEn} EN insights index page(s), ${tools.length} tool(s), ${publishedProducts.length} store product page(s). ${draftCountEn} EN + ${draftCountFr} FR draft/scheduled article(s) and ${draftProductCount} draft/scheduled product(s) excluded.`
 );
 
 if (errors.length) {
@@ -869,7 +1359,9 @@ if (CHECK) {
   const generated = [
     ...publishedEn.map((a) => path.join(ROOT, `insights/${a.category}/${a.slug}/index.html`)),
     ...publishedFr.map((a) => path.join(ROOT, `fr/insights/${a.category}/${a.slug}/index.html`)),
+    ...publishedProducts.map((prod) => path.join(ROOT, `store/${prod.category}/${prod.slug}/index.html`)),
     path.join(ROOT, "insights/index.html"),
+    path.join(ROOT, "store/index.html"),
     ...(publishedFr.length ? [path.join(ROOT, "fr/insights/index.html")] : []),
   ];
   let brokenLinks = 0;

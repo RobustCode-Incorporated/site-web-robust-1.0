@@ -319,3 +319,141 @@
   background: var(--accent-teal-glow);
   margin: 1.5rem 0;
 }
+
+/* Store / products */
+.product-tagline {
+  max-width: 60ch;
+  font-size: 1.1rem;
+}
+
+.product-purchase {
+  margin: 1.5rem 0 2.5rem;
+}
+.product-purchase-bottom {
+  margin-top: 3rem;
+}
+
+.checkout-cta {
+  font-size: 1rem;
+}
+.checkout-cta.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border: 1px dashed var(--surface-border);
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.product-section {
+  max-width: 72ch;
+  margin: 2.5rem 0;
+}
+.product-section p {
+  color: var(--text-secondary);
+}
+.product-includes,
+.product-steps {
+  padding-left: 1.4rem;
+  color: var(--text-secondary);
+  display: grid;
+  gap: 0.5rem;
+}
+.product-includes {
+  list-style: "\2713\0020";
+}
+
+.product-faq {
+  max-width: 72ch;
+  margin: 2.5rem 0;
+}
+.faq-item {
+  margin: 1.25rem 0;
+}
+.faq-item h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+.faq-item p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.product-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+  max-width: 72ch;
+  margin: 2.5rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+}
+.product-meta-grid h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin: 0 0 0.3rem;
+}
+.product-meta-grid p {
+  margin: 0;
+}
+
+.related-products {
+  max-width: 72ch;
+  margin: 2.5rem 0;
+}
+.related-products-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.related-products-list a {
+  color: var(--accent-teal);
+  text-decoration: none;
+}
+.related-products-list a:hover {
+  text-decoration: underline;
+}
+
+.store-empty-state {
+  text-align: left;
+}
+.store-empty-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+/* Project checklist tool */
+.project-checklist {
+  max-width: 62ch;
+  display: grid;
+  gap: 1.75rem;
+  margin: 2rem 0;
+}
+.checklist-stage {
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+.checklist-stage legend {
+  padding: 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-teal);
+}
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.checklist-item input {
+  margin-top: 0.3rem;
+}
