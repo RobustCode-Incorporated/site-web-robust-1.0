@@ -114,6 +114,7 @@ const PRODUCT_CATEGORIES = {
   productivity: "Productivity",
   templates: "Templates",
   bundles: "Bundles",
+  tech: "Tech & Equipment",
 };
 
 // Store-specific static strings (English only, matching the product scope above).
@@ -140,6 +141,10 @@ const PT = {
   comingSoonCta: "Coming soon — checkout not yet configured",
   bundleIncludes: "This bundle includes",
   requirements: "Requirements",
+  buyNow: "Buy now",
+  shippingEstimate: "Estimated shipping",
+  fulfilledBy: "Shipped by a Robust Code fulfillment partner. Orders are placed and dispatched by a team member after purchase — not an instant automated shipment.",
+  sku: "SKU",
 };
 
 const errors = [];
@@ -575,6 +580,19 @@ function loadProducts() {
     if (seenSlugs.has(slug)) fail(`Duplicate product slug: "${slug}"`);
     seenSlugs.add(slug);
 
+    // Safety net: content/products/**/*.md is committed to a PUBLIC repo.
+    // Sourcing/cost data for dropship-fulfilled products must live only in
+    // a private, non-committed location (a Vercel env var — see
+    // docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md), never in a frontmatter
+    // field that ends up rendered or JSON-indexed. Fail loudly if anyone
+    // (human or AI) ever adds one of these fields here by mistake.
+    const forbiddenFields = ["sourceUrl", "supplierUrl", "amazonUrl", "amazonAsin", "costPrice", "cost", "supplierCost", "margin"];
+    for (const field of forbiddenFields) {
+      if (data[field] !== undefined) {
+        fail(`${rel}: "${field}" must never be set in content/products/ (public repo) — use the private sourcing map instead, see docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md`);
+      }
+    }
+
     const status = data.status || "draft";
     const isFuture = data.publishedAt && data.publishedAt > TODAY;
     const published = status === "published" && !isFuture;
@@ -595,6 +613,10 @@ function loadProducts() {
       updatedAt: data.updatedAt || data.publishedAt || null,
       featured: Boolean(data.featured),
       coverImage: data.coverImage || "",
+      productType: data.productType || "digital",
+      images: data.images || [],
+      shippingEstimate: data.shippingEstimate || "",
+      sku: data.sku || "",
       problem: data.problem || "",
       outcome: data.outcome || "",
       audience: data.audience || [],
@@ -1111,8 +1133,19 @@ function renderProductPages(products) {
       <p class="eyebrow">${esc(PRODUCT_CATEGORIES[product.category])}</p>
       <h1>${esc(product.title)}</h1>
       <p class="text-soft product-tagline">${esc(product.shortDescription)}</p>
+
+      ${
+        product.images.length
+          ? `<div class="product-gallery">${product.images
+              .map((img, i) => `<img src="${esc(img)}" alt="${esc(product.title)} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">`)
+              .join("")}</div>`
+          : ""
+      }
+
       <div class="product-purchase">
         ${checkoutCTA(product)}
+        ${product.productType === "physical" && product.shippingEstimate ? `<p class="cta-note">${PT.shippingEstimate}: ${esc(product.shippingEstimate)}</p>` : ""}
+        ${product.productType === "physical" ? `<p class="cta-note">${PT.fulfilledBy}</p>` : ""}
       </div>
 
       ${product.problem ? `<section class="product-section"><h2>${PT.theProblem}</h2><p>${esc(product.problem)}</p></section>` : ""}
@@ -1147,8 +1180,13 @@ function renderProductPages(products) {
       ${faqSection}
 
       <section class="product-meta-grid">
-        <div><h3>${PT.license}</h3><p>${esc(product.license)}</p></div>
-        <div><h3>${PT.delivery}</h3><p>${esc(product.delivery)}</p></div>
+        ${
+          product.productType === "physical"
+            ? `${product.sku ? `<div><h3>${PT.sku}</h3><p>${esc(product.sku)}</p></div>` : ""}
+               ${product.shippingEstimate ? `<div><h3>${PT.shippingEstimate}</h3><p>${esc(product.shippingEstimate)}</p></div>` : ""}`
+            : `<div><h3>${PT.license}</h3><p>${esc(product.license)}</p></div>
+               <div><h3>${PT.delivery}</h3><p>${esc(product.delivery)}</p></div>`
+        }
         ${product.requirements.length ? `<div><h3>${PT.requirements}</h3><p>${product.requirements.map(esc).join(", ")}</p></div>` : ""}
       </section>
 

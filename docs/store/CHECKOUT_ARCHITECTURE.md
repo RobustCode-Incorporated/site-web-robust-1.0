@@ -39,8 +39,12 @@ When a checkout provider is chosen, the change is additive and small:
 
 No API key, secret, or webhook signing secret should ever be committed to this repository. A hosted checkout **link** is not a secret (it's meant to be public), which is exactly why this approach needs zero secret management on the static site's side. If a future phase needs to *verify* a purchase (for automated delivery — see `DIGITAL_DELIVERY.md`), that verification must live in a separate, small backend (e.g., a Vercel Serverless Function or a provider's built-in post-purchase automation), never in this static repository.
 
+## Update: a real webhook now exists, for one specific purpose
+
+For physical (`productType: "physical"`) products, a real Stripe integration exists: `api/stripe-webhook.js`, a Vercel Serverless Function — the only backend code in this repository. It does not process payments itself (Stripe's hosted Payment Link handles that entirely); it only listens for the `checkout.session.completed` event afterward and notifies a human to fulfill the order. See `docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md` for the full setup. This does not change anything above for digital products, which still use the fully inert `checkout.provider/url` placeholder until a provider is configured for them too.
+
 ## What still requires configuration (explicit, not implied)
 
-- No checkout provider account exists yet.
-- No product has been created on any provider's dashboard.
+- No digital product has a checkout provider configured yet.
+- For physical products: the Stripe Payment Link, webhook endpoint, and all environment variables (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `AMAZON_SOURCING_MAP`, `FULFILLMENT_NOTIFY_WEBHOOK_URL`) must be set up per `docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md` before any real sale.
 - No real price has been charged or is chargeable today.

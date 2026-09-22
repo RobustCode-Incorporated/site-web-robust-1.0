@@ -52,6 +52,21 @@ checkout:
 - Slugs must be unique across the entire `content/products/` tree, not just within a category.
 - A product is only ever rendered/sitemapped/JSON-LD'd when `status === "published"` **and** `publishedAt` is today or in the past. Anything else — including a typo'd status — is silently excluded, never partially exposed.
 
+## Physical products (`productType: "physical"`)
+
+Additional/different fields for a physical, supplier-fulfilled item (e.g. `category: "tech"`):
+
+```yaml
+productType: "physical"   # default is "digital" if omitted
+images: ["/assets/images/..."]   # product photos, public
+shippingEstimate: "5-9 business days"
+sku: "RC-TECH-001"         # your own internal SKU — not the supplier's
+```
+
+`includes`, `howItWorks`, `license`, `delivery` are digital-product concepts and are skipped in the rendered page for `productType: "physical"` — use `problem`, `outcome`, `audience`, `faq` as normal.
+
+**Never add a sourcing/cost field here** (`sourceUrl`, `amazonUrl`, `amazonAsin`, `costPrice`, `cost`, `supplierCost`, `margin`, `supplierUrl`) — `scripts/build-content.mjs` fails the build if it sees one, because this file is committed to a public repository. That data lives only in the `AMAZON_SOURCING_MAP` Vercel environment variable — see `docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md`.
+
 ## Fields intentionally NOT implemented yet
 
 - Localized (`.fr.md`) product content — see `STORE_ROADMAP.md`.
