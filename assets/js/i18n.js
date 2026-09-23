@@ -14,7 +14,8 @@ const translations = {
       footer: {
         tagline: "Innovation at your fingertips",
         news: "News",
-        blog: "Blog",
+        blog: "Insights",
+        store: "Store",
         careers: "Careers",
         contact: "Contact Us",
         companyHeading: "Company",
@@ -162,7 +163,7 @@ const translations = {
     blog: {
       eyebrow: "Blog",
       title: "Engineering notes and transformation insights",
-      subtitle: "Articles on architecture, data, cybersecurity, and scalable product delivery will appear here."
+      subtitle: "This page has moved. Read our articles on business, AI, automation and Belgian digitalization on Insights."
     },
     careers: {
       eyebrow: "Careers",
@@ -349,7 +350,8 @@ const translations = {
       footer: {
         tagline: "L'innovation à portée de main",
         news: "Actualités",
-        blog: "Blog",
+        blog: "Analyses",
+        store: "Boutique",
         careers: "Carrières",
         contact: "Contactez-nous",
         companyHeading: "Entreprise",
@@ -497,7 +499,7 @@ const translations = {
     blog: {
       eyebrow: "Blog",
       title: "Notes d'ingénierie et perspectives de transformation",
-      subtitle: "Des articles sur l'architecture, les données, la cybersécurité et la livraison de produits évolutifs seront publiés ici."
+      subtitle: "Cette page a été déplacée. Retrouvez nos articles sur le business, l'IA, l'automatisation et la digitalisation belge sur Analyses."
     },
     careers: {
       eyebrow: "Carrières",

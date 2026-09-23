@@ -44,7 +44,7 @@ const CATEGORIES = {
 const NAV = {
   en: {
     home: "Home", whatWeDo: "What We Do", ourWork: "Our Work", insights: "Insights", about: "About",
-    tools: "Tools", news: "News", careers: "Careers", contact: "Contact Us",
+    tools: "Tools", store: "Store", news: "News", careers: "Careers", contact: "Contact Us",
     company: "Company", trust: "Trust &amp; Security", security: "Security", privacyProtection: "Privacy Protection",
     gdpr: "GDPR", support: "Support", legal: "Legal", legalNotice: "Legal Notice", privacyPolicy: "Privacy Policy",
     cookiePolicy: "Cookie Policy", termsUse: "Terms of Use", termsConditions: "Terms &amp; Conditions",
@@ -52,7 +52,7 @@ const NAV = {
   },
   fr: {
     home: "Accueil", whatWeDo: "Ce Que Nous Faisons", ourWork: "Nos Réalisations", insights: "Analyses", about: "À Propos",
-    tools: "Outils", news: "Actualités", careers: "Carrières", contact: "Contactez-nous",
+    tools: "Outils", store: "Boutique", news: "Actualités", careers: "Carrières", contact: "Contactez-nous",
     company: "Entreprise", trust: "Confiance et Sécurité", security: "Sécurité", privacyProtection: "Protection de la vie privée",
     gdpr: "RGPD", support: "Support", legal: "Juridique", legalNotice: "Mentions légales", privacyPolicy: "Politique de confidentialité",
     cookiePolicy: "Politique de cookies", termsUse: "Conditions d'utilisation", termsConditions: "Conditions générales",
@@ -314,6 +314,7 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
           <a href="${p}news.html">${nav.news}</a>
           <a href="${insightsHref}">${nav.insights}</a>
           <a href="${p}tools/index.html">${nav.tools}</a>
+          <a href="${p}store/index.html">${nav.store}</a>
           <a href="${p}careers.html">${nav.careers}</a>
           <a href="${p}contact.html">${nav.contact}</a>
         </nav>
