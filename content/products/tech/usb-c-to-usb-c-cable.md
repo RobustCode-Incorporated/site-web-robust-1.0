@@ -11,8 +11,8 @@ tags:
   - accessory
 price: 10
 currency: "EUR"
-status: "draft"
-publishedAt: null
+status: "published"
+publishedAt: "2026-09-23"
 featured: false
 images: []
 shippingEstimate: "3-7 business days"
@@ -35,4 +35,4 @@ checkout:
   url: "https://buy.stripe.com/dRm3cwfax99O6wY5nc8bS01"
 ---
 
-Kept intentionally simple — this is a straightforward accessory, not a system. See `docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md` for what still needs to happen (shipping collection on the Payment Link, `metadata.slug` on the Payment Link, the `AMAZON_SOURCING_MAP` entry) before this goes to `status: "published"`.
+Kept intentionally simple — this is a straightforward accessory, not a system.

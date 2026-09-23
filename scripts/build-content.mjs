@@ -441,8 +441,9 @@ function relatedProductsBlock(current, products, depth) {
 
 function checkoutCTA(product) {
   const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
+  const ctaLabel = product.productType === "physical" ? PT.buyNow : PT.getSystem;
   if (product.checkout && product.checkout.provider && product.checkout.url) {
-    return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${PT.getSystem} — ${priceLabel}</a>`;
+    return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${ctaLabel} — ${priceLabel}</a>`;
   }
   // No real payment provider configured — a disabled state, not a fake
   // clickable button, per the explicit "never fake checkout" requirement.

@@ -62,17 +62,23 @@
         <h1>Systems, tools and resources for people building businesses</h1>
         <p class="text-soft">Structured methods — not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.</p>
 
-        <div class="featured-article store-empty-state">
-      <p class="eyebrow">Store</p>
-      <h2>Our first systems are in development</h2>
-      <p>We're building the first Robust Code digital systems in the open — reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.</p>
-      <div class="store-empty-actions">
-        <a class="btn btn-primary" href="../insights/index.html">Browse Insights</a>
-        <a class="btn btn-ghost" href="../tools/index.html">Browse free tools</a>
+        <div class="insights-search">
+          <label class="visually-hidden" for="store-search-input">Search products</label>
+          <input type="search" id="store-search-input" placeholder="Search systems&hellip;" data-store-index="../store/index.json" data-store-base="../">
+          <ul id="store-search-results" hidden></ul>
+        </div>
+        <nav class="insights-categories" aria-label="Categories"><a href="../store/tech/index.html">Tech &amp; Equipment</a></nav>
+        <ul class="article-grid"><li class="article-card product-card">
+    <a href="../store/tech/usb-c-to-usb-c-cable/index.html" data-cta="product_cta_click" data-product="usb-c-to-usb-c-cable">
+      <p class="eyebrow">Tech &amp; Equipment</p>
+      <h3>USB-C to USB-C Cable — 60W Fast Charge</h3>
+      <p>A 2m, 60W fast-charge USB-C to USB-C cable for recent iPhone, Samsung and iPad models.</p>
+      <p class="article-card-meta">€10</p>
+    </a>
+  </li></ul>
       </div>
-    </div>
-      </div>
-    </section></main>
+    </section>
+  <script src="../assets/js/store-search.js" defer></script></main>
 
   <footer class="site-footer" id="site-footer">
     <span class="footer-top-line" aria-hidden="true"></span>

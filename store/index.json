@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "slug": "usb-c-to-usb-c-cable",
+    "category": "tech",
+    "title": "USB-C to USB-C Cable — 60W Fast Charge",
+    "description": "A 2m, 60W fast-charge USB-C to USB-C cable for recent iPhone, Samsung and iPad models.",
+    "tags": [
+      "cable",
+      "charging",
+      "accessory"
+    ],
+    "price": 10,
+    "currency": "EUR",
+    "format": [],
+    "url": "store/tech/usb-c-to-usb-c-cable/index.html"
+  }
+]
