@@ -14,7 +14,9 @@ currency: "EUR"
 status: "published"
 publishedAt: "2026-09-23"
 featured: false
-images: []
+coverImage: "/assets/images/usb-c-cable.jpg"
+images:
+  - "/assets/images/usb-c-cable.jpg"
 shippingEstimate: "3-7 business days"
 sku: "RC-TECH-001"
 problem: "Most bundled charging cables are short, slow (non-fast-charge), or fail within months — leaving you buying another one you didn't plan for."

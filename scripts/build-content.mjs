@@ -219,7 +219,7 @@ function writeFile(relPath, content) {
 // to reach the repo root from the output file's directory. `lang` ('en' |
 // 'fr') picks the nav/footer copy; `alternateLinks` adds hreflang tags.
 // ---------------------------------------------------------------------------
-function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMain, jsonLd = [], lang = "en", alternateLinks = [], enHref = null, frHref = null }) {
+function renderPage({ title, description, canonicalPath, ogImage, ogImageWidth = 500, ogImageHeight = 500, depth, bodyMain, jsonLd = [], lang = "en", alternateLinks = [], enHref = null, frHref = null }) {
   const p = "../".repeat(depth);
   const nav = NAV[lang];
   const canonical = `${SITE_URL}${canonicalPath}`;
@@ -240,7 +240,7 @@ function renderPage({ title, description, canonicalPath, ogImage, depth, bodyMai
   const frOnclick = lang === "en" && frHref ? ` onclick="location.href='${frHref}'"` : "";
 
   return `<!DOCTYPE html>
-<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="index, follow"><meta name="description" content="${esc(description)}"><title>${esc(title)}</title><link rel="canonical" href="${canonical}">${hreflangTags}<link rel="icon" type="image/png" href="/assets/images/logo.png"><link rel="apple-touch-icon" href="/assets/images/logo.png"><meta property="og:type" content="article"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${image}"><meta property="og:image:width" content="500"><meta property="og:image:height" content="500"><meta property="og:site_name" content="ROBUST CODE"><meta property="og:locale" content="${lang === "fr" ? "fr_FR" : "en_US"}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${image}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@1.34.0" integrity="sha384-TkyaYJPudUfB9a60ZTQjPXXxBGDxeXJy48PDE1DeZnOdKs/QdAs3pP/B9ApNJIH8" crossorigin="anonymous" defer></script><link rel="stylesheet" href="${p}assets/css/styles.css"><link rel="stylesheet" href="${p}assets/css/insights.css"><script defer src="/_vercel/insights/script.js"></script>${ldBlocks}
+<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="index, follow"><meta name="description" content="${esc(description)}"><title>${esc(title)}</title><link rel="canonical" href="${canonical}">${hreflangTags}<link rel="icon" type="image/png" href="/assets/images/logo.png"><link rel="apple-touch-icon" href="/assets/images/logo.png"><meta property="og:type" content="article"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${image}"><meta property="og:image:width" content="${ogImageWidth}"><meta property="og:image:height" content="${ogImageHeight}"><meta property="og:site_name" content="ROBUST CODE"><meta property="og:locale" content="${lang === "fr" ? "fr_FR" : "en_US"}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${image}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@1.34.0" integrity="sha384-TkyaYJPudUfB9a60ZTQjPXXxBGDxeXJy48PDE1DeZnOdKs/QdAs3pP/B9ApNJIH8" crossorigin="anonymous" defer></script><link rel="stylesheet" href="${p}assets/css/styles.css"><link rel="stylesheet" href="${p}assets/css/insights.css"><script defer src="/_vercel/insights/script.js"></script>${ldBlocks}
 </head><body><header class="site-header" id="main-header">
     <div class="container nav-wrap">
       <a class="brand nav-logo" href="${p}index.html" aria-label="ROBUST CODE home">
@@ -1184,8 +1184,7 @@ function renderProductPages(products) {
       <section class="product-meta-grid">
         ${
           product.productType === "physical"
-            ? `${product.sku ? `<div><h3>${PT.sku}</h3><p>${esc(product.sku)}</p></div>` : ""}
-               ${product.shippingEstimate ? `<div><h3>${PT.shippingEstimate}</h3><p>${esc(product.shippingEstimate)}</p></div>` : ""}`
+            ? `${product.shippingEstimate ? `<div><h3>${PT.shippingEstimate}</h3><p>${esc(product.shippingEstimate)}</p></div>` : ""}`
             : `<div><h3>${PT.license}</h3><p>${esc(product.license)}</p></div>
                <div><h3>${PT.delivery}</h3><p>${esc(product.delivery)}</p></div>`
         }
@@ -1212,6 +1211,14 @@ function renderProductPages(products) {
         bodyMain,
         jsonLd,
         lang: "en",
+        // Hardcoded to this one product photo's actual dimensions — there's
+        // no image-dimension-reading dependency in this build. If/when a
+        // second product gets a differently-sized cover image, add one
+        // (e.g. "image-size", tiny/zero-transitive-deps) rather than
+        // guessing dimensions here.
+        ogImage: product.coverImage ? `${SITE_URL}${product.coverImage}` : undefined,
+        ogImageWidth: product.coverImage ? 1008 : 500,
+        ogImageHeight: product.coverImage ? 948 : 500,
       })
     );
   }
