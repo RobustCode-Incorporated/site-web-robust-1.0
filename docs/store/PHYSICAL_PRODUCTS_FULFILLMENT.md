@@ -79,6 +79,12 @@ Set `status: "published"` and a real `publishedAt` date, rebuild (`npm run build
 - **Inventory/stock checking** before accepting payment — if the supplier is out of stock, the customer currently finds out after paying, not before. Worth revisiting once order volume justifies it.
 - **A real 1200x630 product photography setup** — the example uses the site logo as a placeholder image.
 
+## Order history (optional — Neon Postgres)
+
+If `DATABASE_URL` (a Neon Postgres connection string) is set in Vercel, every completed checkout is also saved as a row in the `orders` table — see `docs/store/orders-schema.sql` for the schema (run it once in Neon's own SQL Editor to create the table; nothing in this repo runs it automatically). This gives a persistent, queryable order history and a place to mark an order `ordered` / `shipped` with a tracking number, directly in Neon's dashboard — no admin UI needed for this volume of orders.
+
+This is entirely additive: if `DATABASE_URL` is unset, the workflow behaves exactly as described above (notify + logs only). The connection string is a real secret — set it only in Vercel Project Settings, never in this repository or in chat.
+
 ## Scaling beyond a handful of products
 
 `AMAZON_SOURCING_MAP` as a single environment variable works fine for a handful of products. Once the physical catalog grows past roughly 10-20 items, move the sourcing map to a small private database (Airtable, Google Sheets read via their API, or a proper Postgres instance) that `api/stripe-webhook.js` queries instead of parsing an env var — the rest of the architecture (webhook, notification, human-fulfills-by-hand) doesn't need to change.

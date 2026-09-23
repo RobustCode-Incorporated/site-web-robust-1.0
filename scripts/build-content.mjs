@@ -105,46 +105,96 @@ const T = {
 // Store product categories (English only for now — see docs/store/STORE_ARCHITECTURE.md
 // on why product translations are deferred rather than faked).
 const PRODUCT_CATEGORIES = {
-  business: "Business Systems",
-  ai: "AI Systems",
-  operations: "Operations",
-  sales: "Sales",
-  finance: "Finance",
-  projects: "Projects",
-  productivity: "Productivity",
-  templates: "Templates",
-  bundles: "Bundles",
-  tech: "Tech & Equipment",
+  en: {
+    business: "Business Systems",
+    ai: "AI Systems",
+    operations: "Operations",
+    sales: "Sales",
+    finance: "Finance",
+    projects: "Projects",
+    productivity: "Productivity",
+    templates: "Templates",
+    bundles: "Bundles",
+    tech: "Tech & Equipment",
+  },
+  fr: {
+    business: "Systèmes Business",
+    ai: "Systèmes IA",
+    operations: "Opérations",
+    sales: "Ventes",
+    finance: "Finance",
+    projects: "Projets",
+    productivity: "Productivité",
+    templates: "Modèles",
+    bundles: "Packs",
+    tech: "Tech & Équipement",
+  },
 };
 
 // Store-specific static strings (English only, matching the product scope above).
 const PT = {
-  storeEyebrow: "Store",
-  storeHeading: "Systems, tools and resources for people building businesses",
-  storeSubtitle: "Structured methods — not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.",
-  comingSoonTitle: "Our first systems are in development",
-  comingSoonBody: "We're building the first Robust Code digital systems in the open — reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.",
-  browseInsights: "Browse Insights",
-  browseTools: "Browse free tools",
-  theProblem: "The problem",
-  whatYouGet: "What you get",
-  howItWorks: "How it works",
-  whoItsFor: "Who it's for",
-  whatYouCanAchieve: "What you can achieve",
-  faq: "FAQ",
-  license: "License",
-  delivery: "Delivery",
-  relatedProducts: "Related systems",
-  relatedFreeTool: "Related free tool",
-  relatedReading: "Related reading",
-  getSystem: "Get the system",
-  comingSoonCta: "Coming soon — checkout not yet configured",
-  bundleIncludes: "This bundle includes",
-  requirements: "Requirements",
-  buyNow: "Buy now",
-  shippingEstimate: "Estimated shipping",
-  fulfilledBy: "Shipped by a Robust Code fulfillment partner. Orders are placed and dispatched by a team member after purchase — not an instant automated shipment.",
-  sku: "SKU",
+  en: {
+    storeEyebrow: "Store",
+    storeHeading: "Systems, tools and resources for people building businesses",
+    storeSubtitle: "Structured methods — not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.",
+    comingSoonTitle: "Our first systems are in development",
+    comingSoonBody: "We're building the first Robust Code digital systems in the open — reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.",
+    browseInsights: "Browse Insights",
+    browseTools: "Browse free tools",
+    theProblem: "The problem",
+    whatYouGet: "What you get",
+    howItWorks: "How it works",
+    whoItsFor: "Who it's for",
+    whatYouCanAchieve: "What you can achieve",
+    faq: "FAQ",
+    license: "License",
+    delivery: "Delivery",
+    relatedProducts: "Related systems",
+    relatedSystem: "Recommended Robust Code system",
+    relatedFreeTool: "Free tool",
+    relatedReading: "Related reading",
+    getSystem: "Get the system",
+    comingSoonCta: "Coming soon — checkout not yet configured",
+    bundleIncludes: "This bundle includes",
+    requirements: "Requirements",
+    buyNow: "Buy now",
+    shippingEstimate: "Estimated shipping",
+    fulfilledBy: "Shipped by a Robust Code fulfillment partner. Orders are placed and dispatched by a team member after purchase — not an instant automated shipment.",
+    sku: "SKU",
+    store: "Store",
+    readInFr: "Lire en français",
+  },
+  fr: {
+    storeEyebrow: "Boutique",
+    storeHeading: "Systèmes, outils et ressources pour ceux qui construisent une entreprise",
+    storeSubtitle: "Des méthodes structurées — pas des paquets de prompts. Chaque système associe une méthodologie aux modèles, checklists et prompts nécessaires pour vraiment l'utiliser.",
+    comingSoonTitle: "Nos premiers systèmes sont en développement",
+    comingSoonBody: "Nous construisons les premiers systèmes numériques Robust Code en toute transparence — relus attentivement avant toute mise en vente. En attendant, nos Analyses et Outils gratuits sont déjà disponibles.",
+    browseInsights: "Voir les Analyses",
+    browseTools: "Voir les outils gratuits",
+    theProblem: "Le problème",
+    whatYouGet: "Ce que vous obtenez",
+    howItWorks: "Comment ça marche",
+    whoItsFor: "Pour qui",
+    whatYouCanAchieve: "Ce que vous pouvez accomplir",
+    faq: "FAQ",
+    license: "Licence",
+    delivery: "Livraison",
+    relatedProducts: "Systèmes associés",
+    relatedSystem: "Système Robust Code recommandé",
+    relatedFreeTool: "Outil gratuit",
+    relatedReading: "À lire aussi",
+    getSystem: "Obtenir le système",
+    comingSoonCta: "Bientôt disponible — paiement pas encore configuré",
+    bundleIncludes: "Ce pack comprend",
+    requirements: "Prérequis",
+    buyNow: "Acheter",
+    shippingEstimate: "Délai de livraison estimé",
+    fulfilledBy: "Expédié par un partenaire logistique de Robust Code. Les commandes sont passées et expédiées par un membre de l'équipe après achat — pas un envoi automatique instantané.",
+    sku: "Référence",
+    store: "Boutique",
+    readInFr: "Lire en français",
+  },
 };
 
 const errors = [];
@@ -420,43 +470,43 @@ function relatedToolsBlock(current, tools, depth, lang) {
   </section>`;
 }
 
-function relatedProductsBlock(current, products, depth) {
+function relatedProductsBlock(current, products, depth, lang) {
   const p = "../".repeat(depth);
+  const base = lang === "fr" ? "fr/store" : "store";
   const slugs = current.relatedProducts || [];
   const matches = products.filter((prod) => slugs.includes(prod.slug));
   if (!matches.length) return "";
-  // Products are English-only for now (see docs/store/STORE_ARCHITECTURE.md),
-  // so this heading is not translated even when embedded in a French article.
   return `<section class="related-products">
-    <h2>Recommended Robust Code system</h2>
+    <h2>${PT[lang].relatedSystem}</h2>
     <ul class="related-products-list">
       ${matches
         .map(
           (prod) =>
-            `<li><a href="${p}store/${prod.category}/${prod.slug}/index.html" data-cta="related_product_click" data-product="${esc(prod.slug)}">${esc(prod.title)} — ${esc(prod.shortDescription)}</a></li>`
+            `<li><a href="${p}${base}/${prod.category}/${prod.slug}/index.html" data-cta="related_product_click" data-product="${esc(prod.slug)}">${esc(prod.title)} — ${esc(prod.shortDescription)}</a></li>`
         )
         .join("")}
     </ul>
   </section>`;
 }
 
-function checkoutCTA(product) {
+function checkoutCTA(product, lang) {
   const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
-  const ctaLabel = product.productType === "physical" ? PT.buyNow : PT.getSystem;
+  const ctaLabel = product.productType === "physical" ? PT[lang].buyNow : PT[lang].getSystem;
   if (product.checkout && product.checkout.provider && product.checkout.url) {
     return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${ctaLabel} — ${priceLabel}</a>`;
   }
   // No real payment provider configured — a disabled state, not a fake
   // clickable button, per the explicit "never fake checkout" requirement.
-  return `<button type="button" class="btn btn-primary checkout-cta is-disabled" disabled aria-disabled="true" title="${PT.comingSoonCta}">${priceLabel} — ${PT.comingSoonCta}</button>`;
+  return `<button type="button" class="btn btn-primary checkout-cta is-disabled" disabled aria-disabled="true" title="${PT[lang].comingSoonCta}">${priceLabel} — ${PT[lang].comingSoonCta}</button>`;
 }
 
-function productCard(product, depth) {
+function productCard(product, depth, lang) {
   const p = "../".repeat(depth);
+  const base = lang === "fr" ? "fr/store" : "store";
   const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
   return `<li class="article-card product-card">
-    <a href="${p}store/${product.category}/${product.slug}/index.html" data-cta="product_cta_click" data-product="${esc(product.slug)}">
-      <p class="eyebrow">${esc(PRODUCT_CATEGORIES[product.category])}</p>
+    <a href="${p}${base}/${product.category}/${product.slug}/index.html" data-cta="product_cta_click" data-product="${esc(product.slug)}">
+      <p class="eyebrow">${esc(PRODUCT_CATEGORIES[lang][product.category])}</p>
       <h3>${esc(product.title)}</h3>
       <p>${esc(product.shortDescription)}</p>
       <p class="article-card-meta">${priceLabel}</p>
@@ -555,8 +605,10 @@ const tools = JSON.parse(fs.readFileSync(path.join(ROOT, "content/tools.json"), 
 // "draft" and "scheduled" products are never emitted, so there is nothing to
 // noindex and nothing to accidentally list in the sitemap.
 // ---------------------------------------------------------------------------
-function loadProducts() {
-  const files = walk(path.join(ROOT, "content/products"));
+function loadProducts(lang) {
+  const files = walk(path.join(ROOT, "content/products")).filter((f) =>
+    lang === "fr" ? f.endsWith(".fr.md") : !f.endsWith(".fr.md")
+  );
   const seenSlugs = new Set();
   const list = [];
 
@@ -565,7 +617,7 @@ function loadProducts() {
     const { data, content } = matter(raw);
     const rel = path.relative(path.join(ROOT, "content/products"), file);
     const categoryFromPath = rel.split(path.sep)[0];
-    const slug = data.slug || path.basename(file, ".md");
+    const slug = data.slug || (lang === "fr" ? path.basename(file, ".fr.md") : path.basename(file, ".md"));
 
     const required = ["title", "shortDescription", "description", "category", "price", "currency", "status"];
     for (const field of required) {
@@ -573,8 +625,8 @@ function loadProducts() {
         fail(`${rel}: missing required product frontmatter field "${field}"`);
       }
     }
-    if (data.category && !PRODUCT_CATEGORIES[data.category]) {
-      fail(`${rel}: unknown product category "${data.category}" (expected one of ${Object.keys(PRODUCT_CATEGORIES).join(", ")})`);
+    if (data.category && !PRODUCT_CATEGORIES[lang][data.category]) {
+      fail(`${rel}: unknown product category "${data.category}" (expected one of ${Object.keys(PRODUCT_CATEGORIES[lang]).join(", ")})`);
     }
     if (data.category && data.category !== categoryFromPath) {
       fail(`${rel}: frontmatter category "${data.category}" does not match folder "${categoryFromPath}"`);
@@ -642,9 +694,12 @@ function loadProducts() {
   return list;
 }
 
-const productsAll = loadProducts();
-const publishedProducts = productsAll.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
-const productsBySlug = new Map(productsAll.map((p) => [p.slug, p]));
+const productsEnAll = loadProducts("en");
+const productsFrAll = loadProducts("fr");
+const publishedProducts = productsEnAll.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const publishedProductsFr = productsFrAll.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+const productsBySlug = new Map(publishedProducts.map((p) => [p.slug, p]));
+const productsFrBySlug = new Map(publishedProductsFr.map((p) => [p.slug, p]));
 
 // ---------------------------------------------------------------------------
 // Render article pages (one language at a time; shared by EN + FR)
@@ -723,7 +778,7 @@ function renderArticlePages(lang, published, allForRelated) {
       </div>
       ${productCTA(article.cta, lang)}
       ${relatedToolsBlock(article, tools, depth, lang)}
-      ${relatedProductsBlock(article, publishedProducts, depth)}
+      ${relatedProductsBlock(article, lang === "fr" ? publishedProductsFr : publishedProducts, depth, lang)}
       ${relatedArticlesBlock(article, allForRelated, depth, lang)}
       ${newsletterCTA(depth, lang)}
       <div class="share-row" data-analytics="article_share">
@@ -1043,7 +1098,7 @@ writeFile(
         </div>
         <p class="cta-note">Nothing you check here is sent anywhere — it's stored only in this browser (localStorage).</p>
 
-        ${relatedProductsBlock({ relatedProducts: ["robust-project-os"] }, publishedProducts, 2)}
+        ${relatedProductsBlock({ relatedProducts: ["robust-project-os"] }, publishedProducts, 2, "en")}
         ${newsletterCTA(2, "en")}
       </div>
     </section>
@@ -1066,12 +1121,27 @@ writeFile(
 // gracefully with zero published products (an honest "coming soon" state,
 // not a broken-looking empty grid) since the first product ships as a draft.
 // ---------------------------------------------------------------------------
-function renderProductPages(products) {
+function renderProductPages(lang, products, allForRelatedProducts) {
+  const cats = PRODUCT_CATEGORIES[lang];
+  const t = PT[lang];
+  const base = lang === "fr" ? "fr/store" : "store";
+  const counterpartMap = lang === "fr" ? productsBySlug : productsFrBySlug;
+  const counterpartBase = lang === "fr" ? "store" : "fr/store";
+  const relatedArticlesList = lang === "fr" ? publishedFr : publishedEn;
+
   for (const product of products) {
-    const outRel = `store/${product.category}/${product.slug}/index.html`;
+    const outRel = `${base}/${product.category}/${product.slug}/index.html`;
     const depth = outRel.split("/").length - 1;
-    const canonicalPath = product.seo.canonical || `/store/${product.category}/${product.slug}/`;
+    const canonicalPath = product.seo.canonical || `/${base}/${product.category}/${product.slug}/`;
     const url = `${SITE_URL}${canonicalPath}`;
+    const counterpart = counterpartMap.get(product.slug);
+    const counterpartPath = counterpart ? `/${counterpartBase}/${counterpart.category}/${counterpart.slug}/` : null;
+
+    const alternateLinks = [{ hreflang: lang, href: canonicalPath }];
+    if (counterpart) {
+      alternateLinks.push({ hreflang: lang === "fr" ? "en" : "fr", href: counterpartPath });
+      alternateLinks.push({ hreflang: "x-default", href: lang === "fr" ? counterpartPath : canonicalPath });
+    }
 
     const jsonLd = [
       {
@@ -1079,7 +1149,7 @@ function renderProductPages(products) {
         "@type": "Product",
         name: product.title,
         description: product.description,
-        category: PRODUCT_CATEGORIES[product.category],
+        category: cats[product.category],
         image: product.coverImage ? `${SITE_URL}${product.coverImage}` : `${SITE_URL}/assets/images/logo.png`,
         offers: {
           "@type": "Offer",
@@ -1093,9 +1163,9 @@ function renderProductPages(products) {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: "Store", item: `${SITE_URL}/store/` },
-          { "@type": "ListItem", position: 3, name: PRODUCT_CATEGORIES[product.category], item: `${SITE_URL}/store/${product.category}/` },
+          { "@type": "ListItem", position: 1, name: NAV[lang].home, item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: t.store, item: `${SITE_URL}/${base}/` },
+          { "@type": "ListItem", position: 3, name: cats[product.category], item: `${SITE_URL}/${base}/${product.category}/` },
           { "@type": "ListItem", position: 4, name: product.title, item: url },
         ],
       },
@@ -1104,12 +1174,12 @@ function renderProductPages(products) {
     const bundleSection =
       product.category === "bundles" && product.bundleProducts.length
         ? `<section class="related-products">
-      <h2>${PT.bundleIncludes}</h2>
+      <h2>${t.bundleIncludes}</h2>
       <ul class="related-products-list">
         ${product.bundleProducts
-          .map((slug) => productsBySlug.get(slug))
-          .filter((p) => p && p.published)
-          .map((p) => `<li><a href="${"../".repeat(depth)}store/${p.category}/${p.slug}/index.html">${esc(p.title)}</a></li>`)
+          .map((slug) => (lang === "fr" ? productsFrBySlug : productsBySlug).get(slug))
+          .filter(Boolean)
+          .map((p) => `<li><a href="${"../".repeat(depth)}${base}/${p.category}/${p.slug}/index.html">${esc(p.title)}</a></li>`)
           .join("")}
       </ul>
     </section>`
@@ -1117,7 +1187,7 @@ function renderProductPages(products) {
 
     const faqSection = product.faq.length
       ? `<section class="product-faq">
-      <h2>${PT.faq}</h2>
+      <h2>${t.faq}</h2>
       ${product.faq.map((f) => `<div class="faq-item"><h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p></div>`).join("")}
     </section>`
       : "";
@@ -1126,15 +1196,16 @@ function renderProductPages(products) {
     <div class="container">
       ${breadcrumbHtml(
         [
-          { name: "Store", href: "store/index.html" },
-          { name: PRODUCT_CATEGORIES[product.category], href: `store/${product.category}/index.html` },
+          { name: t.store, href: `${base}/index.html` },
+          { name: cats[product.category], href: `${base}/${product.category}/index.html` },
           { name: product.title, href: "#" },
         ],
         depth
       )}
-      <p class="eyebrow">${esc(PRODUCT_CATEGORIES[product.category])}</p>
+      <p class="eyebrow">${esc(cats[product.category])}</p>
       <h1>${esc(product.title)}</h1>
       <p class="text-soft product-tagline">${esc(product.shortDescription)}</p>
+      ${langSwitchHtml(lang, counterpartPath)}
 
       ${
         product.images.length
@@ -1145,16 +1216,16 @@ function renderProductPages(products) {
       }
 
       <div class="product-purchase">
-        ${checkoutCTA(product)}
-        ${product.productType === "physical" && product.shippingEstimate ? `<p class="cta-note">${PT.shippingEstimate}: ${esc(product.shippingEstimate)}</p>` : ""}
-        ${product.productType === "physical" ? `<p class="cta-note">${PT.fulfilledBy}</p>` : ""}
+        ${checkoutCTA(product, lang)}
+        ${product.productType === "physical" && product.shippingEstimate ? `<p class="cta-note">${t.shippingEstimate}: ${esc(product.shippingEstimate)}</p>` : ""}
+        ${product.productType === "physical" ? `<p class="cta-note">${t.fulfilledBy}</p>` : ""}
       </div>
 
-      ${product.problem ? `<section class="product-section"><h2>${PT.theProblem}</h2><p>${esc(product.problem)}</p></section>` : ""}
+      ${product.problem ? `<section class="product-section"><h2>${t.theProblem}</h2><p>${esc(product.problem)}</p></section>` : ""}
 
       ${
         product.includes.length
-          ? `<section class="product-section"><h2>${PT.whatYouGet}</h2><ul class="product-includes">${product.includes
+          ? `<section class="product-section"><h2>${t.whatYouGet}</h2><ul class="product-includes">${product.includes
               .map((i) => `<li>${esc(i)}</li>`)
               .join("")}</ul></section>`
           : ""
@@ -1162,7 +1233,7 @@ function renderProductPages(products) {
 
       ${
         product.howItWorks.length
-          ? `<section class="product-section"><h2>${PT.howItWorks}</h2><ol class="product-steps">${product.howItWorks
+          ? `<section class="product-section"><h2>${t.howItWorks}</h2><ol class="product-steps">${product.howItWorks
               .map((s) => `<li>${esc(s)}</li>`)
               .join("")}</ol></section>`
           : ""
@@ -1170,13 +1241,13 @@ function renderProductPages(products) {
 
       ${
         product.audience.length
-          ? `<section class="product-section"><h2>${PT.whoItsFor}</h2><ul class="product-includes">${product.audience
+          ? `<section class="product-section"><h2>${t.whoItsFor}</h2><ul class="product-includes">${product.audience
               .map((a) => `<li>${esc(a)}</li>`)
               .join("")}</ul></section>`
           : ""
       }
 
-      ${product.outcome ? `<section class="product-section"><h2>${PT.whatYouCanAchieve}</h2><p>${esc(product.outcome)}</p></section>` : ""}
+      ${product.outcome ? `<section class="product-section"><h2>${t.whatYouCanAchieve}</h2><p>${esc(product.outcome)}</p></section>` : ""}
 
       ${bundleSection}
       ${faqSection}
@@ -1184,19 +1255,19 @@ function renderProductPages(products) {
       <section class="product-meta-grid">
         ${
           product.productType === "physical"
-            ? `${product.shippingEstimate ? `<div><h3>${PT.shippingEstimate}</h3><p>${esc(product.shippingEstimate)}</p></div>` : ""}`
-            : `<div><h3>${PT.license}</h3><p>${esc(product.license)}</p></div>
-               <div><h3>${PT.delivery}</h3><p>${esc(product.delivery)}</p></div>`
+            ? `${product.shippingEstimate ? `<div><h3>${t.shippingEstimate}</h3><p>${esc(product.shippingEstimate)}</p></div>` : ""}`
+            : `<div><h3>${t.license}</h3><p>${esc(product.license)}</p></div>
+               <div><h3>${t.delivery}</h3><p>${esc(product.delivery)}</p></div>`
         }
-        ${product.requirements.length ? `<div><h3>${PT.requirements}</h3><p>${product.requirements.map(esc).join(", ")}</p></div>` : ""}
+        ${product.requirements.length ? `<div><h3>${t.requirements}</h3><p>${product.requirements.map(esc).join(", ")}</p></div>` : ""}
       </section>
 
-      ${relatedToolsBlock(product, tools, depth, "en")}
-      ${relatedProductsBlock(product, publishedProducts, depth)}
-      ${relatedArticlesBlock(product, publishedEn, depth, "en")}
+      ${relatedToolsBlock(product, tools, depth, lang)}
+      ${relatedProductsBlock(product, allForRelatedProducts, depth, lang)}
+      ${relatedArticlesBlock(product, relatedArticlesList, depth, lang)}
 
       <div class="product-purchase product-purchase-bottom">
-        ${checkoutCTA(product)}
+        ${checkoutCTA(product, lang)}
       </div>
     </div>
   </article>`;
@@ -1210,7 +1281,8 @@ function renderProductPages(products) {
         depth,
         bodyMain,
         jsonLd,
-        lang: "en",
+        lang,
+        alternateLinks,
         // Hardcoded to this one product photo's actual dimensions — there's
         // no image-dimension-reading dependency in this build. If/when a
         // second product gets a differently-sized cover image, add one
@@ -1219,106 +1291,120 @@ function renderProductPages(products) {
         ogImage: product.coverImage ? `${SITE_URL}${product.coverImage}` : undefined,
         ogImageWidth: product.coverImage ? 1008 : 500,
         ogImageHeight: product.coverImage ? 948 : 500,
-        // No French product pages exist yet (see docs/store/STORE_ROADMAP.md)
-        // — fall back to the French Insights home rather than leaving the
-        // header FR pill doing nothing (the bug fixed for /tools/ earlier).
-        frHref: publishedFr.length ? "/fr/insights/" : null,
+        // Falls back to the French/English Insights home when this specific
+        // product has no counterpart translation yet, rather than leaving
+        // the header language pill doing nothing.
+        enHref: lang === "fr" ? counterpartPath || "/insights/" : canonicalPath,
+        frHref: lang === "en" ? counterpartPath || (publishedFr.length ? "/fr/insights/" : null) : canonicalPath,
       })
     );
   }
 }
 
-renderProductPages(publishedProducts);
+renderProductPages("en", publishedProducts, publishedProducts);
+if (publishedProductsFr.length) renderProductPages("fr", publishedProductsFr, publishedProductsFr);
 
-function renderStoreSection() {
-  const totalPages = Math.max(1, Math.ceil(publishedProducts.length / PAGE_SIZE));
+function renderStoreSection(lang, products, otherLangProducts) {
+  const t = PT[lang];
+  const cats = PRODUCT_CATEGORIES[lang];
+  const base = lang === "fr" ? "fr/store" : "store";
+  const otherBase = lang === "fr" ? "store" : "fr/store";
+  const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE));
 
   for (let n = 1; n <= totalPages; n++) {
-    const pageProducts = publishedProducts.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
-    const outRel = n === 1 ? "store/index.html" : `store/page/${n}/index.html`;
+    const pageProducts = products.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE);
+    const outRel = n === 1 ? `${base}/index.html` : `${base}/page/${n}/index.html`;
     const depth = outRel.split("/").length - 1;
     const p = "../".repeat(depth);
+    const otherHasPage = otherLangProducts.length > (n - 1) * PAGE_SIZE;
+    const counterpartPath = otherHasPage ? `/${otherBase}/${n === 1 ? "" : `page/${n}/`}` : null;
+    const fallbackFr = lang === "en" && publishedFr.length ? "/fr/insights/" : null;
 
-    const categoryNav = Object.entries(PRODUCT_CATEGORIES)
-      .filter(([slug]) => publishedProducts.some((prod) => prod.category === slug))
-      .map(([slug, name]) => `<a href="${p}store/${slug}/index.html">${esc(name)}</a>`)
+    const categoryNav = Object.entries(cats)
+      .filter(([slug]) => products.some((prod) => prod.category === slug))
+      .map(([slug, name]) => `<a href="${p}${base}/${slug}/index.html">${esc(name)}</a>`)
       .join("");
 
     const emptyState = `<div class="featured-article store-empty-state">
-      <p class="eyebrow">${PT.storeEyebrow}</p>
-      <h2>${PT.comingSoonTitle}</h2>
-      <p>${PT.comingSoonBody}</p>
+      <p class="eyebrow">${t.storeEyebrow}</p>
+      <h2>${t.comingSoonTitle}</h2>
+      <p>${t.comingSoonBody}</p>
       <div class="store-empty-actions">
-        <a class="btn btn-primary" href="${p}insights/index.html">${PT.browseInsights}</a>
-        <a class="btn btn-ghost" href="${p}tools/index.html">${PT.browseTools}</a>
+        <a class="btn btn-primary" href="${p}${lang === "fr" ? "fr/insights" : "insights"}/index.html">${t.browseInsights}</a>
+        <a class="btn btn-ghost" href="${p}tools/index.html">${t.browseTools}</a>
       </div>
     </div>`;
 
     const bodyMain = `<section class="section insights-index" data-analytics-store="1">
       <div class="container">
-        <p class="eyebrow">${PT.storeEyebrow}</p>
-        <h1>${PT.storeHeading}</h1>
-        <p class="text-soft">${PT.storeSubtitle}</p>
+        <p class="eyebrow">${t.storeEyebrow}</p>
+        <h1>${t.storeHeading}</h1>
+        <p class="text-soft">${t.storeSubtitle}</p>
 
         ${
-          publishedProducts.length
+          products.length
             ? `<div class="insights-search">
           <label class="visually-hidden" for="store-search-input">Search products</label>
-          <input type="search" id="store-search-input" placeholder="Search systems&hellip;" data-store-index="${p}store/index.json" data-store-base="${p}">
+          <input type="search" id="store-search-input" placeholder="Search systems&hellip;" data-store-index="${p}${base}/index.json" data-store-base="${p}">
           <ul id="store-search-results" hidden></ul>
         </div>
         <nav class="insights-categories" aria-label="Categories">${categoryNav}</nav>
-        <ul class="article-grid">${pageProducts.map((prod) => productCard(prod, depth)).join("")}</ul>`
+        <ul class="article-grid">${pageProducts.map((prod) => productCard(prod, depth, lang)).join("")}</ul>`
             : emptyState
         }
       </div>
-    </section>${publishedProducts.length ? `\n  <script src="${p}assets/js/store-search.js" defer></script>` : ""}`;
+    </section>${products.length ? `\n  <script src="${p}assets/js/store-search.js" defer></script>` : ""}`;
 
     writeFile(
       outRel,
       renderPage({
         title: n === 1 ? "Store | ROBUST CODE" : `Store — Page ${n} | ROBUST CODE`,
-        description: PT.storeSubtitle,
-        canonicalPath: n === 1 ? "/store/" : `/store/page/${n}/`,
+        description: t.storeSubtitle,
+        canonicalPath: n === 1 ? `/${base}/` : `/${base}/page/${n}/`,
         depth,
         bodyMain,
-        jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Store", url: `${SITE_URL}/store/` }],
-        lang: "en",
-        frHref: publishedFr.length ? "/fr/insights/" : null,
+        jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Store", url: `${SITE_URL}/${base}/` }],
+        lang,
+        enHref: lang === "fr" ? counterpartPath || "/insights/" : `/${base}/${n === 1 ? "" : `page/${n}/`}`,
+        frHref: lang === "en" ? counterpartPath || fallbackFr : `/${base}/${n === 1 ? "" : `page/${n}/`}`,
       })
     );
   }
 
-  for (const [slug, name] of Object.entries(PRODUCT_CATEGORIES)) {
-    const inCategory = publishedProducts.filter((prod) => prod.category === slug);
+  for (const [slug, name] of Object.entries(cats)) {
+    const inCategory = products.filter((prod) => prod.category === slug);
     if (!inCategory.length) continue; // never generate an empty category page
-    const outRel = `store/${slug}/index.html`;
+    const outRel = `${base}/${slug}/index.html`;
     const depth = outRel.split("/").length - 1;
+    const otherHasCategory = otherLangProducts.some((prod) => prod.category === slug);
+    const counterpartPath = otherHasCategory ? `/${otherBase}/${slug}/` : null;
+    const fallbackFr = lang === "en" && publishedFr.length ? "/fr/insights/" : null;
     writeFile(
       outRel,
       renderPage({
         title: `${name} | ROBUST CODE Store`,
         description: `${name} — ROBUST CODE Store`,
-        canonicalPath: `/store/${slug}/`,
+        canonicalPath: `/${base}/${slug}/`,
         depth,
         bodyMain: `<section class="section insights-index" data-analytics-category="${esc(slug)}">
           <div class="container">
-            <p class="eyebrow">${PT.storeEyebrow}</p>
+            <p class="eyebrow">${t.storeEyebrow}</p>
             <h1>${esc(name)}</h1>
-            <ul class="article-grid">${inCategory.map((prod) => productCard(prod, depth)).join("")}</ul>
+            <ul class="article-grid">${inCategory.map((prod) => productCard(prod, depth, lang)).join("")}</ul>
           </div>
         </section>`,
         jsonLd: [],
-        lang: "en",
-        frHref: publishedFr.length ? "/fr/insights/" : null,
+        lang,
+        enHref: lang === "fr" ? counterpartPath || "/insights/" : `/${base}/${slug}/`,
+        frHref: lang === "en" ? counterpartPath || fallbackFr : `/${base}/${slug}/`,
       })
     );
   }
 
   writeFile(
-    "store/index.json",
+    `${base}/index.json`,
     JSON.stringify(
-      publishedProducts.map((prod) => ({
+      products.map((prod) => ({
         slug: prod.slug,
         category: prod.category,
         title: prod.title,
@@ -1327,7 +1413,7 @@ function renderStoreSection() {
         price: prod.price,
         currency: prod.currency,
         format: prod.format,
-        url: `store/${prod.category}/${prod.slug}/index.html`,
+        url: `${base}/${prod.category}/${prod.slug}/index.html`,
       })),
       null,
       2
@@ -1335,7 +1421,8 @@ function renderStoreSection() {
   );
 }
 
-renderStoreSection();
+renderStoreSection("en", publishedProducts, publishedProductsFr);
+if (publishedProductsFr.length) renderStoreSection("fr", publishedProductsFr, publishedProducts);
 
 // ---------------------------------------------------------------------------
 // sitemap.xml
@@ -1357,22 +1444,31 @@ function insightsSitemapEntries(lang, published) {
   ];
 }
 
+function storeSitemapEntries(lang, products) {
+  const base = lang === "fr" ? "fr/store" : "store";
+  const cats = PRODUCT_CATEGORIES[lang];
+  return [
+    { loc: `/${base}/`, changefreq: "weekly", priority: "0.7" },
+    ...Object.keys(cats)
+      .filter((slug) => products.some((prod) => prod.category === slug))
+      .map((slug) => ({ loc: `/${base}/${slug}/`, changefreq: "weekly", priority: "0.6" })),
+    ...products.map((prod) => ({
+      loc: `/${base}/${prod.category}/${prod.slug}/`,
+      changefreq: "monthly",
+      priority: prod.featured ? "0.8" : "0.6",
+      lastmod: prod.updatedAt,
+    })),
+  ];
+}
+
 const sitemapUrls = [
   ...STATIC_PAGES,
   { loc: "/tools/", changefreq: "monthly", priority: "0.7" },
   { loc: "/tools/roi-calculator/", changefreq: "monthly", priority: "0.6" },
   ...insightsSitemapEntries("en", publishedEn),
   ...(publishedFr.length ? insightsSitemapEntries("fr", publishedFr) : []),
-  { loc: "/store/", changefreq: "weekly", priority: "0.7" },
-  ...Object.keys(PRODUCT_CATEGORIES)
-    .filter((slug) => publishedProducts.some((prod) => prod.category === slug))
-    .map((slug) => ({ loc: `/store/${slug}/`, changefreq: "weekly", priority: "0.6" })),
-  ...publishedProducts.map((prod) => ({
-    loc: `/store/${prod.category}/${prod.slug}/`,
-    changefreq: "monthly",
-    priority: prod.featured ? "0.8" : "0.6",
-    lastmod: prod.updatedAt,
-  })),
+  ...storeSitemapEntries("en", publishedProducts),
+  ...(publishedProductsFr.length ? storeSitemapEntries("fr", publishedProductsFr) : []),
 ];
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -1395,9 +1491,10 @@ writeFile("sitemap.xml", sitemapXml);
 // ---------------------------------------------------------------------------
 const draftCountEn = articlesEnAll.length - publishedEn.length;
 const draftCountFr = articlesFrAll.length - publishedFr.length;
-const draftProductCount = productsAll.length - publishedProducts.length;
+const draftProductCountEn = productsEnAll.length - publishedProducts.length;
+const draftProductCountFr = productsFrAll.length - publishedProductsFr.length;
 console.log(
-  `Built ${publishedEn.length} EN article page(s) + ${publishedFr.length} FR article page(s), ${totalPagesEn} EN insights index page(s), ${tools.length} tool(s), ${publishedProducts.length} store product page(s). ${draftCountEn} EN + ${draftCountFr} FR draft/scheduled article(s) and ${draftProductCount} draft/scheduled product(s) excluded.`
+  `Built ${publishedEn.length} EN article page(s) + ${publishedFr.length} FR article page(s), ${totalPagesEn} EN insights index page(s), ${tools.length} tool(s), ${publishedProducts.length} EN + ${publishedProductsFr.length} FR store product page(s). ${draftCountEn} EN + ${draftCountFr} FR draft/scheduled article(s) and ${draftProductCountEn} EN + ${draftProductCountFr} FR draft/scheduled product(s) excluded.`
 );
 
 if (errors.length) {
@@ -1413,9 +1510,11 @@ if (CHECK) {
     ...publishedEn.map((a) => path.join(ROOT, `insights/${a.category}/${a.slug}/index.html`)),
     ...publishedFr.map((a) => path.join(ROOT, `fr/insights/${a.category}/${a.slug}/index.html`)),
     ...publishedProducts.map((prod) => path.join(ROOT, `store/${prod.category}/${prod.slug}/index.html`)),
+    ...publishedProductsFr.map((prod) => path.join(ROOT, `fr/store/${prod.category}/${prod.slug}/index.html`)),
     path.join(ROOT, "insights/index.html"),
     path.join(ROOT, "store/index.html"),
     ...(publishedFr.length ? [path.join(ROOT, "fr/insights/index.html")] : []),
+    ...(publishedProductsFr.length ? [path.join(ROOT, "fr/store/index.html")] : []),
   ];
   let brokenLinks = 0;
   for (const file of generated) {

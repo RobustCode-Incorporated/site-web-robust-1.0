@@ -21,12 +21,20 @@
 //     incoming webhook URL. If unset, order details still land in Vercel's
 //     function logs (Project -> Deployments -> Functions), just not pushed
 //     anywhere in real time.
+//   DATABASE_URL              — optional. A Neon Postgres connection string.
+//     If set, every completed checkout is also saved as a row in the
+//     `orders` table (schema: docs/store/orders-schema.sql) — a persistent
+//     order history you can query/update directly in Neon's SQL Editor
+//     (mark ordered/shipped, add a tracking number). If unset, this step is
+//     skipped and the workflow still works exactly as before (notify +
+//     logs only) — this is additive, not required.
 //
 // This file is plain Node.js (no framework) using Vercel's Node.js request/
 // response objects. Signature verification needs the RAW request body, so
 // automatic body parsing is disabled below and the body is read manually.
 
 import Stripe from "stripe";
+import { neon } from "@neondatabase/serverless";
 
 export const config = {
   api: { bodyParser: false },
@@ -39,6 +47,30 @@ function readRawBody(req) {
     req.on("end", () => resolve(Buffer.concat(chunks)));
     req.on("error", reject);
   });
+}
+
+async function saveOrder(order) {
+  if (!process.env.DATABASE_URL) return; // not configured — skip, non-fatal
+  try {
+    const sql = neon(process.env.DATABASE_URL);
+    await sql`
+      INSERT INTO orders (
+        stripe_session_id, product_slug, customer_email, customer_name,
+        shipping_address, amount_total, currency
+      ) VALUES (
+        ${order.sessionId}, ${order.slug}, ${order.email}, ${order.name},
+        ${order.shippingAddress ? JSON.stringify(order.shippingAddress) : null},
+        ${order.amountTotal}, ${order.currency}
+      )
+      ON CONFLICT (stripe_session_id) DO NOTHING
+    `;
+    console.log("[stripe-webhook] order saved to database:", order.sessionId);
+  } catch (err) {
+    // Never let a database problem block the notification/ack — the order
+    // notification (console log + optional webhook) is the fallback of
+    // record if this fails.
+    console.error("[stripe-webhook] failed to save order to database:", err);
+  }
 }
 
 async function notify(message) {
@@ -124,6 +156,15 @@ export default async function handler(req, res) {
         : `No sourcing entry found for slug "${slug}" in AMAZON_SOURCING_MAP — look it up manually before ordering.`,
     ].join("\n");
 
+    await saveOrder({
+      sessionId: fullSession.id,
+      slug,
+      email: fullSession.customer_details?.email || null,
+      name: shipping?.name || null,
+      shippingAddress: shipping?.address || null,
+      amountTotal: fullSession.amount_total != null ? fullSession.amount_total / 100 : null,
+      currency: fullSession.currency?.toUpperCase() || null,
+    });
     await notify(message);
     res.status(200).json({ received: true });
   } catch (err) {
