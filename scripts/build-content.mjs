@@ -1219,6 +1219,10 @@ function renderProductPages(products) {
         ogImage: product.coverImage ? `${SITE_URL}${product.coverImage}` : undefined,
         ogImageWidth: product.coverImage ? 1008 : 500,
         ogImageHeight: product.coverImage ? 948 : 500,
+        // No French product pages exist yet (see docs/store/STORE_ROADMAP.md)
+        // — fall back to the French Insights home rather than leaving the
+        // header FR pill doing nothing (the bug fixed for /tools/ earlier).
+        frHref: publishedFr.length ? "/fr/insights/" : null,
       })
     );
   }
@@ -1280,6 +1284,7 @@ function renderStoreSection() {
         bodyMain,
         jsonLd: [{ "@context": "https://schema.org", "@type": "WebSite", name: "ROBUST CODE Store", url: `${SITE_URL}/store/` }],
         lang: "en",
+        frHref: publishedFr.length ? "/fr/insights/" : null,
       })
     );
   }
@@ -1305,6 +1310,7 @@ function renderStoreSection() {
         </section>`,
         jsonLd: [],
         lang: "en",
+        frHref: publishedFr.length ? "/fr/insights/" : null,
       })
     );
   }
