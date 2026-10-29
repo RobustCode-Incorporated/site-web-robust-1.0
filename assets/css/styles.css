@@ -829,6 +829,21 @@ body {
   background: #0d0d0d;
 }
 
+/* White pages: the header is transparent by default and its logo/links are white,
+   so give it the REM black bar here (full width at rest, black pill once scrolled). */
+.page-light-pure .site-header {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.06);
+  padding: 1.1rem 0;
+}
+
+.page-light-pure .site-header.is-scrolled {
+  background: rgba(13, 13, 13, 0.92);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
+  padding: 0.8rem 2rem;
+}
+
 .magnetic-glass-panel {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(24px) saturate(180%);
