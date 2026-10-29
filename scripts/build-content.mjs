@@ -73,7 +73,10 @@ const T = {
     share: "Share:",
     newsletterTitle: "Get the next article by email",
     newsletterBody: "One practical piece a month on Belgian digitalization, AI adoption, and business operations. No spam, unsubscribe anytime.",
-    newsletterNote: "Not wired to an email provider yet — this form does not send anywhere.",
+    newsletterNote: "We'll e-mail you a confirmation link first. No spam, unsubscribe anytime.",
+    newsletterOk: "Almost done: check your inbox and click the confirmation link.",
+    newsletterError: "Something went wrong. Please try again in a moment.",
+    newsletterSending: "Sending…",
     subscribe: "Subscribe",
     talkToUs: "Talk to us",
     readInFr: "Lire en français",
@@ -92,7 +95,10 @@ const T = {
     share: "Partager :",
     newsletterTitle: "Recevez le prochain article par e-mail",
     newsletterBody: "Un article pratique par mois sur la digitalisation en Belgique, l'adoption de l'IA et les opérations d'entreprise. Pas de spam, désabonnement à tout moment.",
-    newsletterNote: "Pas encore connecté à un fournisseur d'e-mail — ce formulaire n'envoie rien.",
+    newsletterNote: "Nous vous enverrons d'abord un lien de confirmation. Pas de spam, désabonnement à tout moment.",
+    newsletterOk: "Presque terminé : vérifiez votre boîte mail et cliquez sur le lien de confirmation.",
+    newsletterError: "Une erreur est survenue. Réessayez dans un instant.",
+    newsletterSending: "Envoi…",
     subscribe: "S'abonner",
     talkToUs: "Contactez-nous",
     readInFr: "Lire en français",
@@ -420,7 +426,7 @@ function newsletterCTA(depth, lang) {
   return `<aside class="cta-box cta-newsletter" data-cta="newsletter">
     <h3>${t.newsletterTitle}</h3>
     <p>${t.newsletterBody}</p>
-    <form class="newsletter-form" data-form-endpoint="" data-analytics="newsletter_signup">
+    <form class="newsletter-form" data-form-endpoint="/api/newsletter" data-lang="${lang}" data-msg-ok="${t.newsletterOk}" data-msg-error="${t.newsletterError}" data-msg-sending="${t.newsletterSending}" data-analytics="newsletter_signup">
       <label class="visually-hidden" for="newsletter-email">Email address</label>
       <input type="email" id="newsletter-email" name="email" placeholder="you@company.com" required>
       <input type="text" name="company_website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">

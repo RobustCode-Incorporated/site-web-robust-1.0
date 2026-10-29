@@ -107,6 +107,9 @@
   margin-top: 0.75rem;
 }
 
+.cta-note--ok { opacity: 1; color: #1b5e20; font-weight: 600; font-size: 0.95rem; }
+.cta-note--error { opacity: 1; color: #d32f2f; font-weight: 600; }
+
 .newsletter-form {
   display: flex;
   gap: 0.5rem;
