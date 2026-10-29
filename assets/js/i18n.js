@@ -229,7 +229,7 @@ const translations = {
       homeDesc: "Your monthly report as a three-minute film: narrated in your own voice, animated in your brand, built only from facts.",
       homeCta: "Discover the service",
       homeCta2: "Request yours",
-      eyebrow: "New service · RC•STUDIO × RC•DATA",
+      eyebrow: "New service · RC•CORE · AI Automation",
       title: "Automated Video Reports",
       subtitle: "Your monthly report as a three-minute film. Narrated in your own voice, animated in your brand, built only from facts.",
       ctaPrimary: "Request yours",
@@ -274,6 +274,9 @@ const translations = {
       promoEyebrow: "New service",
       promoTitle: "Automated Video Reports",
       promoDesc: "Your monthly report as a three-minute film, narrated in your voice and built from facts.",
+      studioLinkTitle: "Your reports, as films",
+      studioLinkDesc: "Our storytelling, brand and voice work also powers a ready-made service: automated video reports, built from your data every month.",
+      studioLinkCta: "See the service",
       promoCta: "Discover the service"
     },
     subpages: {
@@ -321,6 +324,13 @@ const translations = {
           playBadge: "../assets/images/badges/google-play-en.png",
           appStoreAlt: "Download on the App Store",
           playAlt: "Get it on Google Play"
+        },
+        videoReportsShowcase: {
+          eyebrow: "New service · AI Automation",
+          title: "Automated Video Reports",
+          desc: "Your monthly report as a three-minute film: connected to your data, narrated in your own voice (with consent), animated in your brand. Set up once, ready every month, in every format from meetings to Reels.",
+          ctaVisit: "Discover the service",
+          trial: "Ready every month"
         },
         automationShowcase: {
           eyebrow: "Free Tool",
@@ -662,7 +672,7 @@ const translations = {
       homeDesc: "Votre rapport mensuel en film de trois minutes : narré avec votre propre voix, animé à vos couleurs, construit uniquement à partir de faits.",
       homeCta: "Découvrir le service",
       homeCta2: "Demandez le vôtre",
-      eyebrow: "Nouveau service · RC•STUDIO × RC•DATA",
+      eyebrow: "Nouveau service · RC•CORE · Automatisation IA",
       title: "Rapports vidéo automatisés",
       subtitle: "Votre rapport mensuel en film de trois minutes. Narré avec votre propre voix, animé à vos couleurs, construit uniquement à partir de faits.",
       ctaPrimary: "Demandez le vôtre",
@@ -707,6 +717,9 @@ const translations = {
       promoEyebrow: "Nouveau service",
       promoTitle: "Rapports vidéo automatisés",
       promoDesc: "Votre rapport mensuel en film de trois minutes, narré avec votre voix et construit à partir de faits.",
+      studioLinkTitle: "Vos rapports, en films",
+      studioLinkDesc: "Notre travail de storytelling, d'identité et de voix alimente aussi un service clé en main : des rapports vidéo automatisés, construits chaque mois à partir de vos données.",
+      studioLinkCta: "Voir le service",
       promoCta: "Découvrir le service"
     },
     subpages: {
@@ -754,6 +767,13 @@ const translations = {
           playBadge: "../assets/images/badges/google-play-fr.png",
           appStoreAlt: "Télécharger dans l'App Store",
           playAlt: "Disponible sur Google Play"
+        },
+        videoReportsShowcase: {
+          eyebrow: "Nouveau service · Automatisation IA",
+          title: "Rapports vidéo automatisés",
+          desc: "Votre rapport mensuel en film de trois minutes : connecté à vos données, narré avec votre propre voix (avec consentement), animé à vos couleurs. Configuré une fois, prêt chaque mois, dans tous les formats, de la réunion aux Reels.",
+          ctaVisit: "Découvrir le service",
+          trial: "Prêt chaque mois"
         },
         automationShowcase: {
           eyebrow: "Outil gratuit",
