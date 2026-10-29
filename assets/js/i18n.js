@@ -54,7 +54,7 @@ const translations = {
       },
       rcCore: {
         title: "RC•CORE",
-        desc: "Software Engineering, CRM/ERP, Cybersecurity, and Global/Local Payment APIs."
+        desc: "Software Engineering, Applications, CRM/ERP, AI Automation Workflows, AI Agents, Cybersecurity, and Global/Local Payment APIs."
       },
       rcStudio: {
         title: "RC•STUDIO",
@@ -101,7 +101,7 @@ const translations = {
       },
       partners: {
         eyebrow: "Technology Partners",
-        title: "We choose technology based on the business requirement — not the other way around."
+        title: "We choose technology based on the business requirement, not the other way around."
       },
       clients: {
         eyebrow: "Trusted By",
@@ -296,7 +296,7 @@ const translations = {
           eyebrow: "Flagship Product",
           title: "REM",
           fullName: "Robust Enterprise Management",
-          desc: "Our commercialized enterprise platform — unified operations, finance, and reporting for growing organizations."
+          desc: "Our commercialized enterprise platform: unified operations, finance, and reporting for growing organizations."
         },
         rcm: {
           eyebrow: "Internal R&D",
@@ -306,15 +306,26 @@ const translations = {
         },
         remShowcase: {
           eyebrow: "Flagship Product",
-          title: "REM — Robust Enterprise Management",
-          desc: "Our commercialized enterprise platform — unified operations, finance, and reporting for growing organizations.",
+          title: "REM: Robust Enterprise Management",
+          desc: "Our commercialized enterprise platform: unified operations, finance, and reporting for growing organizations.",
           ctaVisit: "Visit the Platform",
           trial: "Try it free for 30 days"
+        },
+        momentumShowcase: {
+          eyebrow: "New · Mobile & Web App",
+          title: "Momentum OS",
+          desc: "The next generation of goal execution. Targets, KPIs, milestones, wins and rewards in one transparent loop, with AI that proposes and you decide. On iPhone, Android and the web.",
+          ctaVisit: "Open Momentum OS",
+          trial: "Start free",
+          appStoreBadge: "../assets/images/badges/app-store-en.svg",
+          playBadge: "../assets/images/badges/google-play-en.png",
+          appStoreAlt: "Download on the App Store",
+          playAlt: "Get it on Google Play"
         },
         automationShowcase: {
           eyebrow: "Free Tool",
           title: "AI Automation Starter Kit",
-          desc: "A free interactive audit that studies how your business works and identifies one process AI can automate for you — then walks you from prototype to measurable results.",
+          desc: "A free interactive audit that studies how your business works and identifies one process AI can automate for you, then walks you from prototype to measurable results.",
           ctaVisit: "Start Free Audit",
           trial: "100% free, no card required"
         }
@@ -372,7 +383,7 @@ const translations = {
         intro: "This notice identifies the entity responsible for this website and the services described on it, in accordance with applicable transparency requirements.",
         s1: { heading: "Publisher", body: "This website is published by ROBUST CODE S.A.R.L." },
         s2: { heading: "Registered Offices", body: "Belgium office: BeCentral, Cantersteen 12, 1000 Bruxelles, Belgium (representation office only). Registered office: Kinshasa, Democratic Republic of the Congo." },
-        s3: { heading: "Company Identification", body: "RCCM: CD/KNG/RCCM/24-B-03978 — ID Nat.: 01-J6100-N69522B." },
+        s3: { heading: "Company Identification", body: "RCCM: CD/KNG/RCCM/24-B-03978 · ID Nat.: 01-J6100-N69522B." },
         s4: { heading: "Intellectual Property", body: "All content on this website, including text, graphics, and code, is the property of ROBUST CODE S.A.R.L unless otherwise credited, and may not be reproduced without written permission." },
         metaLabel1: "Company",
         metaLabel2: "Belgium office",
@@ -476,7 +487,7 @@ const translations = {
       },
       rcCore: {
         title: "RC•CORE",
-        desc: "Ingénierie logicielle, CRM/ERP, cybersécurité et API de paiement locales et internationales."
+        desc: "Ingénierie logicielle, applications, CRM/ERP, workflows d'automatisation IA, agents IA, cybersécurité et API de paiement locales et internationales."
       },
       rcStudio: {
         title: "RC•STUDIO",
@@ -523,7 +534,7 @@ const translations = {
       },
       partners: {
         eyebrow: "Partenaires technologiques",
-        title: "Nous choisissons la technologie en fonction du besoin métier — jamais l'inverse."
+        title: "Nous choisissons la technologie en fonction du besoin métier, jamais l'inverse."
       },
       clients: {
         eyebrow: "Ils nous font confiance",
@@ -718,7 +729,7 @@ const translations = {
           eyebrow: "Produit phare",
           title: "REM",
           fullName: "Robust Enterprise Management",
-          desc: "Notre plateforme d'entreprise commercialisée — opérations, finance et reporting unifiés pour les organisations en croissance."
+          desc: "Notre plateforme d'entreprise commercialisée : opérations, finance et reporting unifiés pour les organisations en croissance."
         },
         rcm: {
           eyebrow: "R&D interne",
@@ -728,15 +739,26 @@ const translations = {
         },
         remShowcase: {
           eyebrow: "Produit phare",
-          title: "REM — Robust Enterprise Management",
-          desc: "Notre plateforme d'entreprise commercialisée — opérations, finance et reporting unifiés pour les organisations en croissance.",
+          title: "REM: Robust Enterprise Management",
+          desc: "Notre plateforme d'entreprise commercialisée : opérations, finance et reporting unifiés pour les organisations en croissance.",
           ctaVisit: "Visiter la plateforme",
           trial: "Essayez-le gratuitement pendant 30 jours"
+        },
+        momentumShowcase: {
+          eyebrow: "Nouveau · App mobile et web",
+          title: "Momentum OS",
+          desc: "La nouvelle génération de l'exécution des objectifs. Objectifs, KPI, jalons, victoires et récompenses dans une boucle transparente, avec une IA qui propose et vous qui décidez. Sur iPhone, Android et le web.",
+          ctaVisit: "Ouvrir Momentum OS",
+          trial: "Commencer gratuitement",
+          appStoreBadge: "../assets/images/badges/app-store-fr.svg",
+          playBadge: "../assets/images/badges/google-play-fr.png",
+          appStoreAlt: "Télécharger dans l'App Store",
+          playAlt: "Disponible sur Google Play"
         },
         automationShowcase: {
           eyebrow: "Outil gratuit",
           title: "AI Automation Starter Kit",
-          desc: "Un audit interactif gratuit qui étudie le fonctionnement de votre entreprise et identifie un processus que l'IA peut automatiser pour vous — puis vous guide du prototype jusqu'à des résultats mesurables.",
+          desc: "Un audit interactif gratuit qui étudie le fonctionnement de votre entreprise et identifie un processus que l'IA peut automatiser pour vous, puis vous guide du prototype jusqu'à des résultats mesurables.",
           ctaVisit: "Démarrer l'audit gratuit",
           trial: "100% gratuit, sans carte bancaire"
         }
@@ -794,7 +816,7 @@ const translations = {
         intro: "Cette page identifie l'entité responsable de ce site et des services qu'il décrit, conformément aux exigences de transparence applicables.",
         s1: { heading: "Éditeur", body: "Ce site est édité par ROBUST CODE S.A.R.L." },
         s2: { heading: "Sièges", body: "Bureau Belgique : BeCentral, Cantersteen 12, 1000 Bruxelles, Belgique (bureau de représentation uniquement). Siège social : Kinshasa, République démocratique du Congo." },
-        s3: { heading: "Identification de l'entreprise", body: "RCCM : CD/KNG/RCCM/24-B-03978 — ID Nat. : 01-J6100-N69522B." },
+        s3: { heading: "Identification de l'entreprise", body: "RCCM : CD/KNG/RCCM/24-B-03978 · ID Nat. : 01-J6100-N69522B." },
         s4: { heading: "Propriété intellectuelle", body: "L'ensemble du contenu de ce site, textes, visuels et code compris, est la propriété de ROBUST CODE S.A.R.L sauf mention contraire, et ne peut être reproduit sans autorisation écrite." },
         metaLabel1: "Entreprise",
         metaLabel2: "Bureau Belgique",

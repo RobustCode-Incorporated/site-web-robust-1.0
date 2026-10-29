@@ -49,7 +49,7 @@ Une vidéo courte impose la bonne structure. Impossible de narrer quarante slide
 
 Le risque est évident : une vidéo soignée peut faire passer un travail faible pour un bon travail. C'est pour cela que la première compétence compte plus que les deux autres.
 
-## Compétence 1 — La spécification avant le code, les preuves avant les opinions
+## Compétence 1 : La spécification avant le code, les preuves avant les opinions
 
 Chaque projet que nous menons suit notre framework interne, le **Robust Specification Driven Development Framework (RSDDF)**. Son cycle de vie est volontairement sobre : découverte, spécification, architecture, design, implémentation, validation, déploiement, exploitation, amélioration.
 
@@ -63,7 +63,7 @@ C'est ce qui rend la vidéo digne de confiance. L'animation affiche un nombre de
 
 **À reprendre, même sans vidéo :** remplacez les adjectifs de statut par une preuve vérifiable par projet, et un prochain jalon. C'est le changement le plus rentable que vous puissiez apporter à n'importe quel rapport.
 
-## Compétence 2 — Une voix vraiment à nous
+## Compétence 2 : Une voix vraiment à nous
 
 La narration est une voix générée par IA, clonée à partir de la voix de notre fondateur. Trois règles nous ont permis de l'assumer :
 
@@ -75,7 +75,7 @@ En Belgique et dans le reste de l'UE, ce n'est pas qu'une question de politesse.
 
 **Ce que ce n'est pas :** un moyen de faire dire à quelqu'un ce qu'il n'a pas dit. Chaque script est écrit, relu et approuvé par un humain avant la moindre seconde d'audio.
 
-## Compétence 3 — La vidéo écrite en code
+## Compétence 3 : La vidéo écrite en code
 
 Il n'y a pas de timeline de montage dans notre processus. Chaque image est dessinée par un programme, à partir des mêmes données que le rapport :
 

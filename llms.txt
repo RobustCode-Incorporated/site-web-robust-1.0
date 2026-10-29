@@ -15,7 +15,7 @@ ROBUST CODE designs and delivers custom software, CRM/ERP platforms, cybersecuri
 
 ## Business Units
 
-- RC-CORE: Custom software engineering, CRM/ERP solutions, cybersecurity, and payment APIs. Home of REM and RCM.
+- RC-CORE: Software engineering, applications, CRM/ERP, AI automation workflows, AI agents, cybersecurity, and payment APIs. Home of REM, Momentum OS and RCM.
 - RC-DATA: Data engineering, architecture, and business intelligence pipelines.
 - RC-XP: Seamless and immersive omnichannel user experiences, in partnership with Rahlab.
 - RC-STUDIO: Brand storytelling and creative digital content engineering, in partnership with Rahlab.

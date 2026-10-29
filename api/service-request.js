@@ -114,7 +114,7 @@ async function notify(d) {
           from: process.env.SERVICE_REQUEST_FROM || "Robust Code <requests@robust-code.com>",
           to: [process.env.SERVICE_REQUEST_TO || "contact@robust-code.com"],
           reply_to: d.email,
-          subject: `${SERVICES[d.service]} — request from ${d.company}`,
+          subject: `${SERVICES[d.service]}: request from ${d.company}`,
           text,
         }),
       });

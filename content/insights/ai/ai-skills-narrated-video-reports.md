@@ -1,6 +1,6 @@
 ---
 title: "Three AI Skills That Turned Our Monthly Report Into a Three-Minute Film"
-description: "We replaced our slide-deck status report with a narrated, animated video built from evidence. Here are the three AI skills that made it work — and the one lesson we learned the hard way."
+description: "We replaced our slide-deck status report with a narrated, animated video built from evidence. Here are the three AI skills that made it work, and the one lesson we learned the hard way."
 excerpt: "Nobody reads a forty-slide status report to the end. This month we turned ours into a three-minute film, narrated in our own (cloned, consented) voice and built only from verifiable evidence. Three practical AI skills made it possible."
 publishedAt: "2026-10-29"
 updatedAt: "2026-10-29"
@@ -35,21 +35,21 @@ Status reports have a reading problem, not a writing problem. People stop readin
 
 This month we tried something different: our monthly report became a **three-minute narrated film**, generated from the same facts we would have put on slides. It took three AI skills:
 
-1. **Evidence before opinions** — AI agents build against a written specification, and every phase has to prove itself with tests and live services. The report collects that evidence instead of describing it.
-2. **A voice that is really ours** — a clone of our founder's voice, created with recorded consent, running locally, and always labelled as AI-generated.
-3. **Video as code** — no editing timeline. A program draws every frame from the report data, so next month's video is a re-run, not a re-edit.
+1. **Evidence before opinions**: AI agents build against a written specification, and every phase has to prove itself with tests and live services. The report collects that evidence instead of describing it.
+2. **A voice that is really ours**: a clone of our founder's voice, created with recorded consent, running locally, and always labelled as AI-generated.
+3. **Video as code**: no editing timeline. A program draws every frame from the report data, so next month's video is a re-run, not a re-edit.
 
 None of these is magic, and each one has guardrails. That's the point of this article.
 
 ## Why a report needs to change format
 
-A typical monthly report is written for the person writing it: complete, defensive, and long. The person reading it wants three answers — *where are we, can I trust it, and what happens next* — and usually has a few minutes, not an hour.
+A typical monthly report is written for the person writing it: complete, defensive, and long. The person reading it wants three answers, *where are we, can I trust it, and what happens next*, and usually has a few minutes, not an hour.
 
 A short video forces the right structure. You cannot narrate forty slides in three minutes, so you are pushed to say only what matters, in the order it matters. And unlike a deck, it gets watched on a phone, between meetings, by people who would never open the attachment.
 
 The risk is obvious: a polished video can make weak work look good. That's why the first skill matters more than the other two.
 
-## Skill 1 — Specification before code, evidence before opinions
+## Skill 1: Specification before code, evidence before opinions
 
 Every project we run follows our internal framework, the **Robust Specification Driven Development Framework (RSDDF)**. Its lifecycle is deliberately unglamorous: discovery, specification, architecture, design, implementation, validation, deployment, operations, improvement.
 
@@ -57,13 +57,13 @@ AI agents now do a large part of our implementation work. What keeps that safe i
 
 - **A written specification comes first.** The agent works against it, phase by phase, never on a vague prompt.
 - **Each phase has to prove itself before the next one starts.** Tests that pass, services that are actually live, numbers anyone can check. Our CRM project alone runs 109 automated tests.
-- **The report reads the evidence.** For each project it shows the lifecycle stage, the evidence, and the next milestone — not adjectives like "on track" or "almost done".
+- **The report reads the evidence.** For each project it shows the lifecycle stage, the evidence, and the next milestone, not adjectives like "on track" or "almost done".
 
 This is what makes the video trustworthy. The animation shows a test count because a test suite exists; it shows "live" because a URL answers. If a project has no evidence yet, the report says so.
 
 **What to copy, even without video:** replace status adjectives with one piece of verifiable evidence per project, and one next milestone. It's the single highest-value change you can make to any report.
 
-## Skill 2 — A voice that is really ours
+## Skill 2: A voice that is really ours
 
 The narration is an AI-generated voice, cloned from our founder's voice. Three rules made us comfortable with that:
 
@@ -71,21 +71,21 @@ The narration is an AI-generated voice, cloned from our founder's voice. Three r
 - **It runs locally.** We use an open-source voice-cloning studio running on a laptop. No recording studio, and the voice model never leaves our machine.
 - **It is always labelled.** Every video says on screen, and in the description, that the narration is AI-generated. A synthetic voice should never pretend to be a live recording.
 
-In Belgium and the rest of the EU, this is not only good manners. A voice recording is personal data under GDPR, and the EU AI Act introduces transparency obligations for AI-generated or manipulated audio and video. If you clone a voice — even your own CEO's — treat consent, storage and labelling as part of the project, not an afterthought.
+In Belgium and the rest of the EU, this is not only good manners. A voice recording is personal data under GDPR, and the EU AI Act introduces transparency obligations for AI-generated or manipulated audio and video. If you clone a voice, even your own CEO's, treat consent, storage and labelling as part of the project, not an afterthought.
 
 **What this is not:** a way to put words in someone's mouth. Every script is written, read and approved by a human before a single second of audio is generated.
 
-## Skill 3 — Video as code
+## Skill 3: Video as code
 
 There is no editing timeline in our process. Every frame is drawn by a program from the same data as the report:
 
-1. **The script becomes the voice** — each sentence is generated as its own audio clip.
-2. **The voice sets the timing** — because we know exactly when each sentence starts, we know when each animation should start.
-3. **The timing drives the animation** — counters, lifecycle trackers and captions are scheduled against the narration automatically.
+1. **The script becomes the voice**: each sentence is generated as its own audio clip.
+2. **The voice sets the timing**, because we know exactly when each sentence starts, we know when each animation should start.
+3. **The timing drives the animation**: counters, lifecycle trackers and captions are scheduled against the narration automatically.
 
 The practical result: our last monthly report, two minutes and forty-two seconds long, rendered in about a minute and a half on a laptop. Next month, we update the data and run it again. The design stays consistent because it lives in code, not in someone's memory of how the last edit was done.
 
-Burned-in captions come for free, too — useful because most people watch social video with the sound off.
+Burned-in captions come for free, too: useful because most people watch social video with the sound off.
 
 ## The lesson we learned the hard way
 
@@ -93,7 +93,7 @@ While we were building this, our own storage-cleaning tool moved the voice model
 
 Nothing was lost, because the cleaner never deletes anything outright: it moves items to a quarantine they can be restored from. We restored the model in seconds.
 
-The broader point applies to any automation: **speed without guardrails creates new failure modes.** Every automated step in this pipeline — the agents, the voice, the cleanup — has a human-approved input and a way back.
+The broader point applies to any automation: **speed without guardrails creates new failure modes.** Every automated step in this pipeline, the agents, the voice, the cleanup, has a human-approved input and a way back.
 
 ## What this is not
 

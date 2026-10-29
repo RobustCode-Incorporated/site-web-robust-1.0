@@ -29,8 +29,10 @@
     payload.elapsed = Date.now() - started;
     payload.lang = (document.documentElement.getAttribute("lang") || "en").slice(0, 2);
     button.disabled = true;
-    var label = button.textContent;
-    button.textContent = msg("req-msg-sending");
+    // Only swap the label span, so the glint sweep span inside the button survives.
+    var labelEl = button.querySelector("[data-i18n]") || button;
+    var label = labelEl.textContent;
+    labelEl.textContent = msg("req-msg-sending");
     fetch("/api/service-request", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { status: r.status, body: j }; }); })
       .then(function (res) {
@@ -47,6 +49,6 @@
         }
       })
       .catch(function () { show("error", msg("req-msg-error")); })
-      .then(function () { button.disabled = false; button.textContent = label; });
+      .then(function () { button.disabled = false; labelEl.textContent = label; });
   });
 })();

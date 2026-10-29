@@ -54,7 +54,7 @@
       const honeypot = form.querySelector('[name="company_website"]');
       if (honeypot && honeypot.value) {
         e.preventDefault();
-        return; // bot filled the hidden field — silently drop, no event fired
+        return; // bot filled the hidden field: silently drop, no event fired
       }
       track("newsletter_signup", {});
       e.preventDefault();

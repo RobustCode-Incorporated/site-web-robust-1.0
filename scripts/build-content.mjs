@@ -65,7 +65,7 @@ const T = {
   en: {
     insightsEyebrow: "Insights",
     insightsHeading: "Business, AI &amp; digitalization for Belgian SMEs",
-    insightsSubtitle: "Practical, non-fabricated analysis on operations, automation, AI adoption and Belgian digitalization &mdash; written for people who run businesses, not for search engines.",
+    insightsSubtitle: "Practical, non-fabricated analysis on operations, automation, AI adoption and Belgian digitalization: written for people who run businesses, not for search engines.",
     searchPlaceholder: "Search articles&hellip;",
     featured: "Featured",
     by: "By", published: "Published", updated: "Updated", minRead: "min read",
@@ -87,7 +87,7 @@ const T = {
   fr: {
     insightsEyebrow: "Analyses",
     insightsHeading: "Business, IA et digitalisation pour les PME belges",
-    insightsSubtitle: "Analyses pratiques et non fabriquées sur les opérations, l'automatisation, l'adoption de l'IA et la digitalisation en Belgique &mdash; écrites pour ceux qui dirigent des entreprises, pas pour les moteurs de recherche.",
+    insightsSubtitle: "Analyses pratiques et non fabriquées sur les opérations, l'automatisation, l'adoption de l'IA et la digitalisation en Belgique : écrites pour ceux qui dirigent des entreprises, pas pour les moteurs de recherche.",
     searchPlaceholder: "Rechercher des articles&hellip;",
     featured: "À la une",
     by: "Par", published: "Publié le", updated: "Mis à jour le", minRead: "min de lecture",
@@ -142,9 +142,9 @@ const PT = {
   en: {
     storeEyebrow: "Store",
     storeHeading: "Systems, tools and resources for people building businesses",
-    storeSubtitle: "Structured methods — not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.",
+    storeSubtitle: "Structured methods, not prompt dumps. Every system pairs a methodology with the templates, checklists and prompts needed to actually use it.",
     comingSoonTitle: "Our first systems are in development",
-    comingSoonBody: "We're building the first Robust Code digital systems in the open — reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.",
+    comingSoonBody: "We're building the first Robust Code digital systems in the open: reviewed carefully before anything goes on sale. In the meantime, our free Insights and Tools are already live.",
     browseInsights: "Browse Insights",
     browseTools: "Browse free tools",
     theProblem: "The problem",
@@ -160,12 +160,12 @@ const PT = {
     relatedFreeTool: "Free tool",
     relatedReading: "Related reading",
     getSystem: "Get the system",
-    comingSoonCta: "Coming soon — checkout not yet configured",
+    comingSoonCta: "Coming soon: checkout not yet configured",
     bundleIncludes: "This bundle includes",
     requirements: "Requirements",
     buyNow: "Buy now",
     shippingEstimate: "Estimated shipping",
-    fulfilledBy: "Shipped by a Robust Code fulfillment partner. Orders are placed and dispatched by a team member after purchase — not an instant automated shipment.",
+    fulfilledBy: "Shipped by a Robust Code fulfillment partner. Orders are placed and dispatched by a team member after purchase, not an instant automated shipment.",
     sku: "SKU",
     store: "Store",
     readInFr: "Lire en français",
@@ -173,9 +173,9 @@ const PT = {
   fr: {
     storeEyebrow: "Boutique",
     storeHeading: "Systèmes, outils et ressources pour ceux qui construisent une entreprise",
-    storeSubtitle: "Des méthodes structurées — pas des paquets de prompts. Chaque système associe une méthodologie aux modèles, checklists et prompts nécessaires pour vraiment l'utiliser.",
+    storeSubtitle: "Des méthodes structurées, pas des paquets de prompts. Chaque système associe une méthodologie aux modèles, checklists et prompts nécessaires pour vraiment l'utiliser.",
     comingSoonTitle: "Nos premiers systèmes sont en développement",
-    comingSoonBody: "Nous construisons les premiers systèmes numériques Robust Code en toute transparence — relus attentivement avant toute mise en vente. En attendant, nos Analyses et Outils gratuits sont déjà disponibles.",
+    comingSoonBody: "Nous construisons les premiers systèmes numériques Robust Code en toute transparence : relus attentivement avant toute mise en vente. En attendant, nos Analyses et Outils gratuits sont déjà disponibles.",
     browseInsights: "Voir les Analyses",
     browseTools: "Voir les outils gratuits",
     theProblem: "Le problème",
@@ -191,12 +191,12 @@ const PT = {
     relatedFreeTool: "Outil gratuit",
     relatedReading: "À lire aussi",
     getSystem: "Obtenir le système",
-    comingSoonCta: "Bientôt disponible — paiement pas encore configuré",
+    comingSoonCta: "Bientôt disponible : paiement pas encore configuré",
     bundleIncludes: "Ce pack comprend",
     requirements: "Prérequis",
     buyNow: "Acheter",
     shippingEstimate: "Délai de livraison estimé",
-    fulfilledBy: "Expédié par un partenaire logistique de Robust Code. Les commandes sont passées et expédiées par un membre de l'équipe après achat — pas un envoi automatique instantané.",
+    fulfilledBy: "Expédié par un partenaire logistique de Robust Code. Les commandes sont passées et expédiées par un membre de l'équipe après achat, pas un envoi automatique instantané.",
     sku: "Référence",
     store: "Boutique",
     readInFr: "Lire en français",
@@ -471,7 +471,7 @@ function relatedToolsBlock(current, tools, depth, lang) {
     <h2>${T[lang].freeTool}</h2>
     <ul class="related-tools-list">
       ${matches
-        .map((t) => `<li><a href="${p}tools/${t.slug}/index.html" data-cta="cta_click">${esc(t.title)} — ${esc(t.description)}</a></li>`)
+        .map((t) => `<li><a href="${p}tools/${t.slug}/index.html" data-cta="cta_click">${esc(t.title)}: ${esc(t.description)}</a></li>`)
         .join("")}
     </ul>
   </section>`;
@@ -489,7 +489,7 @@ function relatedProductsBlock(current, products, depth, lang) {
       ${matches
         .map(
           (prod) =>
-            `<li><a href="${p}${base}/${prod.category}/${prod.slug}/index.html" data-cta="related_product_click" data-product="${esc(prod.slug)}">${esc(prod.title)} — ${esc(prod.shortDescription)}</a></li>`
+            `<li><a href="${p}${base}/${prod.category}/${prod.slug}/index.html" data-cta="related_product_click" data-product="${esc(prod.slug)}">${esc(prod.title)}: ${esc(prod.shortDescription)}</a></li>`
         )
         .join("")}
     </ul>
@@ -500,11 +500,11 @@ function checkoutCTA(product, lang) {
   const priceLabel = `${product.currency === "EUR" ? "€" : product.currency + " "}${product.price}`;
   const ctaLabel = product.productType === "physical" ? PT[lang].buyNow : PT[lang].getSystem;
   if (product.checkout && product.checkout.provider && product.checkout.url) {
-    return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${ctaLabel} — ${priceLabel}</a>`;
+    return `<a class="btn btn-primary checkout-cta" href="${esc(product.checkout.url)}" data-cta="checkout_click" data-product="${esc(product.slug)}" target="_blank" rel="noopener noreferrer">${ctaLabel} · ${priceLabel}</a>`;
   }
   // No real payment provider configured — a disabled state, not a fake
   // clickable button, per the explicit "never fake checkout" requirement.
-  return `<button type="button" class="btn btn-primary checkout-cta is-disabled" disabled aria-disabled="true" title="${PT[lang].comingSoonCta}">${priceLabel} — ${PT[lang].comingSoonCta}</button>`;
+  return `<button type="button" class="btn btn-primary checkout-cta is-disabled" disabled aria-disabled="true" title="${PT[lang].comingSoonCta}">${priceLabel} · ${PT[lang].comingSoonCta}</button>`;
 }
 
 function productCard(product, depth, lang) {
@@ -650,7 +650,7 @@ function loadProducts(lang) {
     const forbiddenFields = ["sourceUrl", "supplierUrl", "amazonUrl", "amazonAsin", "costPrice", "cost", "supplierCost", "margin"];
     for (const field of forbiddenFields) {
       if (data[field] !== undefined) {
-        fail(`${rel}: "${field}" must never be set in content/products/ (public repo) — use the private sourcing map instead, see docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md`);
+        fail(`${rel}: "${field}" must never be set in content/products/ (public repo): use the private sourcing map instead, see docs/store/PHYSICAL_PRODUCTS_FULFILLMENT.md`);
       }
     }
 
@@ -909,8 +909,8 @@ function renderInsightsSection(lang, published, otherLangPublished) {
     writeFile(
       outRel,
       renderPage({
-        title: n === 1 ? "Insights | ROBUST CODE" : `Insights — Page ${n} | ROBUST CODE`,
-        description: T[lang].insightsSubtitle.replace(/&mdash;/g, "-"),
+        title: n === 1 ? "Insights | ROBUST CODE" : `Insights · Page ${n} | ROBUST CODE`,
+        description: T[lang].insightsSubtitle.replace(/-/g, "-"),
         canonicalPath: n === 1 ? `/${base}/` : `/${base}/page/${n}/`,
         depth,
         bodyMain: renderInsightsIndex(pageArticles, published, n, totalPages, depth, null, lang),
@@ -933,7 +933,7 @@ function renderInsightsSection(lang, published, otherLangPublished) {
       outRel,
       renderPage({
         title: `${name} | ROBUST CODE Insights`,
-        description: `${name} — ROBUST CODE Insights`,
+        description: `${name} | ROBUST CODE Insights`,
         canonicalPath: `/${base}/${slug}/`,
         depth,
         bodyMain: renderInsightsIndex(inCategory, published, 1, 1, depth, name, lang),
@@ -975,7 +975,7 @@ writeFile(
   "tools/index.html",
   renderPage({
     title: "Free Business Tools | ROBUST CODE",
-    description: "Free, no-signup-required calculators and assessments for SMEs — starting with the Automation ROI Calculator.",
+    description: "Free, no-signup-required calculators and assessments for SMEs, starting with the Automation ROI Calculator.",
     canonicalPath: "/tools/",
     depth: 1,
     lang: "en",
@@ -1028,8 +1028,8 @@ writeFile(
 
         <div id="roi-result" class="tool-result" hidden data-analytics="tool_complete">
           <p><strong>Estimated annual savings:</strong> <span id="roi-annual-savings">&euro;0</span></p>
-          <p><strong>Estimated payback period:</strong> <span id="roi-payback">&mdash;</span></p>
-          <p class="cta-note">Rough estimate for planning purposes, not a guarantee — actual results depend on implementation quality and how consistently the task recurs.</p>
+          <p><strong>Estimated payback period:</strong> <span id="roi-payback">-</span></p>
+          <p class="cta-note">Rough estimate for planning purposes, not a guarantee: actual results depend on implementation quality and how consistently the task recurs.</p>
         </div>
 
         ${productCTA(
@@ -1058,19 +1058,19 @@ writeFile(
 );
 
 const PROJECT_CHECKLIST_STAGES = [
-  { stage: "01 — Discovery", items: ["The problem the project solves is written down in one paragraph", "You've confirmed the project is actually worth doing before planning it further"] },
-  { stage: "02 — Objectives", items: ["Success criteria are specific enough that two people would agree whether they were met", "Objectives are written down, not just discussed verbally"] },
-  { stage: "03 — Stakeholders", items: ["Everyone who can approve, block, or be materially affected by the project is listed", "Each stakeholder's role (decide / consulted / informed) is explicit"] },
-  { stage: "04 — Scope", items: ["What's included is written down", "What's explicitly excluded is also written down"] },
-  { stage: "05 — Requirements", items: ["Requirements are reviewed by whoever will actually use the outcome, not just the person requesting it"] },
-  { stage: "06 — Deliverables", items: ["Every deliverable has a clear definition of \"done\"", "The final deliverable format is agreed before work starts, not at delivery"] },
-  { stage: "07 — Dependencies", items: ["External dependencies (people, tools, approvals) outside your direct control are listed"] },
-  { stage: "08 — Risks", items: ["The top 3-5 risks are written down with a plan for each, not just identified in a meeting and forgotten"] },
-  { stage: "09 — Planning", items: ["Milestones exist with dates, not just a task list", "The plan has been sanity-checked against who is actually available to do the work"] },
-  { stage: "10 — Execution", items: ["There's a single place where current status lives, not scattered across chats"] },
-  { stage: "11 — Monitoring", items: ["Progress is checked against the plan on a fixed cadence, not only when something goes wrong"] },
-  { stage: "12 — Validation", items: ["Deliverables are checked against the original definition of done before being called finished"] },
-  { stage: "13 — Closure", items: ["A short retrospective is done — what to repeat, what to change next time", "Stakeholders are formally told the project is closed"] },
+  { stage: "01. Discovery", items: ["The problem the project solves is written down in one paragraph", "You've confirmed the project is actually worth doing before planning it further"] },
+  { stage: "02. Objectives", items: ["Success criteria are specific enough that two people would agree whether they were met", "Objectives are written down, not just discussed verbally"] },
+  { stage: "03. Stakeholders", items: ["Everyone who can approve, block, or be materially affected by the project is listed", "Each stakeholder's role (decide / consulted / informed) is explicit"] },
+  { stage: "04. Scope", items: ["What's included is written down", "What's explicitly excluded is also written down"] },
+  { stage: "05. Requirements", items: ["Requirements are reviewed by whoever will actually use the outcome, not just the person requesting it"] },
+  { stage: "06. Deliverables", items: ["Every deliverable has a clear definition of \"done\"", "The final deliverable format is agreed before work starts, not at delivery"] },
+  { stage: "07. Dependencies", items: ["External dependencies (people, tools, approvals) outside your direct control are listed"] },
+  { stage: "08. Risks", items: ["The top 3-5 risks are written down with a plan for each, not just identified in a meeting and forgotten"] },
+  { stage: "09. Planning", items: ["Milestones exist with dates, not just a task list", "The plan has been sanity-checked against who is actually available to do the work"] },
+  { stage: "10. Execution", items: ["There's a single place where current status lives, not scattered across chats"] },
+  { stage: "11. Monitoring", items: ["Progress is checked against the plan on a fixed cadence, not only when something goes wrong"] },
+  { stage: "12. Validation", items: ["Deliverables are checked against the original definition of done before being called finished"] },
+  { stage: "13. Closure", items: ["A short retrospective is done: what to repeat, what to change next time", "Stakeholders are formally told the project is closed"] },
 ];
 
 writeFile(
@@ -1086,7 +1086,7 @@ writeFile(
       <div class="container">
         <p class="eyebrow">Free tool</p>
         <h1>Project Success Checklist</h1>
-        <p class="text-soft">The 13 stages most project failures trace back to skipping. Check them off as you go — your progress is saved in this browser only.</p>
+        <p class="text-soft">The 13 stages most project failures trace back to skipping. Check them off as you go: your progress is saved in this browser only.</p>
 
         <div id="checklist-root" class="project-checklist">
           ${PROJECT_CHECKLIST_STAGES.map(
@@ -1103,7 +1103,7 @@ writeFile(
           </fieldset>`
           ).join("")}
         </div>
-        <p class="cta-note">Nothing you check here is sent anywhere — it's stored only in this browser (localStorage).</p>
+        <p class="cta-note">Nothing you check here is sent anywhere: it's stored only in this browser (localStorage).</p>
 
         ${relatedProductsBlock({ relatedProducts: ["robust-project-os"] }, publishedProducts, 2, "en")}
         ${newsletterCTA(2, "en")}
@@ -1217,7 +1217,7 @@ function renderProductPages(lang, products, allForRelatedProducts) {
       ${
         product.images.length
           ? `<div class="product-gallery">${product.images
-              .map((img, i) => `<img src="${esc(img)}" alt="${esc(product.title)} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">`)
+              .map((img, i) => `<img src="${esc(img)}" alt="${esc(product.title)}, image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">`)
               .join("")}</div>`
           : ""
       }
@@ -1365,7 +1365,7 @@ function renderStoreSection(lang, products, otherLangProducts) {
     writeFile(
       outRel,
       renderPage({
-        title: n === 1 ? "Store | ROBUST CODE" : `Store — Page ${n} | ROBUST CODE`,
+        title: n === 1 ? "Store | ROBUST CODE" : `Store · Page ${n} | ROBUST CODE`,
         description: t.storeSubtitle,
         canonicalPath: n === 1 ? `/${base}/` : `/${base}/page/${n}/`,
         depth,
@@ -1390,7 +1390,7 @@ function renderStoreSection(lang, products, otherLangProducts) {
       outRel,
       renderPage({
         title: `${name} | ROBUST CODE Store`,
-        description: `${name} — ROBUST CODE Store`,
+        description: `${name} | ROBUST CODE Store`,
         canonicalPath: `/${base}/${slug}/`,
         depth,
         bodyMain: `<section class="section insights-index" data-analytics-category="${esc(slug)}">

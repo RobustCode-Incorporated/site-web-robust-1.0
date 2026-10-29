@@ -22,7 +22,7 @@
     }
     results.innerHTML = matches
       .slice(0, 8)
-      .map((p) => `<li><a href="${base}${p.url}">${p.title} — €${p.price}</a></li>`)
+      .map((p) => `<li><a href="${base}${p.url}">${p.title}: €${p.price}</a></li>`)
       .join("");
     results.hidden = false;
   }

@@ -50,7 +50,7 @@ function readRawBody(req) {
 }
 
 async function saveOrder(order) {
-  if (!process.env.DATABASE_URL) return; // not configured — skip, non-fatal
+  if (!process.env.DATABASE_URL) return; // not configured: skip, non-fatal
   try {
     const sql = neon(process.env.DATABASE_URL);
     await sql`
@@ -143,9 +143,9 @@ export default async function handler(req, res) {
       .join("\n");
 
     const message = [
-      `NEW ORDER — action required: place the matching order with the supplier by hand.`,
+      `NEW ORDER, action required: place the matching order with the supplier by hand.`,
       `Stripe session: ${fullSession.id}`,
-      `Product slug: ${slug || "(not set — add metadata.slug to the Payment Link)"}`,
+      `Product slug: ${slug || "(not set: add metadata.slug to the Payment Link)"}`,
       `Customer email: ${fullSession.customer_details?.email || "(none)"}`,
       `Shipping address: ${shipping?.address ? JSON.stringify(shipping.address) : "(not collected)"}`,
       `Shipping name: ${shipping?.name || "(none)"}`,
@@ -153,7 +153,7 @@ export default async function handler(req, res) {
       `Line items:\n${lines || "  (none)"}`,
       sourcing
         ? `Supplier link: ${sourcing.sourceUrl || "(missing in AMAZON_SOURCING_MAP)"}\nCost price: ${sourcing.costPrice ?? "(missing)"}`
-        : `No sourcing entry found for slug "${slug}" in AMAZON_SOURCING_MAP — look it up manually before ordering.`,
+        : `No sourcing entry found for slug "${slug}" in AMAZON_SOURCING_MAP: look it up manually before ordering.`,
     ].join("\n");
 
     await saveOrder({
