@@ -1,5 +1,20 @@
 [
   {
+    "slug": "ai-skills-narrated-video-reports",
+    "category": "ai",
+    "title": "Three AI Skills That Turned Our Monthly Report Into a Three-Minute Film",
+    "description": "We replaced our slide-deck status report with a narrated, animated video built from evidence. Here are the three AI skills that made it work — and the one lesson we learned the hard way.",
+    "tags": [
+      "AI",
+      "automation",
+      "reporting",
+      "voice cloning",
+      "AI governance"
+    ],
+    "publishedAt": "2026-10-29",
+    "url": "insights/ai/ai-skills-narrated-video-reports/index.html"
+  },
+  {
     "slug": "crm-erp-fundamentals-smes",
     "category": "business",
     "title": "CRM vs ERP for SMEs: What Each One Actually Solves",

@@ -218,6 +218,7 @@ const STATIC_PAGES = [
   { loc: "/what-we-do/rc-data.html", changefreq: "monthly", priority: "0.7" },
   { loc: "/what-we-do/rc-xp.html", changefreq: "monthly", priority: "0.7" },
   { loc: "/what-we-do/rc-studio.html", changefreq: "monthly", priority: "0.7" },
+  { loc: "/what-we-do/video-reports.html", changefreq: "monthly", priority: "0.8" },
   { loc: "/legal/notice.html", changefreq: "yearly", priority: "0.3" },
   { loc: "/legal/privacy-policy.html", changefreq: "yearly", priority: "0.3" },
   { loc: "/legal/terms-conditions.html", changefreq: "yearly", priority: "0.3" },

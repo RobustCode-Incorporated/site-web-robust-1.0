@@ -1,5 +1,20 @@
 [
   {
+    "slug": "ai-skills-narrated-video-reports",
+    "category": "ai",
+    "title": "Trois compétences IA qui ont transformé notre rapport mensuel en film de trois minutes",
+    "description": "Nous avons remplacé notre rapport en slides par une vidéo narrée et animée, construite à partir de preuves. Voici les trois compétences IA qui l'ont rendu possible, et la leçon que nous avons apprise à nos dépens.",
+    "tags": [
+      "IA",
+      "automatisation",
+      "reporting",
+      "clonage de voix",
+      "gouvernance IA"
+    ],
+    "publishedAt": "2026-10-29",
+    "url": "fr/insights/ai/ai-skills-narrated-video-reports/index.html"
+  },
+  {
     "slug": "crm-erp-fundamentals-smes",
     "category": "business",
     "title": "CRM vs ERP pour les PME : ce que chacun résout vraiment",

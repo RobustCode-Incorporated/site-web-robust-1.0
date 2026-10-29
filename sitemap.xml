@@ -61,6 +61,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.robust-code.com/what-we-do/video-reports.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.robust-code.com/legal/notice.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -136,6 +141,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.robust-code.com/insights/ai/ai-skills-narrated-video-reports/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.robust-code.com/insights/business/crm-erp-fundamentals-smes/</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -172,6 +183,12 @@
     <loc>https://www.robust-code.com/fr/insights/ai/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.robust-code.com/fr/insights/ai/ai-skills-narrated-video-reports/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.robust-code.com/fr/insights/business/crm-erp-fundamentals-smes/</loc>
