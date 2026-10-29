@@ -31,6 +31,23 @@
 .vr-faq summary{cursor:pointer;font-weight:600}
 .vr-faq p{margin:.75rem 0 0}
 @media (max-width:640px){.vr-planet{flex-direction:column;text-align:center;padding:1.75rem}}
+.vr-form-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;border:1px solid #ddd;border-radius:18px;padding:2.5rem;background:#fff}
+.vr-form{display:grid;gap:1rem}
+.vr-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.vr-row--3{grid-template-columns:1fr 1fr 1fr}
+.vr-field{display:grid;gap:.4rem;font-size:.85rem;font-weight:600}
+.vr-field input,.vr-field select,.vr-field textarea{font:inherit;font-weight:400;font-size:1rem;padding:.75rem .85rem;border:1px solid #ddd;border-radius:8px;background:#fff;color:#000;width:100%;box-sizing:border-box}
+.vr-field input:focus,.vr-field select:focus,.vr-field textarea:focus{outline:2px solid #000;outline-offset:1px}
+.vr-form .is-invalid{border-color:#d32f2f;background:#fff5f5}
+.vr-consent{display:flex;gap:.6rem;align-items:flex-start;font-size:.85rem}
+.vr-consent.is-invalid,.vr-consent input.is-invalid+span{color:#d32f2f}
+.vr-consent a{text-decoration:underline}
+.vr-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.vr-form .btn{justify-self:start}
+.vr-status{margin-top:1rem;padding:1rem 1.25rem;border-radius:10px;font-weight:600}
+.vr-status--ok{background:#e8f3e9;color:#1b5e20}
+.vr-status--error{background:#fff5f5;color:#d32f2f}
+@media (max-width:860px){.vr-form-wrap{grid-template-columns:1fr;padding:1.5rem}.vr-row,.vr-row--3{grid-template-columns:1fr}}
 </style></head><body class="page-light-pure"><header class="site-header" id="main-header">
     <div class="container nav-wrap">
       <a class="brand nav-logo" href="../index.html" data-i18n-attr="aria-label:common.aria.brandHome" aria-label="ROBUST CODE home">
@@ -91,15 +108,34 @@
     </div>
   </div><main>
 <section class="section vr-hero"><div class="container section-heading reveal"><p class="eyebrow" data-i18n="videoReports.eyebrow">New service · RC•STUDIO × RC•DATA</p><h1 data-i18n="videoReports.title">Automated Video Reports</h1><p class="text-soft" data-i18n="videoReports.subtitle">Your monthly report as a three-minute film. Narrated in your own voice, animated in your brand, built only from facts.</p>
-<p style="margin-top:1.5rem"><a class="btn btn-primary" href="mailto:contact@robust-code.com?subject=Automated%20video%20reports%20-%20Request" data-cta="video_reports_request"><span data-i18n="videoReports.ctaPrimary">Request yours</span></a></p></div></section>
+<p style="margin-top:1.5rem"><a class="btn btn-primary" href="#request" data-cta="video_reports_request"><span data-i18n="videoReports.ctaPrimary">Request yours</span></a></p></div></section>
 <div class="vr-video reveal"><video controls preload="metadata" playsinline poster="../assets/images/services/video-reports-cover.jpg"><source src="../assets/videos/automated-video-reports.mp4" type="video/mp4"></video><p class="vr-note" data-i18n="videoReports.videoNote">This video was made with the same pipeline. Narration: AI-generated voice, cloned with recorded consent.</p></div>
 <section class="section"><div class="container"><p class="eyebrow" data-i18n="videoReports.problemEyebrow">The problem</p><h2 data-i18n="videoReports.problemTitle">Great work disappears into slides</h2><p class="text-soft" data-i18n="videoReports.problemBody">Monthly reports are long, written for the author, and rarely read to the end. Managers, partners and clients want three answers: where are we, can we trust it, and what happens next. A short narrated film answers them in minutes, on any phone.</p></div></section>
 <section class="section"><div class="container"><p class="eyebrow" data-i18n="videoReports.howEyebrow">How it works</p><h2 data-i18n="videoReports.howTitle">Set up once. Ready every month.</h2><div class="vr-grid"><article class="vr-card"><span class="vr-num" data-i18n="videoReports.step1Num">01</span><h3 data-i18n="videoReports.step1Title">Connect your data</h3><p class="text-soft" data-i18n="videoReports.step1Desc">We connect to the sources that already hold the truth: project tools, tests and deployments, CRM or business figures.</p></article><article class="vr-card"><span class="vr-num" data-i18n="videoReports.step2Num">02</span><h3 data-i18n="videoReports.step2Title">Your voice, with consent</h3><p class="text-soft" data-i18n="videoReports.step2Desc">We clone the voice of your spokesperson with their recorded consent, or design a voice for you. It runs locally and is always labelled as AI.</p></article><article class="vr-card"><span class="vr-num" data-i18n="videoReports.step3Num">03</span><h3 data-i18n="videoReports.step3Title">Your brand, once</h3><p class="text-soft" data-i18n="videoReports.step3Desc">Colours, fonts, logo and tone are designed into the animation once, so every report looks like you.</p></article><article class="vr-card vr-card--dark"><span class="vr-num" data-i18n="videoReports.step4Num">04</span><h3 data-i18n="videoReports.step4Title">Every month, it's ready</h3><p class="text-soft" data-i18n="videoReports.step4Desc">A new film is generated from the latest evidence. You review the script, approve it, and share it.</p></article></div></div></section>
 <section class="section"><div class="container"><p class="eyebrow" data-i18n="videoReports.getEyebrow">What you get</p><h2 data-i18n="videoReports.getTitle">A report people watch to the end</h2><ul class="vr-list"><li><i data-lucide="check-circle-2"></i><span data-i18n="videoReports.get1">A monthly narrated video report built only from verifiable evidence: lifecycle stage, proof, next milestone.</span></li><li><i data-lucide="check-circle-2"></i><span data-i18n="videoReports.get2">Formats for every channel: 16:9 for meetings and LinkedIn, 1:1, 4:5 and 9:16 for social feeds and Reels.</span></li><li><i data-lucide="check-circle-2"></i><span data-i18n="videoReports.get3">Burned-in captions, so it works with the sound off.</span></li><li><i data-lucide="check-circle-2"></i><span data-i18n="videoReports.get4">A human-approved script every time. Nothing is published without your review.</span></li><li><i data-lucide="check-circle-2"></i><span data-i18n="videoReports.get5">Transparent AI: synthetic narration is always disclosed on screen.</span></li></ul></div></section>
 <section class="section"><div class="container"><div class="vr-planet reveal"><i data-lucide="leaf"></i><div><h2 data-i18n="videoReports.planetTitle">Good for business. Good for the planet.</h2><p class="text-soft" data-i18n="videoReports.planetBody">Fewer printed reports means less paper waste. Take yours, reduce paper pollution, and do your part for our planet.</p></div></div></div></section>
+<section class="section" id="request"><div class="container"><div class="vr-form-wrap reveal">
+<div class="vr-form-intro"><p class="eyebrow" data-i18n="videoReports.formEyebrow">Request yours</p><h2 data-i18n="videoReports.formTitle">Tell us about your reports</h2><p class="text-soft" data-i18n="videoReports.formIntro">Answer a few questions and we will come back to you with a clear proposal.</p></div>
+<form id="request-form" class="vr-form" novalidate>
+<input type="hidden" name="service" value="video-reports">
+<div class="vr-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="vr-row"><label class="vr-field"><span data-i18n="videoReports.fName">Full name</span><input name="name" required minlength="2" maxlength="120" autocomplete="name"></label><label class="vr-field"><span data-i18n="videoReports.fCompany">Company</span><input name="company" required minlength="2" maxlength="160" autocomplete="organization"></label></div>
+<div class="vr-row"><label class="vr-field"><span data-i18n="videoReports.fEmail">Work e-mail</span><input name="email" type="email" required maxlength="200" autocomplete="email"></label><label class="vr-field"><span data-i18n="videoReports.fRole">Role (optional)</span><input name="role" maxlength="120" autocomplete="organization-title"></label></div>
+<div class="vr-row vr-row--3">
+<label class="vr-field"><span data-i18n="videoReports.fAudience">Who reads your reports?</span><select name="audience" required><option value="" data-i18n="videoReports.aChoose">Choose…</option><option value="management" data-i18n="videoReports.aManagement">Management</option><option value="board" data-i18n="videoReports.aBoard">Board / investors</option><option value="clients" data-i18n="videoReports.aClients">Clients</option><option value="partners" data-i18n="videoReports.aPartners">Partners</option><option value="team" data-i18n="videoReports.aTeam">Internal team</option><option value="other" data-i18n="videoReports.aOther">Other</option></select></label>
+<label class="vr-field"><span data-i18n="videoReports.fFrequency">How often do you report?</span><select name="frequency" required><option value="" data-i18n="videoReports.aChoose">Choose…</option><option value="weekly" data-i18n="videoReports.qWeekly">Weekly</option><option value="monthly" data-i18n="videoReports.qMonthly">Monthly</option><option value="quarterly" data-i18n="videoReports.qQuarterly">Quarterly</option><option value="other" data-i18n="videoReports.qOther">Other</option></select></label>
+<label class="vr-field"><span data-i18n="videoReports.fLanguage">Narration language</span><select name="language" required><option value="" data-i18n="videoReports.aChoose">Choose…</option><option value="en" data-i18n="videoReports.lEn">English</option><option value="fr" data-i18n="videoReports.lFr">French</option><option value="nl" data-i18n="videoReports.lNl">Dutch</option><option value="other" data-i18n="videoReports.lOther">Other</option></select></label>
+</div>
+<label class="vr-field"><span data-i18n="videoReports.fMessage">Anything we should know? (optional)</span><textarea name="message" rows="4" maxlength="2000"></textarea></label>
+<label class="vr-consent"><input type="checkbox" name="consent" required> <span><span data-i18n="videoReports.fConsent">I agree that Robust Code uses these details to answer my request.</span> <a href="../legal/privacy-policy.html" target="_blank" rel="noopener"><span data-i18n="videoReports.fPrivacy">Privacy policy</span></a></span></label>
+<button type="submit" class="btn btn-primary"><span data-i18n="videoReports.fSubmit">Send my request</span></button>
+</form>
+<p id="request-status" class="vr-status" role="status" aria-live="polite" hidden></p>
+<span hidden id="req-msg-sending" data-i18n="videoReports.mSending">Sending…</span><span hidden id="req-msg-ok" data-i18n="videoReports.mOk">Thank you, your request is in. We will get back to you shortly.</span><span hidden id="req-msg-error" data-i18n="videoReports.mError">Something went wrong. Please e-mail us at contact@robust-code.com.</span><span hidden id="req-msg-invalid" data-i18n="videoReports.mInvalid">Please check the highlighted fields.</span>
+</div></div></section>
 <section class="section"><div class="container vr-faq"><p class="eyebrow" data-i18n="videoReports.faqEyebrow">Questions</p><details><summary data-i18n="videoReports.faq1q">Is it really our spokesperson's voice?</summary><p class="text-soft" data-i18n="videoReports.faq1a">Yes, if they want it to be. We only clone a voice with the recorded consent of the person it belongs to. If you prefer, we design a voice instead.</p></details><details><summary data-i18n="videoReports.faq2q">Where is our data processed?</summary><p class="text-soft" data-i18n="videoReports.faq2a">Voice generation runs locally on our machines, not on a public voice platform. Data access is agreed with you during setup, in line with GDPR.</p></details><details><summary data-i18n="videoReports.faq3q">How much does it cost?</summary><p class="text-soft" data-i18n="videoReports.faq3a">Pricing depends on your data sources, languages and how often you report. Tell us what you need and we will send you a clear quote.</p></details></div></section>
 <section class="section"><div class="container"><div class="vr-cta reveal"><h2 data-i18n="videoReports.ctaTitle">Change the way you present your work</h2><p data-i18n="videoReports.ctaBody">Robust Code introduces automated video reports. Request yours today.</p>
-<a class="btn btn-primary btn-light" href="mailto:contact@robust-code.com?subject=Automated%20video%20reports%20-%20Request" data-cta="video_reports_request"><span data-i18n="videoReports.ctaPrimary2">Request yours</span></a>
+<a class="btn btn-primary btn-light" href="#request" data-cta="video_reports_request"><span data-i18n="videoReports.ctaPrimary2">Request yours</span></a>
 <a class="btn btn-primary" href="../insights/ai/ai-skills-narrated-video-reports/"><span data-i18n="videoReports.ctaArticle">Read how we built it</span></a></div></div></section>
 </main>  <footer class="site-footer" id="site-footer">
     <span class="footer-top-line" aria-hidden="true"></span>
@@ -162,4 +198,5 @@
   <script src="../assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="../assets/js/footer-animation.js" defer></script>
   <script src="../assets/js/nav-menu.js" defer></script>
+  <script src="../assets/js/service-request.js" defer></script>
 </body></html>

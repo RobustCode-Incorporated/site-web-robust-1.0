@@ -156,6 +156,35 @@
       </div>
     </section>
 
+    <section class="section vr-home" id="new-service">
+      <div class="container vr-home-card reveal">
+        <div class="vr-home-text">
+          <p class="eyebrow vr-home-eyebrow" data-i18n="videoReports.homeEyebrow">New service</p>
+          <h2 data-i18n="videoReports.homeTitle">Automated Video Reports</h2>
+          <p data-i18n="videoReports.homeDesc">Your monthly report as a three-minute film: narrated in your own voice, animated in your brand, built only from facts.</p>
+          <div class="vr-home-cta">
+            <a class="btn btn-primary vr-home-btn" href="what-we-do/video-reports.html"><span data-i18n="videoReports.homeCta">Discover the service</span></a>
+            <a class="btn btn-ghost" href="what-we-do/video-reports.html#request"><span data-i18n="videoReports.homeCta2">Request yours</span></a>
+          </div>
+        </div>
+        <a class="vr-home-media" href="what-we-do/video-reports.html" aria-label="Automated Video Reports">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/services/video-reports-cover.jpg" aria-hidden="true">
+            <source src="assets/videos/video-reports-teaser.mp4" type="video/mp4">
+          </video>
+        </a>
+      </div>
+      <style>
+        .vr-home-card{display:grid;grid-template-columns:1fr 1.15fr;gap:2.5rem;align-items:center;background:#000;color:#fff;border-radius:22px;padding:2.75rem}
+        .vr-home-card h2{color:#fff;margin:.4rem 0 .8rem}
+        .vr-home-card p{color:#cfcfcf}
+        .vr-home-eyebrow{color:#7bd389 !important}
+        .vr-home-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+        .vr-home-btn{background:#fff !important;color:#000 !important}
+        .vr-home-media video{width:100%;display:block;border-radius:14px}
+        @media (max-width:860px){.vr-home-card{grid-template-columns:1fr;padding:1.5rem}}
+      </style>
+    </section>
+
     <section class="section ecosystem-detail-section" id="ecosystem-info-section">
       <div class="container ecosystem-content">
         <div class="section-heading reveal">
