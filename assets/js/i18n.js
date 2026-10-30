@@ -404,13 +404,14 @@ const translations = {
       privacyPolicy: {
         eyebrow: "Legal",
         title: "Privacy Policy",
-        updated: "Last updated: August 2026",
+        updated: "Last updated: October 2026",
         intro: "This policy explains what personal data ROBUST CODE S.A.R.L collects, why we collect it, and how you can control it.",
         s1: { heading: "Information We Collect", body: "We collect information you provide directly, such as your name and email when you contact us, along with limited technical data like browser type and pages visited." },
         s2: { heading: "How We Use Information", body: "Information is used to respond to inquiries, deliver contracted services, and improve the reliability of our website and products." },
         s3: { heading: "Sharing & Disclosure", body: "We do not sell personal data. We share it only with service providers who support our operations, under contractual confidentiality obligations, or when required by law." },
         s4: { heading: "Data Retention", body: "We retain personal data only as long as necessary for the purpose it was collected for, or as required by applicable law." },
-        s5: { heading: "Your Rights", body: "Depending on your jurisdiction, you may have the right to access, correct, delete, or export your data. Contact privacy@robust-code.com to exercise these rights." }
+        s5: { heading: "Your Rights", body: "Depending on your jurisdiction, you may have the right to access, correct, delete, or export your data. Contact privacy@robust-code.com to exercise these rights." },
+        s6: { heading: "YouTube API Services", p1: "ROBUST CODE uses YouTube API Services only to upload and schedule videos on its own YouTube channel (Robust Code SARL), through an internal tool operated by our team. The tool does not access, collect, store or share data from any other YouTube user or channel.", p2: "Data used: the authorization granted by our own channel account (stored only on our company computer), and the titles, descriptions, tags and publication dates of our own videos. Read access is limited to confirming the status of our own uploads.", p3: "By using YouTube features connected to our services, you agree to be bound by the YouTube Terms of Service. Google's handling of data is described in the Google Privacy Policy.", p4: "Revoking access and deletion: access can be revoked at any time from the Google security settings page. When access is revoked, or on request to privacy@robust-code.com, we delete the stored authorization tokens within 7 days. We keep no other data obtained through YouTube API Services." }
       },
       cookiePolicy: {
         eyebrow: "Legal",
@@ -847,13 +848,14 @@ const translations = {
       privacyPolicy: {
         eyebrow: "Juridique",
         title: "Politique de confidentialité",
-        updated: "Dernière mise à jour : août 2026",
+        updated: "Dernière mise à jour : octobre 2026",
         intro: "Cette politique explique quelles données personnelles ROBUST CODE S.A.R.L collecte, pourquoi nous les collectons, et comment vous pouvez les maîtriser.",
         s1: { heading: "Informations que nous collectons", body: "Nous collectons les informations que vous nous fournissez directement, comme votre nom et votre e-mail lors d'un contact, ainsi que des données techniques limitées comme le type de navigateur et les pages visitées." },
         s2: { heading: "Utilisation des informations", body: "Les informations sont utilisées pour répondre aux demandes, fournir les services contractés et améliorer la fiabilité de notre site et de nos produits." },
         s3: { heading: "Partage et divulgation", body: "Nous ne vendons pas de données personnelles. Nous ne les partageons qu'avec des prestataires qui soutiennent nos opérations, sous obligation contractuelle de confidentialité, ou lorsque la loi l'exige." },
         s4: { heading: "Conservation des données", body: "Nous conservons les données personnelles uniquement le temps nécessaire à la finalité pour laquelle elles ont été collectées, ou selon les exigences légales applicables." },
-        s5: { heading: "Vos droits", body: "Selon votre juridiction, vous pouvez disposer d'un droit d'accès, de rectification, de suppression ou d'export de vos données. Contactez privacy@robust-code.com pour exercer ces droits." }
+        s5: { heading: "Vos droits", body: "Selon votre juridiction, vous pouvez disposer d'un droit d'accès, de rectification, de suppression ou d'export de vos données. Contactez privacy@robust-code.com pour exercer ces droits." },
+        s6: { heading: "Services API YouTube", p1: "ROBUST CODE utilise les services API YouTube uniquement pour importer et programmer des vidéos sur sa propre chaîne YouTube (Robust Code SARL), via un outil interne utilisé par notre équipe. L'outil n'accède à aucune donnée d'un autre utilisateur ou d'une autre chaîne YouTube, et n'en collecte, n'en conserve ni n'en partage aucune.", p2: "Données utilisées : l'autorisation accordée par le compte de notre propre chaîne (conservée uniquement sur l'ordinateur de l'entreprise), ainsi que les titres, descriptions, mots-clés et dates de publication de nos propres vidéos. La lecture se limite à vérifier le statut de nos propres envois.", p3: "En utilisant des fonctionnalités YouTube liées à nos services, vous acceptez les Conditions d'utilisation de YouTube. Le traitement des données par Google est décrit dans les Règles de confidentialité de Google.", p4: "Révocation et suppression : l'accès peut être révoqué à tout moment depuis les paramètres de sécurité Google. En cas de révocation, ou sur demande à privacy@robust-code.com, nous supprimons les jetons d'autorisation conservés sous 7 jours. Nous ne conservons aucune autre donnée obtenue via les services API YouTube." }
       },
       cookiePolicy: {
         eyebrow: "Juridique",
