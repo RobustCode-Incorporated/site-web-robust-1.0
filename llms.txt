@@ -23,6 +23,7 @@ ROBUST CODE designs and delivers custom software, CRM/ERP platforms, cybersecuri
 ## Products
 
 - REM (Robust Enterprise Management): flagship commercialized enterprise platform for unified operations, finance, and reporting.
+- Robust Enterprise Management, Salon Edition: a salon website with online booking plus one back-office (agenda, till, clients, team, payroll, expenses, stock) for hair salons, barbers, beauty and tattoo studios in Brussels. Built and run by ROBUST CODE: EUR 5,000 excl. VAT once, then EUR 99 excl. VAT per month.
 - RCM (Robust Customer Management): internal engine for customer intelligence and relationship data.
 
 ## Key Pages
@@ -37,6 +38,7 @@ ROBUST CODE designs and delivers custom software, CRM/ERP platforms, cybersecuri
 - [RC-XP](https://www.robust-code.com/what-we-do/rc-xp.html)
 - [RC-STUDIO](https://www.robust-code.com/what-we-do/rc-studio.html)
 - [Automated Video Reports](https://www.robust-code.com/what-we-do/video-reports.html)
+- [Robust Enterprise Management, Salon Edition](https://www.robust-code.com/what-we-do/rem-salon-edition.html)
 - [Insights](https://www.robust-code.com/insights/): Business, AI and Belgian digitalization articles (EN/FR)
 - [Store](https://www.robust-code.com/store/): Digital systems and free tools for people building businesses
 

@@ -409,7 +409,13 @@ const translations = {
       mSending: "Sending…",
       mOk: "Thank you. We are preparing your salon's demo and will get back to you within two business days.",
       mError: "Something went wrong. Please e-mail us at contact@robust-code.com.",
-      mInvalid: "Please check the highlighted fields."
+      mInvalid: "Please check the highlighted fields.",
+      linkEyebrow: "New offer · For salons",
+      linkTitle: "Robust Enterprise Management, Salon Edition",
+      linkDesc: "A website in your salon's image with online booking, and one back-office for agenda, till, team and pay. Built and run by us: €5,000 excl. VAT once, then €99 excl. VAT a month.",
+      linkCta: "Discover the offer",
+      linkCta2: "Get a free demo",
+      linkBadge: "Free demo with your salon"
     },
     subpages: {
       unit1: "Unit 1",
@@ -985,7 +991,13 @@ const translations = {
       mSending: "Envoi…",
       mOk: "Merci. Nous préparons la démo de votre salon et revenons vers vous sous deux jours ouvrables.",
       mError: "Une erreur est survenue. Écrivez-nous à contact@robust-code.com.",
-      mInvalid: "Merci de vérifier les champs en rouge."
+      mInvalid: "Merci de vérifier les champs en rouge.",
+      linkEyebrow: "Nouvelle offre · Pour les salons",
+      linkTitle: "Robust Enterprise Management, édition salon",
+      linkDesc: "Un site à l'image de votre salon avec réservation en ligne, et un seul espace de gestion pour l'agenda, la caisse, l'équipe et les salaires. Construit et géré par nous : 5 000 € HTVA une fois, puis 99 € HTVA par mois.",
+      linkCta: "Découvrir l'offre",
+      linkCta2: "Recevoir une démo gratuite",
+      linkBadge: "Démo gratuite avec votre salon"
     },
     subpages: {
       unit1: "Unité 1",

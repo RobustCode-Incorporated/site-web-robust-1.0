@@ -66,6 +66,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.robust-code.com/what-we-do/rem-salon-edition.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.robust-code.com/legal/notice.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
