@@ -279,8 +279,9 @@ const translations = {
       studioLinkCta: "See the service",
       promoCta: "Discover the service"
     },
-    robustSalon: {
-      eyebrow: "Robust Salon · For hair salons, barbers, beauty and tattoo studios",
+    remSalon: {
+      eyebrow: "Robust Enterprise Management · Salon Edition",
+      audience: "For hair salons, barbers, beauty and tattoo studios in Brussels.",
       title: "Your salon, online and under control.",
       subtitle: "A website in your salon's image where clients book themselves, and one place to run your agenda, till, team, pay and stock. We build it, we run it.",
       ctaPrimary: "Get my free demo",
@@ -308,7 +309,7 @@ const translations = {
       solClientsTitle: "For your clients",
       solClientsDesc: "A site that looks like your salon, in French, Dutch and English, with online booking.",
       solSalonTitle: "For your salon",
-      solSalonDesc: "Robust Enterprise Management, salon edition: agenda, till, team, pay, expenses, stock and dashboard.",
+      solSalonDesc: "Agenda, till, team, pay, expenses, stock and dashboard, in the Robust Enterprise Management back-office.",
       solKeep: "Keep the marketplaces if you like: they bring discovery, your site keeps your regulars.",
       modulesEyebrow: "What's inside",
       modulesTitle: "Seven modules, one system.",
@@ -816,8 +817,9 @@ const translations = {
       studioLinkCta: "Voir le service",
       promoCta: "Découvrir le service"
     },
-    robustSalon: {
-      eyebrow: "Robust Salon · Pour les salons, barbiers, instituts et studios de tatouage",
+    remSalon: {
+      eyebrow: "Robust Enterprise Management · Édition salon",
+      audience: "Pour les salons de coiffure, barbiers, instituts et studios de tatouage à Bruxelles.",
       title: "Votre salon, en ligne et sous contrôle.",
       subtitle: "Un site à l'image de votre salon où vos clients réservent eux-mêmes, et un seul espace pour gérer l'agenda, la caisse, l'équipe, les salaires et le stock. Nous le construisons, nous le faisons tourner.",
       ctaPrimary: "Recevoir ma démo gratuite",
@@ -845,7 +847,7 @@ const translations = {
       solClientsTitle: "Pour vos clients",
       solClientsDesc: "Un site qui ressemble à votre salon, en français, néerlandais et anglais, avec la réservation en ligne.",
       solSalonTitle: "Pour votre salon",
-      solSalonDesc: "Robust Enterprise Management, édition salon : agenda, caisse, équipe, salaires, dépenses, stock et tableau de bord.",
+      solSalonDesc: "Agenda, caisse, équipe, salaires, dépenses, stock et tableau de bord, dans l'espace de gestion Robust Enterprise Management.",
       solKeep: "Vous gardez les plateformes si vous le souhaitez : elles servent de vitrine, votre site garde vos habitués.",
       modulesEyebrow: "Ce qui est inclus",
       modulesTitle: "Sept modules, un seul système.",
