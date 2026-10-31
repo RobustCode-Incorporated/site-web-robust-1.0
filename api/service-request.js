@@ -1,5 +1,6 @@
-// Vercel Serverless Function — receives "Request yours" forms for services
-// (first one: Automated Video Reports, /what-we-do/video-reports.html).
+// Vercel Serverless Function — receives "Request yours" forms for services:
+// Automated Video Reports (/what-we-do/video-reports.html) and
+// Robust Enterprise Management, Salon Edition (/what-we-do/rem-salon-edition.html).
 //
 // What it does, in order:
 //   1. Validates the form and drops obvious bots (honeypot + minimum fill time).
@@ -19,11 +20,19 @@
 
 import { neon } from "@neondatabase/serverless";
 
-const SERVICES = { "video-reports": "Automated Video Reports" };
+const SERVICES = {
+  "video-reports": "Automated Video Reports",
+  "rem-salon-edition": "Robust Enterprise Management, Salon Edition",
+};
 const AUDIENCES = ["management", "board", "clients", "partners", "team", "other"];
 const FREQUENCIES = ["weekly", "monthly", "quarterly", "other"];
 const LANGUAGES = ["en", "fr", "nl", "other"];
 const EMAIL_RE = /^[^\s@<>()]+@[^\s@<>()]+\.[^\s@<>()]{2,}$/;
+// Salon demo requests: owners often prefer WhatsApp, so e-mail OR phone is enough.
+const TEAM_SIZES = ["1", "2-3", "4-6", "7+"];
+const BOOKING_CHANNELS = ["messages", "phone", "platform", "website", "other"];
+const PAY_METHODS = ["", "hand", "software", "accountant", "other"];
+const PHONE_RE = /^\+?[0-9 ().\/-]{8,25}$/;
 
 function clean(v, max) {
   return typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max) : "";
@@ -43,23 +52,59 @@ export function validate(body) {
     message: typeof b.message === "string" ? b.message.trim().slice(0, 2000) : "",
     lang: b.lang === "fr" ? "fr" : "en",
     consent: b.consent === true || b.consent === "on" || b.consent === "true",
+    // Salon Edition only
+    phone: clean(b.phone, 40),
+    bookingLink: clean(b.bookingLink, 300),
+    teamSize: clean(b.teamSize, 10),
+    bookingChannel: clean(b.bookingChannel, 20),
+    payMethod: clean(b.payMethod, 20),
   };
   const errors = [];
   if (!SERVICES[data.service]) errors.push("service");
   if (data.name.length < 2) errors.push("name");
   if (data.company.length < 2) errors.push("company");
-  if (!EMAIL_RE.test(data.email)) errors.push("email");
-  if (!AUDIENCES.includes(data.audience)) errors.push("audience");
-  if (!FREQUENCIES.includes(data.frequency)) errors.push("frequency");
-  if (!LANGUAGES.includes(data.language)) errors.push("language");
+  if (data.service === "rem-salon-edition") {
+    const emailOk = EMAIL_RE.test(data.email);
+    const phoneOk = PHONE_RE.test(data.phone);
+    if (data.email && !emailOk) errors.push("email");
+    if (data.phone && !phoneOk) errors.push("phone");
+    if (!data.email && !data.phone) errors.push("email", "phone");
+    if (data.bookingLink && !/^https?:\/\/\S+$/i.test(data.bookingLink) && !/^@?[A-Za-z0-9._]{2,30}$/.test(data.bookingLink)) errors.push("bookingLink");
+    if (!TEAM_SIZES.includes(data.teamSize)) errors.push("teamSize");
+    if (!BOOKING_CHANNELS.includes(data.bookingChannel)) errors.push("bookingChannel");
+    if (!PAY_METHODS.includes(data.payMethod)) errors.push("payMethod");
+  } else {
+    if (!EMAIL_RE.test(data.email)) errors.push("email");
+    if (!AUDIENCES.includes(data.audience)) errors.push("audience");
+    if (!FREQUENCIES.includes(data.frequency)) errors.push("frequency");
+    if (!LANGUAGES.includes(data.language)) errors.push("language");
+  }
   if (!data.consent) errors.push("consent");
   // Bots: the hidden "website" field must stay empty, and a human needs a few seconds.
   const bot = clean(b.website, 200) !== "" || !(Number(b.elapsed) >= 3000);
   return { data, errors, bot };
 }
 
-async function save(d, meta) {
+// Salon answers have no dedicated columns: they are kept as readable lines in `message`.
+function salonDetails(d) {
+  return [
+    `Phone: ${d.phone || "-"}`,
+    `Booking page / Instagram: ${d.bookingLink || "-"}`,
+    `Team size: ${d.teamSize}`,
+    `Clients book today by: ${d.bookingChannel}`,
+    `Pay calculated by: ${d.payMethod || "-"}`,
+  ].join("\n");
+}
+
+function row(d) {
+  if (d.service !== "rem-salon-edition") return d;
+  return { ...d, audience: null, frequency: null, language: null,
+    message: salonDetails(d) + (d.message ? `\n\nMessage: ${d.message}` : "") };
+}
+
+async function save(input, meta) {
   if (!process.env.DATABASE_URL) return false;
+  const d = row(input);
   try {
     const sql = neon(process.env.DATABASE_URL);
     await sql`CREATE TABLE IF NOT EXISTS service_requests (
@@ -91,6 +136,17 @@ async function save(d, meta) {
 }
 
 function summary(d) {
+  if (d.service === "rem-salon-edition") {
+    return [
+      `New request: ${SERVICES[d.service]} (free demo)`,
+      `Name: ${d.name}`,
+      `Salon: ${d.company}`,
+      `E-mail: ${d.email || "-"}`,
+      salonDetails(d),
+      `Message: ${d.message || "-"}`,
+      `Page language: ${d.lang}`,
+    ].join("\n");
+  }
   return [
     `New request: ${SERVICES[d.service]}`,
     `Name: ${d.name}`,
@@ -113,7 +169,7 @@ async function notify(d) {
         body: JSON.stringify({
           from: process.env.SERVICE_REQUEST_FROM || "Robust Code <requests@robust-code.com>",
           to: [process.env.SERVICE_REQUEST_TO || "contact@robust-code.com"],
-          reply_to: d.email,
+          ...(d.email ? { reply_to: d.email } : {}),
           subject: `${SERVICES[d.service]}: request from ${d.company}`,
           text,
         }),

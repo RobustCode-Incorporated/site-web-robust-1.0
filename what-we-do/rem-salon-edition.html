@@ -75,6 +75,25 @@
 .rs-shots img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid #ddd}
 .rs-shots figcaption{font-size:.9rem;opacity:.75;margin-top:.6rem}
 @media (max-width:860px){.rs-shots{grid-template-columns:1fr}}
+.vr-form-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;border:1px solid #ddd;border-radius:18px;padding:2.5rem;background:#fff}
+.vr-form{display:grid;gap:1rem}
+.vr-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.vr-field{display:grid;gap:.4rem;font-size:.85rem;font-weight:600}
+.vr-field input,.vr-field select,.vr-field textarea{font:inherit;font-weight:400;font-size:1rem;padding:.75rem .85rem;border:1px solid #ddd;border-radius:8px;background:#fff;color:#000;width:100%;box-sizing:border-box}
+.vr-field input:focus,.vr-field select:focus,.vr-field textarea:focus{outline:2px solid #000;outline-offset:1px}
+.vr-form .is-invalid{border-color:#d32f2f;background:#fff5f5}
+.vr-consent{display:flex;gap:.6rem;align-items:flex-start;font-size:.85rem}
+.vr-consent a{text-decoration:underline}
+.vr-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.vr-form .btn{justify-self:start}
+.vr-form .btn[disabled]{opacity:.6;cursor:wait}
+.vr-submit{justify-content:flex-start;margin-top:.5rem}
+.vr-form[hidden]{display:none}
+.vr-status{grid-column:1/-1;margin-top:1rem;padding:1rem 1.25rem;border-radius:10px;font-weight:600}
+.vr-status--ok{background:#e8f3e9;color:#1b5e20}
+.vr-status--error{background:#fff5f5;color:#d32f2f}
+.rs-hint{font-size:.8rem;opacity:.65;margin:-.5rem 0 0}
+@media (max-width:860px){.vr-form-wrap{grid-template-columns:1fr;padding:1.5rem}.vr-row{grid-template-columns:1fr}}
 @media (max-width:860px){.rs-hero-grid,.rs-split,.rs-prices{grid-template-columns:1fr}.rs-value{padding:2rem 1.5rem}}
 </style>
 </head>
@@ -303,10 +322,58 @@
 
 <section class="section" id="demo">
 <div class="container">
-<div class="rs-cta reveal">
+<div class="vr-form-wrap reveal">
+<div class="vr-form-intro">
 <h2 data-i18n="remSalon.ctaTitle">Get your salon's demo.</h2>
-<p data-i18n="remSalon.ctaBody">Send us your salon's name and booking page. We build the demo with your real services, then show it to you.</p>
-<a class="btn btn-primary btn-light" href="mailto:contact@robust-code.com?subject=REM%20Salon%20Edition%20demo" data-cta="rem_salon_demo"><span data-i18n="remSalon.ctaButton">Get my free demo</span></a>
+<p class="text-soft" data-i18n="remSalon.ctaBody">Send us your salon's name and booking page. We build the demo with your real services, then show it to you.</p>
+</div>
+<form id="request-form" class="vr-form" novalidate>
+<input type="hidden" name="service" value="rem-salon-edition">
+<div class="vr-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="vr-row">
+<label class="vr-field"><span data-i18n="remSalon.fName">Your name</span><input name="name" required minlength="2" maxlength="120" autocomplete="name"></label>
+<label class="vr-field"><span data-i18n="remSalon.fSalon">Salon name</span><input name="company" required minlength="2" maxlength="160" autocomplete="organization"></label>
+</div>
+<div class="vr-row">
+<label class="vr-field"><span data-i18n="remSalon.fEmail">E-mail</span><input name="email" type="email" maxlength="200" autocomplete="email"></label>
+<label class="vr-field"><span data-i18n="remSalon.fPhone">Phone or WhatsApp</span><input name="phone" type="tel" maxlength="40" autocomplete="tel"></label>
+</div>
+<p class="rs-hint" data-i18n="remSalon.fContactHint">E-mail or phone: one is enough.</p>
+<label class="vr-field"><span data-i18n="remSalon.fLink">Your booking page or Instagram (optional)</span><input name="bookingLink" maxlength="300" placeholder="https://… / @…"></label>
+<p class="rs-hint" data-i18n="remSalon.fLinkHint">Planity, Treatwell, Fresha link or @instagram. We use it to build your demo.</p>
+<div class="vr-row">
+<label class="vr-field"><span data-i18n="remSalon.fTeam">How many people work in the salon?</span><select name="teamSize" required>
+<option value="" data-i18n="remSalon.tChoose">Choose…</option>
+<option value="1" data-i18n="remSalon.t1">Just me</option>
+<option value="2-3" data-i18n="remSalon.t2">2 to 3</option>
+<option value="4-6" data-i18n="remSalon.t4">4 to 6</option>
+<option value="7+" data-i18n="remSalon.t7">7 or more</option>
+</select></label>
+<label class="vr-field"><span data-i18n="remSalon.fChannel">How do clients book today?</span><select name="bookingChannel" required>
+<option value="" data-i18n="remSalon.tChoose">Choose…</option>
+<option value="messages" data-i18n="remSalon.cMessages">Instagram or WhatsApp messages</option>
+<option value="phone" data-i18n="remSalon.cPhone">By phone</option>
+<option value="platform" data-i18n="remSalon.cPlatform">A booking platform (Planity, Treatwell, Fresha…)</option>
+<option value="website" data-i18n="remSalon.cWebsite">Our own website</option>
+<option value="other" data-i18n="remSalon.cOther">Other</option>
+</select></label>
+</div>
+<label class="vr-field"><span data-i18n="remSalon.fPay">How do you calculate pay? (optional)</span><select name="payMethod">
+<option value="" data-i18n="remSalon.tChoose">Choose…</option>
+<option value="hand" data-i18n="remSalon.pHand">By hand or in a spreadsheet</option>
+<option value="software" data-i18n="remSalon.pSoftware">With software</option>
+<option value="accountant" data-i18n="remSalon.pAccountant">Our accountant does it</option>
+<option value="other" data-i18n="remSalon.pOther">Other</option>
+</select></label>
+<label class="vr-field"><span data-i18n="remSalon.fMessage">Anything we should know? (optional)</span><textarea name="message" rows="3" maxlength="2000"></textarea></label>
+<label class="vr-consent"><input type="checkbox" name="consent" required><span><span data-i18n="remSalon.fConsent">I agree that Robust Code uses these details to prepare my demo and contact me.</span> <a href="../legal/privacy-policy.html" target="_blank" rel="noopener"><span data-i18n="remSalon.fPrivacy">Privacy policy</span></a></span></label>
+<div class="hero-cta vr-submit"><button type="submit" class="btn btn-dark"><span data-i18n="remSalon.ctaButton">Get my free demo</span><span class="btn-glint" aria-hidden="true"></span></button></div>
+</form>
+<p id="request-status" class="vr-status" role="status" aria-live="polite" hidden></p>
+<span hidden id="req-msg-sending" data-i18n="remSalon.mSending">Sending…</span>
+<span hidden id="req-msg-ok" data-i18n="remSalon.mOk">Thank you. We are preparing your salon's demo and will get back to you within two business days.</span>
+<span hidden id="req-msg-error" data-i18n="remSalon.mError">Something went wrong. Please e-mail us at contact@robust-code.com.</span>
+<span hidden id="req-msg-invalid" data-i18n="remSalon.mInvalid">Please check the highlighted fields.</span>
 </div>
 </div>
 </section>
@@ -375,5 +442,5 @@
   <script src="../assets/js/footer-animation.js" defer></script>
   <script src="../assets/js/nav-menu.js" defer></script>
   <script src="../assets/js/hero-buttons.js" defer></script>
-  
+  <script src="../assets/js/service-request.js" defer></script>
 </body></html>
