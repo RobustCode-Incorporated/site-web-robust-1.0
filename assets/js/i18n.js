@@ -480,7 +480,17 @@ const translations = {
       },
       rcStudio: {
         storytelling: { title: "Digital Storytelling", desc: "Narrative systems translating technical value into audience-ready language." },
-        identity: { title: "Identity Engineering", desc: "Visual and content identity aligned to strategic product and market positioning." }
+        identity: { title: "Identity Engineering", desc: "Visual and content identity aligned to strategic product and market positioning." },
+        clipShowcase: {
+          eyebrow: "New product · AI Clipping",
+          title: "Robust Clip",
+          desc: "Your long videos as ready-to-post shorts. Our AI editors find the strong moments, frame the speaker and caption every word, in any language. You approve every clip before it goes out.",
+          cta: "Visit Robust Clip",
+          badge: "3 free clips",
+          videoEyebrow: "Presentation",
+          videoTitle: "Robust Clip in under two minutes",
+          videoNote: "Narration: AI-generated voice, cloned with consent."
+        }
       }
     },
     legal: {
@@ -1062,7 +1072,17 @@ const translations = {
       },
       rcStudio: {
         storytelling: { title: "Storytelling numérique", desc: "Des dispositifs narratifs qui traduisent la valeur technique en un langage adapté au public." },
-        identity: { title: "Ingénierie d'identité", desc: "Une identité visuelle et éditoriale alignée sur le positionnement stratégique produit et marché." }
+        identity: { title: "Ingénierie d'identité", desc: "Une identité visuelle et éditoriale alignée sur le positionnement stratégique produit et marché." },
+        clipShowcase: {
+          eyebrow: "Nouveau produit · Clipping IA",
+          title: "Robust Clip",
+          desc: "Vos vidéos longues en shorts prêts à publier. Nos monteurs IA repèrent les moments forts, cadrent la personne qui parle et sous-titrent chaque mot, dans toutes les langues. Vous validez chaque clip avant sa publication.",
+          cta: "Découvrir Robust Clip",
+          badge: "3 clips offerts",
+          videoEyebrow: "Présentation",
+          videoTitle: "Robust Clip en moins de deux minutes",
+          videoNote: "Narration : voix générée par IA, clonée avec consentement (vidéo en anglais)."
+        }
       }
     },
     legal: {
