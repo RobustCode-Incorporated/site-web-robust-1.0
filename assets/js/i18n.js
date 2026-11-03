@@ -9,7 +9,8 @@ const translations = {
         home: "Home",
         whatWeDo: "What We Do",
         ourWork: "Our Work",
-        about: "About"
+        about: "About",
+        bookCall: "Book a call"
       },
       footer: {
         tagline: "Innovation at your fingertips",
@@ -66,6 +67,7 @@ const translations = {
       hero: {
         eyebrow: "ROBUST CODE S.a.r.l",
         title: "Innovation at your fingertips",
+        ctaBook: "Book a call",
         ctaPrimary: "Explore What We Do",
         ctaSecondary: "View Our Work"
       },
@@ -175,11 +177,13 @@ const translations = {
       eyebrow: "Contact Us",
       title: "Let us engineer your next transformation chapter",
       groups: {
+        call: "Book a call",
         operations: "Operations",
         trust: "Trust & DPO",
         socials: "Socials"
       },
       rows: {
+        call: "30-minute discovery call · pick a time",
         general: "General Inquiries",
         careers: "Careers",
         security: "Security",
@@ -601,7 +605,8 @@ const translations = {
         home: "Accueil",
         whatWeDo: "Ce Que Nous Faisons",
         ourWork: "Nos Réalisations",
-        about: "À Propos"
+        about: "À Propos",
+        bookCall: "Réserver un appel"
       },
       footer: {
         tagline: "L'innovation à portée de main",
@@ -658,6 +663,7 @@ const translations = {
       hero: {
         eyebrow: "ROBUST CODE S.a.r.l",
         title: "L'innovation à portée de main",
+        ctaBook: "Réserver un appel",
         ctaPrimary: "Découvrir nos activités",
         ctaSecondary: "Voir nos réalisations"
       },
@@ -767,11 +773,13 @@ const translations = {
       eyebrow: "Contactez-nous",
       title: "Laissez-nous concevoir votre prochain chapitre de transformation",
       groups: {
+        call: "Réserver un appel",
         operations: "Opérations",
         trust: "Confiance et DPO",
         socials: "Réseaux sociaux"
       },
       rows: {
+        call: "Appel découverte de 30 min · choisissez un créneau",
         general: "Demandes générales",
         careers: "Carrières",
         security: "Sécurité",
