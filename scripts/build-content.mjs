@@ -14,6 +14,9 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 
+/** Booking page; "/site" tags these bookings as coming from the website. */
+const BOOKING_URL = "https://rdv.robust-code.com/site";
+
 const ROOT = process.cwd();
 const CHECK = process.argv.includes("--check");
 const SITE_URL = "https://www.robust-code.com";
@@ -43,7 +46,7 @@ const CATEGORIES = {
 // so a French insights page reads consistently with the rest of the site.
 const NAV = {
   en: {
-    home: "Home", whatWeDo: "What We Do", ourWork: "Our Work", insights: "Insights", about: "About",
+    home: "Home", whatWeDo: "What We Do", ourWork: "Our Work", insights: "Insights", about: "About", bookCall: "Book a call",
     tools: "Tools", store: "Store", news: "News", careers: "Careers", contact: "Contact Us",
     company: "Company", trust: "Trust &amp; Security", security: "Security", privacyProtection: "Privacy Protection",
     gdpr: "GDPR", support: "Support", legal: "Legal", legalNotice: "Legal Notice", privacyPolicy: "Privacy Policy",
@@ -51,7 +54,7 @@ const NAV = {
     rights: "All Rights Reserved", tagline: "Innovation at your fingertips",
   },
   fr: {
-    home: "Accueil", whatWeDo: "Ce Que Nous Faisons", ourWork: "Nos Réalisations", insights: "Analyses", about: "À Propos",
+    home: "Accueil", whatWeDo: "Ce Que Nous Faisons", ourWork: "Nos Réalisations", insights: "Analyses", about: "À Propos", bookCall: "Réserver un appel",
     tools: "Outils", store: "Boutique", news: "Actualités", careers: "Carrières", contact: "Contactez-nous",
     company: "Entreprise", trust: "Confiance et Sécurité", security: "Sécurité", privacyProtection: "Protection de la vie privée",
     gdpr: "RGPD", support: "Support", legal: "Juridique", legalNotice: "Mentions légales", privacyPolicy: "Politique de confidentialité",
@@ -310,6 +313,7 @@ function renderPage({ title, description, canonicalPath, ogImage, ogImageWidth =
         <a href="${p}our-work.html">${nav.ourWork}</a>
         <a href="${insightsHref}" class="is-active">${nav.insights}</a>
         <a href="${p}about.html">${nav.about}</a>
+        <a href="${BOOKING_URL}" class="nav-cta">${nav.bookCall}</a>
         <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
             <i data-lucide="globe" class="lang-globe-icon"></i>
@@ -336,6 +340,7 @@ function renderPage({ title, description, canonicalPath, ogImage, ogImageWidth =
       <span class="mobile-link-mask"><a class="mobile-link" href="${p}our-work.html">${nav.ourWork}</a></span>
       <span class="mobile-link-mask"><a class="mobile-link" href="${insightsHref}">${nav.insights}</a></span>
       <span class="mobile-link-mask"><a class="mobile-link" href="${p}about.html">${nav.about}</a></span>
+      <span class="mobile-link-mask"><a class="mobile-link mobile-cta" href="${BOOKING_URL}">${nav.bookCall}</a></span>
     </nav>
     <div class="menu-overlay-footer">
       <div class="lang-switch" role="group" aria-label="Language">
