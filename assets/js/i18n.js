@@ -5,6 +5,8 @@ const DEFAULT_LANG = "en";
 const translations = {
   en: {
     common: {
+      cta: { bookDemo: "Book a demo", bookCall: "Book a call", bookVideoDemo: "Book a video demo" },
+      salesCta: { eyebrow: "Talk to sales", title: "A project in mind? Let's talk for 30 minutes.", desc: "Pick a time that suits you. You get a confirmation and a short preparation page, and we come prepared.", topic: "Book a call on this topic", general: "Book a sales call" },
       nav: {
         home: "Home",
         whatWeDo: "What We Do",
@@ -601,6 +603,8 @@ const translations = {
   },
   fr: {
     common: {
+      cta: { bookDemo: "Réserver une démo", bookCall: "Réserver un appel", bookVideoDemo: "Réserver une démo en visio" },
+      salesCta: { eyebrow: "Parler à un commercial", title: "Un projet en tête ? Parlons-en 30 minutes.", desc: "Choisissez le moment qui vous convient. Vous recevez une confirmation et une courte page de préparation, et nous arrivons préparés.", topic: "Réserver un appel sur ce sujet", general: "Réserver un appel commercial" },
       nav: {
         home: "Accueil",
         whatWeDo: "Ce Que Nous Faisons",

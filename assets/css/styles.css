@@ -2608,3 +2608,43 @@ h3 {
     min-width: 230px;
   }
 }
+
+/* Booking links: secondary button on light sections, and the "Talk to sales" band at the end of product pages. */
+.btn-outline-dark {
+  background: transparent;
+  border: 1px solid #0d0d0d;
+  color: #0d0d0d;
+}
+
+.btn-outline-dark:hover {
+  border-color: #067181;
+  color: #067181;
+}
+
+.sales-cta-section {
+  background: #0d0d0d;
+  color: #ffffff;
+  text-align: center;
+}
+
+.sales-cta-inner {
+  margin: 0 auto;
+  max-width: 760px;
+}
+
+.sales-cta-section h2 {
+  color: #ffffff;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0.6rem 0 0;
+}
+
+.sales-cta-desc {
+  color: rgba(255, 255, 255, 0.72);
+  margin: 1rem auto 0;
+  max-width: 56ch;
+}
+
+.sales-cta-buttons {
+  margin-top: 1.8rem;
+}
