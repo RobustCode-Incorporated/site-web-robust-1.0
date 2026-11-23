@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="A local-only classroom simulator for synthetic web traffic and defensive monitoring.">
+  <title>Dark Pulse Traffic Lab | ROBUST CODE</title>
+  <link rel="icon" type="image/png" href="../../assets/images/logo.png">
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link rel="stylesheet" href="./dark-pulse.css">
+  <script type="module" src="./dark-pulse.js"></script>
+</head>
+<body class="pulse-page">
+  <header class="pulse-header">
+    <a class="pulse-brand" href="../../index.html" aria-label="ROBUST CODE home">
+      <img src="../../assets/images/robust-logo-white.png" alt="ROBUST CODE" width="1920" height="1080">
+    </a>
+    <a class="pulse-back" href="../index.html">Tools <span aria-hidden="true">↗</span></a>
+    <span class="lab-tag"><span class="status-dot"></span> LOCAL SIMULATION ONLY</span>
+  </header>
+
+  <main class="pulse-main">
+    <section class="pulse-intro" aria-labelledby="page-title">
+      <p class="pulse-eyebrow">ROBUST CODE CYBERSECURITY FORMATION <span> / </span> CLASSROOM LAB</p>
+      <div class="intro-grid">
+        <div>
+          <h1 id="page-title">DARK<span>PULSE</span></h1>
+          <p class="pulse-intro-copy">A safe, visual lab for reading traffic rhythms and defensive signals. Every event is simulated in this browser; nothing is sent to a server.</p>
+        </div>
+        <div class="safety-card" role="note">
+          <span class="safety-icon" aria-hidden="true">!</span>
+          <p><strong>Isolated by design</strong><br>There is no network traffic generator, login form, credential list, proxy, or production analytics instrumentation on this page.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-layout" aria-label="Traffic simulator">
+      <aside class="control-panel panel">
+        <div class="panel-heading">
+          <div><p class="section-kicker">01 / CONTROL ROOM</p><h2>Simulation controls</h2></div>
+          <span id="run-state" class="run-state" aria-live="polite">IDLE</span>
+        </div>
+
+        <label class="field-label" for="scenario">Traffic scenario</label>
+        <select id="scenario">
+          <option value="human">Organic-like browsing</option>
+          <option value="bot">Automated page pattern</option>
+          <option value="auth">Synthetic login failures</option>
+          <option value="heartbeat">Heartbeat visits</option>
+        </select>
+
+        <div id="intensity-wrap">
+          <label class="field-label" for="intensity">Traffic intensity</label>
+          <select id="intensity">
+            <option value="low">LOW · 1 event / second</option>
+            <option value="medium" selected>MEDIUM · 2 events / second</option>
+            <option value="high">HIGH · 4 events / second</option>
+          </select>
+        </div>
+
+        <div id="heartbeat-controls" hidden>
+          <label class="field-label" for="heartbeat-mode">Heartbeat mode</label>
+          <select id="heartbeat-mode">
+            <option value="human">Human heart · steady rhythm</option>
+            <option value="exercise">Exercise · gradual acceleration</option>
+            <option value="tachycardia">Fast rhythm · configurable</option>
+            <option value="arrhythmia">Irregular rhythm · varied intervals</option>
+          </select>
+          <label class="field-label" for="bpm-profile">Illustrative BPM profile</label>
+          <select id="bpm-profile">
+            <option value="60">Resting · 60 BPM</option>
+            <option value="72" selected>Normal · 72 BPM</option>
+            <option value="90">Active · 90 BPM</option>
+            <option value="100">Elevated · 100 BPM</option>
+            <option value="custom">Custom BPM</option>
+          </select>
+          <div class="bpm-input-row">
+            <label for="custom-bpm">Custom rate</label>
+            <input id="custom-bpm" type="number" min="40" max="180" step="1" value="72" inputmode="numeric">
+            <span>BPM · max 180</span>
+          </div>
+          <p class="field-help">Illustrative traffic timing only—not a medical measurement.</p>
+        </div>
+
+        <label class="field-label" for="duration">Automatic stop</label>
+        <select id="duration">
+          <option value="30">30 seconds</option>
+          <option value="60" selected>60 seconds</option>
+          <option value="120">120 seconds · hard maximum</option>
+        </select>
+
+        <label class="defense-toggle" for="defenses">
+          <span><strong>Modeled defenses</strong><small>Rate limit · WAF signal · account lockout</small></span>
+          <input id="defenses" type="checkbox" checked>
+        </label>
+
+        <div class="control-actions">
+          <button id="start-button" class="button button-primary" type="button">Start simulation <span aria-hidden="true">→</span></button>
+          <button id="stop-button" class="button button-stop" type="button" disabled>STOP NOW</button>
+          <button id="reset-button" class="reset-button" type="button">Reset dashboard</button>
+        </div>
+        <p id="run-message" class="run-message" role="status">Ready. Choose a pattern, then start a local simulation.</p>
+        <div class="limit-note">Safety limits: 180 BPM · 120 seconds · 600 events per run. Background tabs stop automatically.</div>
+      </aside>
+
+      <div class="dashboard">
+        <div class="metric-grid" aria-label="Simulation metrics">
+          <article class="metric-card"><span>Total events</span><strong id="metric-total">0</strong><small>synthetic only</small></article>
+          <article class="metric-card"><span>Successful</span><strong id="metric-success">0</strong><small>modeled 2xx</small></article>
+          <article class="metric-card"><span>Failed</span><strong id="metric-failed">0</strong><small>modeled 4xx / 5xx</small></article>
+          <article class="metric-card metric-alert"><span>Blocked / limited</span><strong id="metric-blocked">0</strong><small>403 · 423 · 429</small></article>
+        </div>
+
+        <section class="panel pulse-visual" aria-labelledby="signal-title">
+          <div class="panel-heading">
+            <div><p class="section-kicker">02 / LIVE SIGNAL</p><h2 id="signal-title">Traffic heartbeat</h2></div>
+            <div class="live-label"><span class="status-dot"></span><span id="live-label">STANDING BY</span></div>
+          </div>
+          <div class="pulse-readout">
+            <div class="pulse-bpm"><strong id="current-bpm">—</strong><span>BPM<br>illustrative</span></div>
+            <div class="ecg-wrap" id="ecg-wrap">
+              <svg class="ecg" viewBox="0 0 760 150" role="img" aria-label="Animated trace; each peak marks one synthetic event">
+                <path class="ecg-grid" d="M0 30H760M0 75H760M0 120H760M95 0V150M190 0V150M285 0V150M380 0V150M475 0V150M570 0V150M665 0V150"></path>
+                <path class="ecg-line" d="M0 75H150L170 73L183 77L198 75L216 75L228 70L240 84L254 32L270 120L284 75L309 75H365L382 73L396 77L411 75L429 75L441 70L453 84L467 32L483 120L497 75L522 75H578L595 73L609 77L624 75L642 75L654 70L666 84L680 32L696 120L710 75L735 75H760"></path>
+                <circle id="ecg-pulse" class="ecg-pulse" cx="254" cy="32" r="7"></circle>
+              </svg>
+              <p>One pulse = one synthetic page-view event <span id="visit-count">· 0 visits</span></p>
+            </div>
+          </div>
+          <div class="chart-heading"><h3>Events per second</h3><span id="rps-value">0.0 / sec</span></div>
+          <canvas id="traffic-chart" height="118" aria-label="Synthetic events per second over the last 40 seconds"></canvas>
+        </section>
+
+        <div class="lower-grid">
+          <section class="panel status-panel" aria-labelledby="status-title">
+            <div class="panel-heading"><div><p class="section-kicker">03 / RESPONSE MIX</p><h2 id="status-title">Modeled HTTP status</h2></div></div>
+            <div id="status-bars" class="status-bars"></div>
+            <p class="panel-footnote">These status codes are labels in a local event model. No HTTP responses are received.</p>
+          </section>
+          <section class="panel auth-panel" aria-labelledby="signal-panel-title">
+            <div class="panel-heading"><div><p class="section-kicker">04 / DEFENDER SIGNALS</p><h2 id="signal-panel-title">Detection summary</h2></div></div>
+            <dl class="signal-list">
+              <div><dt>Authentication failures</dt><dd id="metric-auth">0</dd></div>
+              <div><dt>Rate-limit interventions</dt><dd id="metric-ratelimit">0</dd></div>
+              <div><dt>Suspicious pattern events</dt><dd id="metric-suspicious">0</dd></div>
+              <div><dt>Active account locks</dt><dd id="metric-locks">0</dd></div>
+            </dl>
+            <p id="defense-explanation" class="panel-footnote">Enable modeled defenses to see how response patterns change.</p>
+          </section>
+        </div>
+
+        <section class="panel event-panel" aria-labelledby="events-title">
+          <div class="panel-heading"><div><p class="section-kicker">05 / EVENT STREAM</p><h2 id="events-title">Recent synthetic events</h2></div><span class="stream-tag">MEMORY ONLY</span></div>
+          <div class="event-table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Actor</th><th>Event</th><th>Simulated path</th><th>Status</th></tr></thead>
+              <tbody id="event-list"><tr class="empty-row"><td colspan="5">No events yet. Start a simulation to populate this local event stream.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="learning-section" aria-labelledby="learning-title">
+      <p class="section-kicker">06 / INSTRUCTOR NOTES</p>
+      <h2 id="learning-title">Read the pattern, not just the volume.</h2>
+      <p class="learning-intro">Traffic regularity alone does not establish intent. Compare request timing, paths, session behavior, authentication outcomes, and the controls that respond.</p>
+      <div class="comparison-grid">
+        <article class="comparison-card"><span class="comparison-mark mark-human">01</span><h3>Organic-like browsing</h3><p>Variable pauses and changing page paths. A teaching pattern—not a claim that real people behave uniformly.</p><span class="comparison-chip">DIVERSE PATHS</span></article>
+        <article class="comparison-card"><span class="comparison-mark mark-bot">02</span><h3>Regular heartbeat</h3><p>One synthetic page view per pulse. Change the BPM to see how a steady rhythm changes measured event frequency.</p><span class="comparison-chip">PREDICTABLE TIMING</span></article>
+        <article class="comparison-card"><span class="comparison-mark mark-risk">03</span><h3>Irregular automation</h3><p>Repeated paths or uneven intervals may be investigation signals when combined with other evidence.</p><span class="comparison-chip">PATTERN + CONTEXT</span></article>
+      </div>
+      <details class="instructor-guide">
+        <summary>Step-by-step instructor guide and student questions</summary>
+        <div class="guide-content">
+          <ol>
+            <li>Start with organic-like browsing and note the paths, pauses, and response mix.</li>
+            <li>Run a 60 BPM heartbeat, then compare 72, 90, and 100 BPM. Each visual pulse creates one in-memory visit event.</li>
+            <li>Choose irregular rhythm and discuss why timing anomalies need context rather than an automatic verdict.</li>
+            <li>Run automated page pattern with defenses off, then on. Compare repeated-pattern, rate-limit, and blocked-event signals.</li>
+            <li>Run synthetic login failures. The lab uses no credential input; discuss why repeated failures can indicate risk and how progressive delays or account lockouts help.</li>
+            <li>Stop, reset, and explain what a real response team would correlate: source reputation, route, session, user impact, and application logs.</li>
+          </ol>
+          <p><strong>Discussion:</strong> What changed when defenses were enabled? What evidence would you need before deciding that activity was malicious? Why should generated lab events stay separate from business analytics?</p>
+          <p><strong>Scope:</strong> HTTP codes and defenses are illustrative client-side models only; this lab does not include a WAF, server, authentication endpoint, or load test.</p>
+        </div>
+      </details>
+    </section>
+    <footer class="pulse-footer"><a href="../index.html">← Back to ROBUST CODE tools</a><span>Educational demonstration · local event model</span></footer>
+  </main>
+</body>
+</html>

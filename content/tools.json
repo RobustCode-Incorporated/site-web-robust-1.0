@@ -10,5 +10,17 @@
     "title": "Project Success Checklist",
     "description": "A free 13-stage checklist for taking a business project from idea to closure without the usual scope and stakeholder surprises.",
     "category": "projects"
+  },
+  {
+    "slug": "dark-pulse",
+    "title": "Dark Pulse Traffic Lab",
+    "description": "Explore synthetic traffic patterns, heartbeat visits, authentication signals, and modeled defensive controls in a local-only classroom simulator.",
+    "category": "cybersecurity"
+  },
+  {
+    "slug": "shadow-network",
+    "title": "Shadow Network Lab",
+    "description": "Explore fictional Wi-Fi reconnaissance, endpoint event patterns, QR safety, and blue-team controls in a local-only classroom simulation.",
+    "category": "cybersecurity"
   }
 ]

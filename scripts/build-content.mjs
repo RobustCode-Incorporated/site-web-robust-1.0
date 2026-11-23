@@ -995,7 +995,7 @@ writeFile(
         <ul class="article-grid">
           ${tools
             .map(
-              (t) => `<li class="article-card"><a href="tools/${t.slug}/index.html" style="margin-left:-1px"><h3>${esc(t.title)}</h3><p>${esc(t.description)}</p></a></li>`
+              (t) => `<li class="article-card"><a href="${t.slug}/index.html" style="margin-left:-1px"><h3>${esc(t.title)}</h3><p>${esc(t.description)}</p></a></li>`
             )
             .join("")}
         </ul>

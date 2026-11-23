@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="A local-only classroom simulation for wireless security awareness and endpoint defense.">
+  <title>Shadow Network Lab | ROBUST CODE</title>
+  <link rel="icon" type="image/png" href="../../assets/images/logo.png">
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link rel="stylesheet" href="./shadow-network.css">
+  <script type="module" src="./shadow-network.js"></script>
+</head>
+<body class="shadow-page">
+  <header class="shadow-header">
+    <a class="shadow-brand" href="../../index.html" aria-label="ROBUST CODE home">
+      <img src="../../assets/images/robust-logo-white.png" alt="ROBUST CODE" width="1920" height="1080">
+    </a>
+    <a class="shadow-back" href="../index.html">Tools <span aria-hidden="true">↗</span></a>
+    <span class="shadow-tag"><span class="shadow-dot"></span> FICTIONAL LAB · NO NETWORK ACTIVITY</span>
+  </header>
+
+  <main class="shadow-main">
+    <section class="shadow-intro">
+      <p class="shadow-kicker">ROBUST CODE CYBERSECURITY FORMATION <span>/</span> DARK PULSE EXTENSION</p>
+      <div class="shadow-title-row">
+        <div>
+          <h1>SHADOW <span>NETWORK</span></h1>
+          <p class="shadow-lede">Wireless and endpoint security, explored through safe, fictional evidence. Inspect the signals; keep the real network untouched.</p>
+        </div>
+        <aside class="shadow-safety" role="note">
+          <b aria-hidden="true">!</b>
+          <p><strong>Simulation only</strong><br>This page never scans Wi-Fi/LAN, sends requests, captures packets, opens a hotspot, or runs in the background. All addresses and events are fictional.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shadow-controls shadow-panel" aria-label="Scenario controls">
+      <div class="shadow-controls-heading">
+        <div><p class="shadow-section-kicker">01 / CONTROL DESK</p><h2>Choose a classroom scenario</h2></div>
+        <span id="shadow-run-state" class="shadow-state" aria-live="polite">IDLE</span>
+      </div>
+      <div class="shadow-control-grid">
+        <label>Scenario
+          <select id="shadow-scenario">
+            <option value="recon">Wireless reconnaissance · fixture data</option>
+            <option value="browse">Automated browsing · event model</option>
+            <option value="beacon">Endpoint check-in pattern · synthetic</option>
+            <option value="qr">QR safety · mock landing scenario</option>
+            <option value="rogue">Rogue access point · tabletop</option>
+            <option value="flood">Traffic spike · rate-limit concept</option>
+            <option value="diagnostics">Wi-Fi diagnostics · sample readings</option>
+          </select>
+        </label>
+        <label>Intensity
+          <select id="shadow-intensity">
+            <option value="low">LOW · 1 event / sec</option>
+            <option value="medium" selected>MEDIUM · 2 events / sec</option>
+            <option value="high">HIGH · 4 events / sec</option>
+          </select>
+        </label>
+        <label>Auto-stop
+          <select id="shadow-duration">
+            <option value="15">15 seconds</option>
+            <option value="30" selected>30 seconds</option>
+            <option value="60">60 seconds · maximum</option>
+          </select>
+        </label>
+      </div>
+      <div class="shadow-mode-row">
+        <span class="shadow-mode-label">Team mode</span>
+        <div class="shadow-mode-switch" role="group" aria-label="Team mode">
+          <button type="button" data-team-mode="red" aria-pressed="false">RED TEAM</button>
+          <button type="button" data-team-mode="blue" aria-pressed="true">BLUE TEAM</button>
+          <button type="button" data-team-mode="observe" aria-pressed="false">OBSERVE</button>
+        </div>
+        <span id="shadow-mode-caption" class="shadow-mode-caption">Modeled defensive rules are on.</span>
+      </div>
+      <div class="shadow-actions">
+        <button id="shadow-start" class="shadow-button shadow-start" type="button">Run scenario <span aria-hidden="true">→</span></button>
+        <button id="shadow-stop" class="shadow-button shadow-stop" type="button" disabled>STOP NOW</button>
+        <button id="shadow-reset" class="shadow-reset" type="button">Reset this dashboard</button>
+        <span id="shadow-message" class="shadow-message" role="status">Ready. Generated events stay in this browser tab and disappear on reset.</span>
+      </div>
+      <p class="shadow-limits">Hard limits: 60 seconds · 120 events · foreground tab only · fictional destination <code>lab.shadow.invalid</code></p>
+    </section>
+
+    <section class="shadow-metrics" aria-label="Simulation counters">
+      <article class="shadow-metric"><span>Modeled events</span><strong id="shadow-total">0</strong><small>not HTTP requests</small></article>
+      <article class="shadow-metric"><span>Detection signals</span><strong id="shadow-detections">0</strong><small>pattern indicators</small></article>
+      <article class="shadow-metric"><span>Modeled interventions</span><strong id="shadow-blocked">0</strong><small>simulated 403 / 429</small></article>
+      <article class="shadow-metric"><span>Recent event rate</span><strong id="shadow-rps">0.0</strong><small>events / second</small></article>
+    </section>
+
+    <section class="shadow-grid">
+      <article class="shadow-panel shadow-events-panel">
+        <div class="shadow-panel-title">
+          <div><p class="shadow-section-kicker">02 / BLUE-TEAM VIEW</p><h2>Event stream</h2></div>
+          <span class="shadow-memory-badge">BROWSER MEMORY</span>
+        </div>
+        <div class="shadow-event-wrap">
+          <table>
+            <thead><tr><th>Time</th><th>Simulated endpoint</th><th>Signal</th><th>Modeled response</th></tr></thead>
+            <tbody id="shadow-events"><tr class="shadow-empty"><td colspan="4">No events. Run a scenario to populate this fictional event stream.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="shadow-chart-head"><h3>Event rate · last 30 seconds</h3><span id="shadow-chart-rate">0 events/sec</span></div>
+        <canvas id="shadow-chart" height="116" aria-label="Graph of simulated events over time"></canvas>
+      </article>
+
+      <aside class="shadow-side">
+        <section class="shadow-panel">
+          <div class="shadow-panel-title">
+            <div><p class="shadow-section-kicker">03 / NETWORK MAP</p><h2>Fictional topology</h2></div>
+            <span class="shadow-fixture-badge">FIXTURE</span>
+          </div>
+          <svg class="shadow-topology" viewBox="0 0 560 220" role="img" aria-labelledby="topology-title topology-desc">
+            <title id="topology-title">Training-only simulated network diagram</title>
+            <desc id="topology-desc">Participant browser sends no traffic. A local event model updates a classroom dashboard, with no connection to a router or server.</desc>
+            <path d="M92 104H220M340 104H468" class="shadow-link"></path>
+            <path d="M210 98l10 6-10 6M458 98l10 6-10 6" class="shadow-arrow"></path>
+            <rect x="18" y="58" width="152" height="92" rx="9" class="shadow-node"></rect>
+            <rect x="204" y="58" width="152" height="92" rx="9" class="shadow-node shadow-node-core"></rect>
+            <rect x="390" y="58" width="152" height="92" rx="9" class="shadow-node"></rect>
+            <text x="94" y="91" text-anchor="middle" class="shadow-node-label">INSTRUCTOR</text>
+            <text x="94" y="114" text-anchor="middle" class="shadow-node-copy">browser controls</text>
+            <text x="280" y="91" text-anchor="middle" class="shadow-node-label">EVENT MODEL</text>
+            <text x="280" y="114" text-anchor="middle" class="shadow-node-copy">memory only</text>
+            <text x="466" y="91" text-anchor="middle" class="shadow-node-label">DASHBOARD</text>
+            <text x="466" y="114" text-anchor="middle" class="shadow-node-copy">synthetic signals</text>
+            <text x="280" y="190" text-anchor="middle" class="shadow-node-note">NO WI-FI / LAN / INTERNET PROBES OR PACKET CAPTURE</text>
+          </svg>
+          <p class="shadow-caption">Illustrative network vocabulary; not a discovered classroom topology.</p>
+        </section>
+
+        <section class="shadow-panel shadow-recon-panel">
+          <div class="shadow-panel-title">
+            <div><p class="shadow-section-kicker">04 / RECONNAISSANCE</p><h2>Sample inventory</h2></div>
+            <span class="shadow-fixture-badge">DOCUMENTATION IPs</span>
+          </div>
+          <p class="shadow-caption">These reserved examples are static fixture data—not your device, gateway, subnet, or access point.</p>
+          <dl class="shadow-inventory">
+            <div><dt>Example subnet</dt><dd>192.0.2.0/24</dd></div>
+            <div><dt>Example gateway</dt><dd>192.0.2.1</dd></div>
+            <div><dt>Example DNS resolver</dt><dd>192.0.2.53</dd></div>
+            <div><dt>Example client</dt><dd>192.0.2.24 · fixture</dd></div>
+            <div><dt>Visibility</dt><dd>Not observed</dd></div>
+          </dl>
+          <p class="shadow-mini-note">Local IP and ARP visibility depends on network permissions and segmentation. A browser page cannot perform this lab’s discovery—and this one does not try.</p>
+        </section>
+      </aside>
+    </section>
+
+    <section class="shadow-lab-cards" aria-label="Awareness and diagnostics demonstrations">
+      <article class="shadow-panel shadow-qr-card">
+        <p class="shadow-section-kicker">05 / QR AWARENESS</p>
+        <h2>Pause before you scan.</h2>
+        <div class="shadow-qr-example" aria-label="Decorative, non-scannable QR-style pattern">
+          <span class="qr-corner qr-a"></span><span class="qr-corner qr-b"></span><span class="qr-corner qr-c"></span>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <p class="shadow-caption">Artwork is deliberately not a valid QR code. The mock scenario shows warning signs without a deceptive link or credential form.</p>
+        <ul class="shadow-check-list"><li>Preview the destination domain</li><li>Check for look-alike spelling</li><li>Use a trusted route to verify requests</li><li>Never enter credentials from an unexpected QR</li></ul>
+      </article>
+      <article class="shadow-panel shadow-diagnostics-card">
+        <p class="shadow-section-kicker">06 / WI-FI HEALTH</p>
+        <h2>Sample diagnostic readings</h2>
+        <p class="shadow-caption">Illustrative values only. No latency test, DNS lookup, ping, download, upload, or packet measurement is performed.</p>
+        <dl class="shadow-diagnostics">
+          <div><dt>Local latency</dt><dd>18 <small>ms</small></dd><span>sample</span></div>
+          <div><dt>DNS response</dt><dd>24 <small>ms</small></dd><span>sample</span></div>
+          <div><dt>Packet loss</dt><dd>0.4<small>%</small></dd><span>sample</span></div>
+          <div><dt>Down / up</dt><dd>42 / 12 <small>Mbps</small></dd><span>sample</span></div>
+        </dl>
+        <p class="shadow-mini-note">Actual classroom diagnostics require instructor-approved tooling and an isolated test server. Do not test against the shared router or public internet.</p>
+      </article>
+    </section>
+
+    <section class="shadow-defenses">
+      <p class="shadow-section-kicker">07 / DEFENSIVE PLAYBOOK</p>
+      <h2>Signals need context. Controls reduce impact.</h2>
+      <div class="shadow-defense-grid">
+        <article><span>01</span><h3>Segment</h3><p>Separate guest, student, and administrative devices; apply client isolation where appropriate.</p></article>
+        <article><span>02</span><h3>Filter</h3><p>Use approved DNS filtering and firewall policy; log decisions without intercepting private traffic.</p></article>
+        <article><span>03</span><h3>Rate-limit</h3><p>Apply bounded server-side quotas and clear 429 responses on services you operate.</p></article>
+        <article><span>04</span><h3>Investigate</h3><p>Correlate timing, route, response, and user impact. Avoid attributing intent from one indicator.</p></article>
+      </div>
+    </section>
+
+    <section class="shadow-exercise shadow-panel">
+      <p class="shadow-section-kicker">08 / 30-MINUTE CLASSROOM EXERCISE</p>
+      <h2>Investigate the signal. Explain the evidence.</h2>
+      <div class="shadow-timeline">
+        <article><time>00–05</time><h3>Consent &amp; scope</h3><p>Review class rules, fictional topology, and what the simulator cannot access.</p></article>
+        <article><time>05–10</time><h3>Recon concepts</h3><p>Inspect fixture inventory. Distinguish public network details from privileged local visibility.</p></article>
+        <article><time>10–16</time><h3>Generate evidence</h3><p>Run browsing and check-in pattern scenarios. Compare interval regularity and route repetition.</p></article>
+        <article><time>16–21</time><h3>QR / AP tabletop</h3><p>Review warning signs. Discuss rogue AP risks without connecting to or creating an access point.</p></article>
+        <article><time>21–26</time><h3>Blue-team response</h3><p>Switch modes; compare modeled 403/429 interventions and discuss segmentation and rate limits.</p></article>
+        <article><time>26–30</time><h3>Report &amp; assess</h3><p>State evidence, uncertainty, control, and one follow-up question. No real device data is collected.</p></article>
+      </div>
+      <details class="shadow-assessment">
+        <summary>Student worksheet and assessment criteria</summary>
+        <div>
+          <p><strong>Worksheet:</strong> Which repeated signals appeared? Which response changed in Blue Team mode? What evidence is fictional? What additional evidence would be required in a real, authorized investigation? Which control would reduce impact without monitoring private content?</p>
+          <p><strong>Scoring (0–2 each):</strong> identifies repeated pattern; separates observation from inference; explains a relevant defense; respects authorization and privacy. Maximum: 8 points.</p>
+          <p><strong>Evidence note:</strong> The event table is a synthetic event ledger, not a packet capture. No PCAP is recorded or exported.</p>
+        </div>
+      </details>
+    </section>
+    <footer class="shadow-footer"><a href="../index.html">← Back to ROBUST CODE tools</a><span>Shadow Network · safe simulation edition</span></footer>
+  </main>
+</body>
+</html>
